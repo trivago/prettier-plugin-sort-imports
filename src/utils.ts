@@ -46,10 +46,14 @@ const removeImportsFromOriginalCode = (
 ) => {
     let text = code;
     for (const node of nodes) {
-        if (node.start && node.end)
-            text = text.replace(code.substring(node.start, node.end), '');
+        const start = Number(node.start);
+        const end = Number(node.end);
+
+        if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
+            text = text.replace(code.substring(start, end), '');
+        }
     }
-    return text.trim();
+    return text;
 };
 
 module.exports = {
