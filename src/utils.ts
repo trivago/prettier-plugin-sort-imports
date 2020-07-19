@@ -3,6 +3,7 @@ import { NodePath } from '@babel/traverse';
 import { ImportDeclaration, Program } from '@babel/types';
 
 const t = require('@babel/types');
+const naturalSort = require('javascript-natural-sort');
 
 export interface PrettierParserOptions extends ParserOptions {
     importOrder: string[];
@@ -17,24 +18,26 @@ const getAllImportNodes = (path: NodePath<Program>) =>
         .filter(({ node }) => t.isImportDeclaration(node))
         .map(({ node }) => node);
 
-const getNodesSortedByOrder = (
+const getSortedNodesByOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
     return order.reduce((res: ImportDeclaration[], val: string) => {
         const x = nodes.filter((node) => node.source.value.startsWith(val));
-
+        x.sort((a, b) => naturalSort(a.source.value, b.source.value));
         return res.concat(x);
     }, []);
 };
 
-const getNodesNotInTheOrder = (
+const getSortedNodesNotInTheOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
-    return nodes.filter(
+    const x = nodes.filter(
         (node) => !isSimilarTextExistInArray(order, node.source.value),
     );
+    x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+    return x;
 };
 
 const removeImportsFromOriginalCode = (
@@ -51,7 +54,7 @@ const removeImportsFromOriginalCode = (
 
 module.exports = {
     getAllImportNodes,
-    getNodesSortedByOrder,
-    getNodesNotInTheOrder,
+    getSortedNodesByOrder,
+    getSortedNodesNotInTheOrder,
     removeImportsFromOriginalCode,
 };

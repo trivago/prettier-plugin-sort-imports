@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc",
     "example": "prettier --config .prettierrc --plugin lib/index.js example.ts",
-    "test": "jest",
+    "test": "jest -i",
     "type-check": "tsc --noEmit"
   },
   "author": {
@@ -21,6 +21,7 @@
     "@babel/parser": "^7.10.5",
     "@babel/traverse": "^7.10.5",
     "@babel/types": "^7.10.5",
+    "javascript-natural-sort": "^0.7.1",
     "prettier": "^2.0.5"
   },
   "devDependencies": {

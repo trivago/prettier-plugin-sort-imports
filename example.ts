@@ -3,6 +3,7 @@
 import threeLevelRelativePath from '../../../threeLevelRelativePath';
 import sameLevelRelativePath from './sameLevelRelativePath';
 import thirdParty from 'third-party';
+import React from 'react';
 export { random } from './random';
 import oneLevelRelativePath from '../oneLevelRelativePath';
 import otherthing from '@core/otherthing';

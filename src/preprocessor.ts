@@ -8,8 +8,8 @@ const generate = require('@babel/generator').default;
 const parser = require('@babel/parser').parse;
 const {
     getAllImportNodes,
-    getNodesSortedByOrder,
-    getNodesNotInTheOrder,
+    getSortedNodesByOrder,
+    getSortedNodesNotInTheOrder,
     removeImportsFromOriginalCode,
 } = require('./utils');
 
@@ -29,12 +29,12 @@ function preprocessor(code: string, options: PrettierParserOptions) {
         Program(path: NodePath<Program>) {
             importNodes = getAllImportNodes(path);
 
-            const localImports = getNodesSortedByOrder(
+            const localImports = getSortedNodesByOrder(
                 importNodes,
                 importOrder,
             );
 
-            const thirdPartyImports = getNodesNotInTheOrder(
+            const thirdPartyImports = getSortedNodesNotInTheOrder(
                 importNodes,
                 importOrder,
             );

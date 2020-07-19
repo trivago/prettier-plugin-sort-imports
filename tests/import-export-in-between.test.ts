@@ -4,14 +4,14 @@ const chai = require('chai');
 
 const cExpect = chai.expect;
 
-const code = `// I am top level comment in this file.
-// I am second line of top level comment in this file.
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
+const code = `import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
 export { random } from './random';
+import c from 'c';
 import oneLevelRelativePath from "../oneLevelRelativePath";
 import otherthing from "@core/otherthing";
+import a from 'a';
 import twoLevelRelativePath from "../../twoLevelRelativePath";
 import component from "@ui/hello";
 export default {
@@ -19,23 +19,26 @@ export default {
 };
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import something from "@server/something";
+import x from 'x';
 
 function add(a:number,b:number) {
   return a + b;
 }
 `;
 
-const formattedCode = `// I am top level comment in this file.
-// I am second line of top level comment in this file.
+const formattedCode = `import a from 'a';
+import c from 'c';
 import thirdParty from 'third-party';
+import x from 'x';
 import otherthing from '@core/otherthing';
 import something from '@server/something';
 import component from '@ui/hello';
-import threeLevelRelativePath from '../../../threeLevelRelativePath';
-import sameLevelRelativePath from './sameLevelRelativePath';
-import oneLevelRelativePath from '../oneLevelRelativePath';
-import twoLevelRelativePath from '../../twoLevelRelativePath';
 import fourLevelRelativePath from '../../../../fourLevelRelativePath';
+import threeLevelRelativePath from '../../../threeLevelRelativePath';
+import twoLevelRelativePath from '../../twoLevelRelativePath';
+import oneLevelRelativePath from '../oneLevelRelativePath';
+import sameLevelRelativePath from './sameLevelRelativePath';
+import threeLevelRelativePath from '../../../threeLevelRelativePath';
 
 export { random } from './random';
 
