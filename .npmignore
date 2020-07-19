@@ -1,0 +1,8 @@
+.idea
+.gitattributes
+.gitignore
+.prettierrc
+src/
+tests/
+example.ts
+tsconfig.json
