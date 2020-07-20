@@ -13,13 +13,7 @@ export interface PrettierParserOptions extends RequiredOptions {
 const isSimilarTextExistInArray = (arr: string[], text: string) =>
     arr.some((element) => text.startsWith(element));
 
-export const getAllImportNodes = (path: NodePath<Program>) =>
-    path
-        .get('body')
-        .filter((node) => isImportDeclaration(node.node))
-        .map((node) => node.node);
-
-export const getSortedNodesByOrder = (
+export const getSortedNodesByImportOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
@@ -30,7 +24,7 @@ export const getSortedNodesByOrder = (
     }, []);
 };
 
-export const getSortedNodesNotInTheOrder = (
+export const getSortedNodesNotInTheImportOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {

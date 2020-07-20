@@ -10,7 +10,14 @@
     "type-check": "tsc --noEmit",
     "prepare": "npm run compile && npm run test"
   },
-  "keywords": ["prettier","plugin","sort","import","typescript","javascript"],
+  "keywords": [
+    "prettier",
+    "plugin",
+    "sort",
+    "import",
+    "typescript",
+    "javascript"
+  ],
   "author": {
     "name": "Ayush Sharma",
     "email": "ayush.sharma@trivago.com",
