@@ -1,19 +1,17 @@
-import { ImportDeclaration, Program } from '@babel/types';
-import { NodePath } from '@babel/traverse';
-import { PrettierParserOptions } from './utils';
+import generate from '@babel/generator';
+import { parse as parser } from '@babel/parser';
+import traverse, { NodePath } from '@babel/traverse';
+import { removeComments, ImportDeclaration, Program } from '@babel/types';
 
-const t = require('@babel/types');
-const traverse = require('@babel/traverse').default;
-const generate = require('@babel/generator').default;
-const parser = require('@babel/parser').parse;
-const {
+import {
+    PrettierParserOptions,
     getAllImportNodes,
     getSortedNodesByOrder,
     getSortedNodesNotInTheOrder,
     removeImportsFromOriginalCode,
-} = require('./utils');
+} from './utils';
 
-function preprocessor(code: string, options: PrettierParserOptions) {
+export function preprocessor(code: string, options: PrettierParserOptions) {
     const { importOrder } = options;
     let importNodes: ImportDeclaration[] = [];
 
@@ -24,10 +22,10 @@ function preprocessor(code: string, options: PrettierParserOptions) {
 
     traverse(ast, {
         enter(path: NodePath) {
-            t.removeComments(path.node);
+            removeComments(path.node);
         },
         Program(path: NodePath<Program>) {
-            importNodes = getAllImportNodes(path);
+            importNodes = getAllImportNodes(path) as ImportDeclaration[];
 
             const localImports = getSortedNodesByOrder(
                 importNodes,
@@ -41,6 +39,7 @@ function preprocessor(code: string, options: PrettierParserOptions) {
 
             const finalNodes = thirdPartyImports.concat(localImports);
 
+            // @ts-ignore
             path.set('body', finalNodes);
         },
     });
@@ -59,7 +58,3 @@ function preprocessor(code: string, options: PrettierParserOptions) {
 
     return `${initialCodeBlock}${middleCodeBlock}${endCodeBlock}`;
 }
-
-module.exports = {
-    preprocessor,
-};

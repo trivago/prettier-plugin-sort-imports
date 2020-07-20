@@ -2,10 +2,10 @@
   "name": "@trivago/prettier-plugin-sort-imports",
   "version": "0.0.1",
   "description": "A prettier plugins to sort imports in provided order",
-  "main": "lib/index.js",
+  "main": "lib/src/index.js",
   "scripts": {
     "compile": "tsc",
-    "example": "prettier --config .prettierrc --plugin lib/index.js",
+    "example": "prettier --config .prettierrc --plugin lib/src/index.js",
     "test": "jest -i",
     "type-check": "tsc --noEmit"
   },
@@ -24,6 +24,7 @@
     "prettier": "^2.0.5"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.11",
     "@types/jest": "^26.0.5",
     "@types/node": "^14.0.23",
     "chai": "^4.2.0",

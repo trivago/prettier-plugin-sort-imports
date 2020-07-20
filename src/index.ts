@@ -1,6 +1,6 @@
-const { parsers: typescriptParsers } = require('prettier/parser-typescript');
-const { parsers: babelParsers } = require('prettier/parser-babel');
-const { preprocessor: pluginPreprocessor } = require('./preprocessor');
+import { parsers as babelParsers } from 'prettier/parser-babel';
+import { parsers as typescriptParsers } from 'prettier/parser-typescript';
+import { preprocessor } from './preprocessor';
 
 const options = {
     importOrder: {
@@ -16,11 +16,11 @@ module.exports = {
     parsers: {
         typescript: {
             ...typescriptParsers.typescript,
-            preprocess: pluginPreprocessor,
+            preprocess: preprocessor,
         },
         babel: {
             ...babelParsers.babel,
-            preprocess: pluginPreprocessor,
+            preprocess: preprocessor,
         },
     },
     options,

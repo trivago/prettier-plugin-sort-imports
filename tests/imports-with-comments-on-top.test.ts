@@ -1,8 +1,6 @@
-const prettier = require('prettier');
-const { config } = require('./test-config');
-const chai = require('chai');
-
-const cExpect = chai.expect;
+import { expect } from 'chai';
+import prettier from 'prettier';
+import config from './test-config';
 
 const code = `// I am top level comment in this file.
 // I am second line of top level comment in this file.
@@ -49,5 +47,5 @@ function add(a: number, b: number) {
 test('format', () => {
     const output = prettier.format(code, config);
 
-    cExpect(output).to.equal(formattedCode);
+    expect(output).to.equal(formattedCode);
 });

@@ -1,35 +1,36 @@
-import { ParserOptions } from 'prettier';
+import { RequiredOptions } from 'prettier';
 import { NodePath } from '@babel/traverse';
+import { isImportDeclaration } from '@babel/types';
 import { ImportDeclaration, Program } from '@babel/types';
+// we do not have types for javascript-natural-sort
+//@ts-ignore
+import naturalSort from 'javascript-natural-sort';
 
-const t = require('@babel/types');
-const naturalSort = require('javascript-natural-sort');
-
-export interface PrettierParserOptions extends ParserOptions {
+export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
 }
 
 const isSimilarTextExistInArray = (arr: string[], text: string) =>
     arr.some((element) => text.startsWith(element));
 
-const getAllImportNodes = (path: NodePath<Program>) =>
+export const getAllImportNodes = (path: NodePath<Program>) =>
     path
         .get('body')
-        .filter(({ node }) => t.isImportDeclaration(node))
-        .map(({ node }) => node);
+        .filter((node) => isImportDeclaration(node.node))
+        .map((node) => node.node);
 
-const getSortedNodesByOrder = (
+export const getSortedNodesByOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
-    return order.reduce((res: ImportDeclaration[], val: string) => {
+    return order.reduce((res: ImportDeclaration[], val) => {
         const x = nodes.filter((node) => node.source.value.startsWith(val));
         x.sort((a, b) => naturalSort(a.source.value, b.source.value));
         return res.concat(x);
     }, []);
 };
 
-const getSortedNodesNotInTheOrder = (
+export const getSortedNodesNotInTheOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
@@ -40,7 +41,7 @@ const getSortedNodesNotInTheOrder = (
     return x;
 };
 
-const removeImportsFromOriginalCode = (
+export const removeImportsFromOriginalCode = (
     code: string,
     nodes: ImportDeclaration[],
 ) => {
@@ -54,11 +55,4 @@ const removeImportsFromOriginalCode = (
         }
     }
     return text;
-};
-
-module.exports = {
-    getAllImportNodes,
-    getSortedNodesByOrder,
-    getSortedNodesNotInTheOrder,
-    removeImportsFromOriginalCode,
 };

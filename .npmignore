@@ -2,7 +2,9 @@
 .gitattributes
 .gitignore
 .prettierrc
+jest.config.js
+yarn.lock
 src/
 tests/
-example.ts
+examples/
 tsconfig.json
