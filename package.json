@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "compile": "tsc",
-    "example": "prettier --config .prettierrc --plugin lib/index.js example.ts",
+    "example": "prettier --config .prettierrc --plugin lib/index.js",
     "test": "jest -i",
     "type-check": "tsc --noEmit"
   },
@@ -16,7 +16,6 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/core": "^7.10.5",
     "@babel/generator": "^7.10.5",
     "@babel/parser": "^7.10.5",
     "@babel/traverse": "^7.10.5",

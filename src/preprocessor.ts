@@ -46,7 +46,7 @@ function preprocessor(code: string, options: PrettierParserOptions) {
     });
 
     const importsStart = importNodes[0]
-        ? typeof importNodes[0].start !== null
+        ? importNodes[0].start !== null
             ? importNodes[0].start || 0
             : 0
         : 0;
