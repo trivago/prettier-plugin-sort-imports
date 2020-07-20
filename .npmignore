@@ -4,6 +4,7 @@
 .prettierrc
 jest.config.js
 yarn.lock
+.github/
 src/
 tests/
 examples/
