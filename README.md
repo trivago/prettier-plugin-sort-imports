@@ -1,13 +1,13 @@
 # Prettier plugin sort imports
 
-A prettier plugin to sort import declarations by provided order.
+A prettier plugin to sort import declarations by provided RegEx order.
 
 #### Install
 
 npm
 
 ```shell script
-npm install --dev @trivago/prettier-plugin-sort-imports
+npm install --save-dev @trivago/prettier-plugin-sort-imports
 ```
 
 or, using yarn
@@ -28,9 +28,17 @@ module.exports = {
   "singleQuote": true,
   "jsxBracketSameLine": true,
   "semi": true,
-  "importOrder": ["@core","@server", "@ui", ".", "../"]
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)", "^@ui/(.*)$", "^[./]"],
 }
 ```
+
+#### API
+
+**importOrder**: A collection of regular expressions in string format. The plugin
+uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
+to evaluate RegEx. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
+is the string provide in import order.
+
 
 #### How does import sort work ?
 
@@ -45,9 +53,9 @@ _local imports_ at the end.
 
 #### FAQ / Troubleshooting
 
-##### Q. Should I add the full name of imports in the `importOrder` list ?
-You can define the starting part of the import in the `importOrder`. For
-example if you want to short the following imports:
+##### Q. Hoe can I add the RegEx imports in the `importOrder` list ?
+You can define the RegEx in the `importOrder`. For
+example if you want to sort the following imports:
 ```ecmascript 6
 import React from 'react';
 import classnames from 'classnames';
@@ -57,8 +65,8 @@ import s from './';
 import p from '@ui/p';
 import q from '@ui/q';
 ```
-then the `importOrder` would be `['@ui','@server', '.']`. Now, the final output
-would be as follows:
+then the `importOrder` would be `["^@ui/(.*)$","^@server/(.*)", '^[./]']`. 
+Now, the final output would be as follows:
 
 ```ecmascript 6
 import classnames from 'classnames';

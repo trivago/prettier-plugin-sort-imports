@@ -11,14 +11,17 @@ export interface PrettierParserOptions extends RequiredOptions {
 }
 
 const isSimilarTextExistInArray = (arr: string[], text: string) =>
-    arr.some((element) => text.startsWith(element));
+    arr.some((element) => text.match(new RegExp(element)) !== null);
 
 export const getSortedNodesByImportOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
     return order.reduce((res: ImportDeclaration[], val) => {
-        const x = nodes.filter((node) => node.source.value.startsWith(val));
+        const x = nodes.filter(
+            (node) => node.source.value.match(new RegExp(val)) !== null,
+        );
+
         x.sort((a, b) => naturalSort(a.source.value, b.source.value));
         return res.concat(x);
     }, []);

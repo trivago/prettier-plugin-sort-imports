@@ -1,7 +1,7 @@
 {
   "name": "@trivago/prettier-plugin-sort-imports",
   "version": "0.1.0",
-  "description": "A prettier plugins to sort imports in provided order",
+  "description": "A prettier plugins to sort imports in provided RegEx order",
   "main": "lib/src/index.js",
   "scripts": {
     "compile": "tsc",

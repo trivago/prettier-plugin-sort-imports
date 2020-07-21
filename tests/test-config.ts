@@ -7,7 +7,7 @@ interface ModifiedOptions extends Options {
 const config: ModifiedOptions = {
     parser: 'typescript',
     plugins: ['./src/index.ts'],
-    importOrder: ['@core', '@server', '@ui', '.'],
+    importOrder: ['^@core/(.*)$', '^@server/(.*)', '^@ui/(.*)$', '^[./]'],
     printWidth: 80,
     tabWidth: 4,
     trailingComma: 'all',
