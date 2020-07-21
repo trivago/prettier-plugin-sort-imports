@@ -28,7 +28,7 @@ module.exports = {
   "singleQuote": true,
   "jsxBracketSameLine": true,
   "semi": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)", "^@ui/(.*)$", "^[./]"],
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
 }
 ```
 
@@ -65,7 +65,7 @@ import s from './';
 import p from '@ui/p';
 import q from '@ui/q';
 ```
-then the `importOrder` would be `["^@ui/(.*)$","^@server/(.*)", '^[./]']`. 
+then the `importOrder` would be `["^@ui/(.*)$","^@server/(.*)$", '^[./]']`. 
 Now, the final output would be as follows:
 
 ```ecmascript 6
