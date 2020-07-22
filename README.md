@@ -37,7 +37,7 @@ module.exports = {
 **importOrder**: A collection of regular expressions in string format. The plugin
 uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
 to evaluate RegEx. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
-is the string provide in import order.
+is the string provided in import order.
 
 
 #### How does import sort work ?
@@ -53,7 +53,7 @@ _local imports_ at the end.
 
 #### FAQ / Troubleshooting
 
-##### Q. Hoe can I add the RegEx imports in the `importOrder` list ?
+##### Q. How can I add the RegEx imports in the `importOrder` list ?
 You can define the RegEx in the `importOrder`. For
 example if you want to sort the following imports:
 ```ecmascript 6
