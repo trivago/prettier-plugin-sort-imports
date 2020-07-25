@@ -1,13 +1,14 @@
-import { RequiredOptions } from 'prettier';
-import { NodePath } from '@babel/traverse';
-import { isImportDeclaration } from '@babel/types';
-import { ImportDeclaration, Program } from '@babel/types';
 // we do not have types for javascript-natural-sort
 //@ts-ignore
 import naturalSort from 'javascript-natural-sort';
+import { RequiredOptions } from 'prettier';
+import generate from '@babel/generator';
+import { file } from '@babel/types';
+import { ImportDeclaration } from '@babel/types';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
+    importOrderSeparation: boolean;
 }
 
 const isSimilarTextExistInArray = (arr: string[], text: string) =>
@@ -17,14 +18,17 @@ export const getSortedNodesByImportOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
-    return order.reduce((res: ImportDeclaration[], val) => {
-        const x = nodes.filter(
-            (node) => node.source.value.match(new RegExp(val)) !== null,
-        );
+    return order.reduce(
+        (res: ImportDeclaration[][], val): ImportDeclaration[][] => {
+            const x = nodes.filter(
+                (node) => node.source.value.match(new RegExp(val)) !== null,
+            );
 
-        x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-        return res.concat(x);
-    }, []);
+            x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+            return [...res, x];
+        },
+        [],
+    );
 };
 
 export const getSortedNodesNotInTheImportOrder = (
@@ -53,3 +57,28 @@ export const removeImportsFromOriginalCode = (
     }
     return text;
 };
+
+export const getCodeFromAst = (node: ImportDeclaration[]) => {
+    const ast = file({
+        type: 'Program',
+        body: node,
+        directives: [],
+        sourceType: 'module',
+        interpreter: null,
+        sourceFile: '',
+        leadingComments: [],
+        innerComments: [],
+        trailingComments: [],
+        start: 0,
+        end: 0,
+        loc: {
+            start: { line: 0, column: 0 },
+            end: { line: 0, column: 0 },
+        },
+    });
+
+    return generate(ast).code;
+};
+
+export const getLineConnectingString = (isNewLine: boolean) =>
+    isNewLine ? '\n\n' : '\n';

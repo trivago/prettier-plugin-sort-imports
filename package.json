@@ -13,7 +13,7 @@
     "example": "prettier --config .prettierrc --plugin lib/src/index.js",
     "test": "jest -i",
     "type-check": "tsc --noEmit",
-    "prepare": "npm run compile && npm run test"
+    "prepublishOnly": "npm run compile && npm run test"
   },
   "keywords": [
     "prettier",

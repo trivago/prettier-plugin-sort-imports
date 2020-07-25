@@ -2,6 +2,8 @@
 
 A prettier plugin to sort import declarations by provided RegEx order.
 
+![import order gif](./import-sort.gif)
+
 #### Install
 
 npm
@@ -32,12 +34,15 @@ module.exports = {
 }
 ```
 
-#### API
+#### APIs
 
-**importOrder**: A collection of regular expressions in string format. The plugin
+**`importOrder`**: A collection of regular expressions in string format. The plugin
 uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
-to evaluate RegEx. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
+to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
+
+**`importOrderSeparation`**: A boolean value to enable or disable the new line separation 
+between sorted import declarations. The separation takes place according to `importOrder`.
 
 
 #### How does import sort work ?
