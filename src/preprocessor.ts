@@ -4,7 +4,8 @@ import { removeComments, ImportDeclaration } from '@babel/types';
 import {
     PrettierParserOptions,
     getCodeFromAst,
-    getLineConnectingString,
+    getAllGeneratedImportCodeTogether,
+    handleImportSeparation,
     getSortedNodesByImportOrder,
     getSortedNodesNotInTheImportOrder,
     removeImportsFromOriginalCode,
@@ -37,7 +38,7 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     const thirdPartyImportsAsCode = getCodeFromAst(thirdPartyImports);
     const localImportsAsCode = localImports
         .map(getCodeFromAst)
-        .join(getLineConnectingString(importOrderSeparation));
+        .join(handleImportSeparation(importOrderSeparation));
 
     const importsStart = importNodes[0]
         ? importNodes[0].start !== null
@@ -48,10 +49,14 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     const modifiedCode = removeImportsFromOriginalCode(code, importNodes);
 
     const initialCodeBlock = modifiedCode.substring(0, importsStart);
-    const middleCodeBlock = `${thirdPartyImportsAsCode}${getLineConnectingString(
-        importOrderSeparation,
-    )}${localImportsAsCode}${getLineConnectingString(importOrderSeparation)}`;
-    const endCodeBlock = modifiedCode.substring(importsStart);
 
+    const middleCodeBlock = getAllGeneratedImportCodeTogether(
+        thirdPartyImportsAsCode,
+        localImportsAsCode,
+        importOrderSeparation,
+    );
+
+    const endCodeBlock = modifiedCode.substring(importsStart);
+    debugger;
     return `${initialCodeBlock}${middleCodeBlock}${endCodeBlock}`;
 }
