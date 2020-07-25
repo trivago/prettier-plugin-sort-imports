@@ -5,6 +5,6 @@
     "singleQuote": true,
     "jsxBracketSameLine": true,
     "semi": true,
-    "importOrder": ["^@server/(.*)", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
+    "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true
 }
