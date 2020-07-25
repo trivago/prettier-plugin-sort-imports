@@ -31,6 +31,7 @@ module.exports = {
   "jsxBracketSameLine": true,
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
 }
 ```
 
