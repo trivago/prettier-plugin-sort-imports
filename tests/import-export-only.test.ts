@@ -2,16 +2,13 @@ import { expect } from 'chai';
 import prettier from 'prettier';
 import config, { configWithSeparation } from './test-config';
 
-describe('no import export', () => {
-    const code = `
-function add(a:number,b:number) {
-  return a + b;
-}
-`;
+describe('import export only', () => {
+    const code = `import React from 'react';
+export const a = 1;`;
 
-    const formattedCode = `function add(a: number, b: number) {
-    return a + b;
-}
+    const formattedCode = `import React from 'react';
+
+export const a = 1;
 `;
 
     test('format', () => {
@@ -21,16 +18,13 @@ function add(a:number,b:number) {
     });
 });
 
-describe('no import export with separation', () => {
-    const code = `
-function add(a:number,b:number) {
-  return a + b;
-}
-`;
+describe('import export only with separation', () => {
+    const code = `import React from 'react';
+export const a = 1;`;
 
-    const formattedCode = `function add(a: number, b: number) {
-    return a + b;
-}
+    const formattedCode = `import React from 'react';
+
+export const a = 1;
 `;
 
     test('format', () => {

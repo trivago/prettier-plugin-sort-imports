@@ -2,6 +2,7 @@
 .gitattributes
 .gitignore
 .prettierrc
+import-sort.gif
 jest.config.js
 yarn.lock
 .github/

@@ -2,7 +2,9 @@
 
 A prettier plugin to sort import declarations by provided RegEx order.
 
-#### Install
+![import order gif](./import-sort.gif)
+
+### Install
 
 npm
 
@@ -16,7 +18,7 @@ or, using yarn
 yarn add --dev @trivago/prettier-plugin-sort-imports
 ```
 
-#### Usage
+### Usage
 
 Add an order in prettier config file.
 
@@ -29,18 +31,24 @@ module.exports = {
   "jsxBracketSameLine": true,
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
 }
 ```
 
-#### API
+### APIs
 
-**importOrder**: A collection of regular expressions in string format. The plugin
+#### `importOrder`
+A collection of regular expressions in string format. The plugin
 uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
-to evaluate RegEx. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
+to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
 
+#### `importOrderSeparation`
+A boolean value to enable or disable the new line separation 
+between sorted import declarations. The separation takes place according to `importOrder`.
 
-#### How does import sort work ?
+
+### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. 
 These imports are _local imports_. The imports which are not part of the 
@@ -51,9 +59,9 @@ After, the plugin sorts the _local imports_ and _3rd party imports_ using
 In the end, the plugin returns final imports with _3rd party imports_ on top and 
 _local imports_ at the end.
 
-#### FAQ / Troubleshooting
+### FAQ / Troubleshooting
 
-##### Q. How can I add the RegEx imports in the `importOrder` list ?
+#### Q. How can I add the RegEx imports in the `importOrder` list ?
 You can define the RegEx in the `importOrder`. For
 example if you want to sort the following imports:
 ```ecmascript 6
@@ -78,7 +86,7 @@ import z from '@server/z';
 import s from './';
 ```
 
-##### Q. How can I run examples in this project ?
+#### Q. How can I run examples in this project ?
 There is a _examples_ directory. The examples file can be formatted by using
 `npm run example` command.
  
@@ -87,7 +95,7 @@ There is a _examples_ directory. The examples file can be formatted by using
 npm run example examples/example.tsx
 ```
 
-#### Maintainer
+### Maintainer
 
 |  [Ayush Sharma](https://github.com/ayusharma) 
 |---|

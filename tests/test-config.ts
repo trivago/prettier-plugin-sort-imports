@@ -2,6 +2,7 @@ import { Options } from 'prettier';
 
 interface ModifiedOptions extends Options {
     importOrder: string[];
+    importOrderSeparation?: boolean;
 }
 
 const config: ModifiedOptions = {
@@ -14,6 +15,11 @@ const config: ModifiedOptions = {
     singleQuote: true,
     jsxBracketSameLine: true,
     semi: true,
+};
+
+export const configWithSeparation: ModifiedOptions = {
+    ...config,
+    importOrderSeparation: true,
 };
 
 export default config;
