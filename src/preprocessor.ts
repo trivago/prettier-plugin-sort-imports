@@ -57,6 +57,6 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     );
 
     const endCodeBlock = modifiedCode.substring(importsStart);
-    debugger;
+
     return `${initialCodeBlock}${middleCodeBlock}${endCodeBlock}`;
 }
