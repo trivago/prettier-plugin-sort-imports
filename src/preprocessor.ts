@@ -1,4 +1,6 @@
-import { parse as parser } from '@babel/parser';
+import { parse as parser, ParserOptions } from '@babel/parser';
+import { merge } from 'lodash';
+import { loadOptions } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
 import { removeComments, ImportDeclaration } from '@babel/types';
 import {
@@ -15,10 +17,14 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     const { importOrder, importOrderSeparation } = options;
     let importNodes: ImportDeclaration[] = [];
 
-    const ast = parser(code, {
+    const defaultConfig = {
         sourceType: 'module',
         plugins: ['typescript', 'jsx'],
-    });
+    } as ParserOptions;
+    const babelConfig = loadOptions() as ParserOptions;
+    const mergedOptions = merge(defaultConfig, babelConfig);
+
+    const ast = parser(code, mergedOptions);
 
     traverse(ast, {
         enter(path: NodePath) {
