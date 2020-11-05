@@ -1,6 +1,6 @@
 import { parse as parser, ParserOptions } from '@babel/parser';
 import { merge } from 'lodash';
-import { loadOptions } from '@babel/core';
+import { loadPartialConfig } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
 import { removeComments, ImportDeclaration } from '@babel/types';
 import {
@@ -21,7 +21,7 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         sourceType: 'module',
         plugins: ['typescript', 'jsx'],
     } as ParserOptions;
-    const babelConfig = loadOptions() as ParserOptions;
+    const babelConfig = loadPartialConfig() as ParserOptions;
     const mergedOptions = merge(defaultConfig, babelConfig);
 
     const ast = parser(code, mergedOptions);
