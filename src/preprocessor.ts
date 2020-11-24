@@ -27,9 +27,9 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     const ast = parser(code, mergedOptions);
 
     traverse(ast, {
-        enter(path: NodePath) {
-            removeComments(path.node);
-        },
+        // enter(path: NodePath) {
+        //     removeComments(path.node);
+        // },
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             importNodes.push(path.node);
         },
@@ -41,9 +41,9 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     );
     const localImports = getSortedNodesByImportOrder(importNodes, importOrder);
 
-    const thirdPartyImportsAsCode = getCodeFromAst(thirdPartyImports);
+    const thirdPartyImportsAsCode = getCodeFromAst(thirdPartyImports, importNodes);
     const localImportsAsCode = localImports
-        .map(getCodeFromAst)
+        .map((x) => getCodeFromAst(x, importNodes))
         .join(handleImportSeparation(importOrderSeparation));
 
     const importsStart = importNodes[0]

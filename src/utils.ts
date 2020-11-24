@@ -4,7 +4,7 @@ import naturalSort from 'javascript-natural-sort';
 import { RequiredOptions } from 'prettier';
 import generate from '@babel/generator';
 import { file } from '@babel/types';
-import { ImportDeclaration } from '@babel/types';
+import { ImportDeclaration, CommentLine } from '@babel/types';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
@@ -71,6 +71,16 @@ export const removeImportsFromOriginalCode = (
         if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
             text = text.replace(code.substring(start, end), '');
         }
+
+        if (node.leadingComments) {
+            for (const lc of node.leadingComments) {
+                console.log({lc, node});
+                text = text.replace(
+                    code.substring(lc.loc.start.line, lc.loc.end.line),
+                    '',
+                );
+            }
+        }
     }
     return text;
 };
@@ -78,10 +88,45 @@ export const removeImportsFromOriginalCode = (
 /**
  * This function generate a code string from the passed nodes.
  */
-export const getCodeFromAst = (node: ImportDeclaration[]) => {
+export const getCodeFromAst = (
+    nodes: ImportDeclaration[],
+    importNodes: ImportDeclaration[],
+) => {
+    let x: ImportDeclaration[] = [...nodes];
+
+    for (let i = 0; i < x.length; i++) {
+        x = nodes;
+        if (x[i].trailingComments) {
+            x[i] = {
+                ...x[i],
+                trailingComments: null,
+            };
+        }
+
+        if (x[i].leadingComments) {
+            x[i] = {
+                ...x[i],
+                // @ts-ignore
+                leadingComments: x[i].leadingComments?.filter((comment) =>
+                    comment.value.startsWith(' eslint'),
+                ),
+            };
+        }
+
+        if (
+            x[i].leadingComments &&
+            x[i].loc?.start.line === importNodes[0].loc?.start.line
+        ) {
+            x[i] = {
+                ...x[i],
+                leadingComments: null,
+            };
+        }
+    }
+
     const ast = file({
         type: 'Program',
-        body: node,
+        body: x,
         directives: [],
         sourceType: 'module',
         interpreter: null,
