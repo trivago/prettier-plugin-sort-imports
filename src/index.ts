@@ -1,5 +1,6 @@
 import { parsers as babelParsers } from 'prettier/parser-babel';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
+import { parsers as babelFlowParsers } from 'prettier/parser-flow';
 import { preprocessor } from './preprocessor';
 
 const options = {
@@ -20,12 +21,16 @@ const options = {
 
 module.exports = {
     parsers: {
-        typescript: {
-            ...typescriptParsers.typescript,
-            preprocess: preprocessor,
-        },
         babel: {
             ...babelParsers.babel,
+            preprocess: preprocessor,
+        },
+        'babel-flow': {
+            ...babelFlowParsers.flow,
+            preprocess: preprocessor,
+        },
+        typescript: {
+            ...typescriptParsers.typescript,
             preprocess: preprocessor,
         },
     },

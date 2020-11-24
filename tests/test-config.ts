@@ -1,4 +1,4 @@
-import { Options } from 'prettier';
+import { Options, BuiltInParserName } from 'prettier';
 
 interface ModifiedOptions extends Options {
     importOrder: string[];
@@ -21,5 +21,11 @@ export const configWithSeparation: ModifiedOptions = {
     ...config,
     importOrderSeparation: true,
 };
+
+export const getConfigWithParser = (parserName: BuiltInParserName) => ({
+    ...config,
+    importOrderSeparation: true,
+    parser: parserName,
+})
 
 export default config;
