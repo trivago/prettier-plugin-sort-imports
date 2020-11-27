@@ -3,8 +3,16 @@
 import naturalSort from 'javascript-natural-sort';
 import { RequiredOptions } from 'prettier';
 import generate from '@babel/generator';
-import { file } from '@babel/types';
-import { ImportDeclaration, CommentLine } from '@babel/types';
+import {
+    ImportDeclaration,
+    CommentLine,
+    Node,
+    File,
+    file,
+    addComments,
+    removeComments,
+    cloneNode,
+} from '@babel/types';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
@@ -25,19 +33,37 @@ export const getSortedNodesByImportOrder = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
-    return order.reduce(
-        (res: ImportDeclaration[][], val): ImportDeclaration[][] => {
+    const firstNodesComment = nodes[0].leadingComments;
+
+    const sorted = order.reduce(
+        (res: ImportDeclaration[], val): ImportDeclaration[] => {
             const x = nodes.filter(
                 (node) => node.source.value.match(new RegExp(val)) !== null,
             );
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-                return [...res, x];
+                return [...res, ...x];
             }
             return res;
         },
         [],
     );
+
+    const copy = sorted.map(iD => cloneNode(iD));
+
+    sorted.forEach(removeComments);
+
+    if (firstNodesComment) {
+        addComments(sorted[0], 'leading', firstNodesComment);
+    }
+
+    // comments in-between the imports
+    sorted.forEach((iD, index) => {
+        // @ts-ignore
+        addComments(iD, 'leading', copy[index].leadingComments)
+    })
+
+    return sorted;
 };
 
 /**
@@ -74,7 +100,7 @@ export const removeImportsFromOriginalCode = (
 
         if (node.leadingComments) {
             for (const lc of node.leadingComments) {
-                console.log({lc, node});
+                // console.log({lc, node});
                 text = text.replace(
                     code.substring(lc.loc.start.line, lc.loc.end.line),
                     '',
@@ -88,45 +114,49 @@ export const removeImportsFromOriginalCode = (
 /**
  * This function generate a code string from the passed nodes.
  */
-export const getCodeFromAst = (
-    nodes: ImportDeclaration[],
-    importNodes: ImportDeclaration[],
-) => {
-    let x: ImportDeclaration[] = [...nodes];
+export const getCodeFromAst = (nodes: ImportDeclaration[], ast: File) => {
+    // let x: ImportDeclaration[] = [...nodes];
 
-    for (let i = 0; i < x.length; i++) {
-        x = nodes;
-        if (x[i].trailingComments) {
-            x[i] = {
-                ...x[i],
-                trailingComments: null,
-            };
-        }
+    // for (let i = 0; i < x.length; i++) {
+    //     x = nodes;
+    //     if (x[i].trailingComments) {
+    //         x[i] = {
+    //             ...x[i],
+    //             trailingComments: null,
+    //         };
+    //     }
 
-        if (x[i].leadingComments) {
-            x[i] = {
-                ...x[i],
-                // @ts-ignore
-                leadingComments: x[i].leadingComments?.filter((comment) =>
-                    comment.value.startsWith(' eslint'),
-                ),
-            };
-        }
+    //     if (x[i].leadingComments) {
+    //         x[i] = {
+    //             ...x[i],
+    //             // @ts-ignore
+    //             leadingComments: x[i].leadingComments?.filter((comment) =>
+    //                 comment.value.startsWith(' eslint'),
+    //             ),
+    //         };
+    //     }
 
-        if (
-            x[i].leadingComments &&
-            x[i].loc?.start.line === importNodes[0].loc?.start.line
-        ) {
-            x[i] = {
-                ...x[i],
-                leadingComments: null,
-            };
-        }
-    }
+    //     if (
+    //         x[i].leadingComments &&
+    //         x[i].loc?.start.line === importNodes[0].loc?.start.line
+    //     ) {
+    //         x[i] = {
+    //             ...x[i],
+    //             leadingComments: null,
+    //         };
+    //     }
+    // }
 
-    const ast = file({
+    // const x = [...nodes, ast.program.body];
+
+    // const x = restOfCode.concat(nodes);
+
+    // console.log(restOfCode);
+
+    const ast2 = file({
         type: 'Program',
-        body: x,
+        // @ts-ignore
+        body: nodes.concat(ast.program.body),
         directives: [],
         sourceType: 'module',
         interpreter: null,
@@ -142,7 +172,7 @@ export const getCodeFromAst = (
         },
     });
 
-    return generate(ast).code;
+    return generate(ast2).code;
 };
 
 export const handleImportSeparation = (isNewLine: boolean) =>

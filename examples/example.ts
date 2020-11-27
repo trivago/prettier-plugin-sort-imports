@@ -4,6 +4,7 @@
 import threeLevelRelativePath from '../../../threeLevelRelativePath';
 import sameLevelRelativePath from './sameLevelRelativePath';
 import thirdParty from 'third-party';
+// this is the comment for react
 import React from 'react';
 export { random } from './random';
 import oneLevelRelativePath from '../oneLevelRelativePath';
@@ -14,6 +15,7 @@ import {
     somethingElse } from '../../twoLevelRelativePath';
 // trailingComment
 import component from '@ui/hello';
+// this is export
 export default {
     title: 'hello',
 };

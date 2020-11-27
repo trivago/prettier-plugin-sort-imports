@@ -2,7 +2,14 @@ import { parse as parser, ParserOptions } from '@babel/parser';
 import { merge } from 'lodash';
 import { loadPartialConfig } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
-import { removeComments, ImportDeclaration } from '@babel/types';
+import {
+    removeComments,
+    ImportDeclaration,
+    addComments,
+    inheritLeadingComments,
+    inheritsComments,
+    cloneNode,
+} from '@babel/types';
 import {
     PrettierParserOptions,
     getCodeFromAst,
@@ -24,6 +31,8 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     const babelConfig = loadPartialConfig() as ParserOptions;
     const mergedOptions = merge(defaultConfig, babelConfig);
 
+    // const restOfCode: Node[] = [];
+
     const ast = parser(code, mergedOptions);
 
     traverse(ast, {
@@ -31,8 +40,16 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         //     removeComments(path.node);
         // },
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            importNodes.push(path.node);
+            const { node, scope } = path;
+            importNodes.push(node);
+            path.remove();
         },
+        // exit(path: NodePath) {
+        //     // inheritLeadingComments(path.node, ast);
+        //     // @ts-ignore
+        //     // addComments(path.node, "leading", ast.comments);
+        //     // restOfCode.push(path.node);
+        // },
     });
 
     const thirdPartyImports = getSortedNodesNotInTheImportOrder(
@@ -41,28 +58,32 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
     );
     const localImports = getSortedNodesByImportOrder(importNodes, importOrder);
 
-    const thirdPartyImportsAsCode = getCodeFromAst(thirdPartyImports, importNodes);
-    const localImportsAsCode = localImports
-        .map((x) => getCodeFromAst(x, importNodes))
-        .join(handleImportSeparation(importOrderSeparation));
+    const newAST = getCodeFromAst([...thirdPartyImports, ...localImports], ast);
 
-    const importsStart = importNodes[0]
-        ? importNodes[0].start !== null
-            ? importNodes[0].start
-            : 0
-        : 0;
+    // const thirdPartyImportsAsCode = getCodeFromAst(thirdPartyImports, importNodes, ast);
+    // const localImportsAsCode = localImports
+    //     .map((x) => getCodeFromAst(x, importNodes, ast))
+    //     .join(handleImportSeparation(importOrderSeparation));
 
-    const modifiedCode = removeImportsFromOriginalCode(code, importNodes);
+    // const importsStart = importNodes[0]
+    //     ? importNodes[0].start !== null
+    //         ? importNodes[0].start
+    //         : 0
+    //     : 0;
 
-    const initialCodeBlock = modifiedCode.substring(0, importsStart);
+    // const modifiedCode = removeImportsFromOriginalCode(code, importNodes);
 
-    const middleCodeBlock = getAllGeneratedImportCodeTogether(
-        thirdPartyImportsAsCode,
-        localImportsAsCode,
-        importOrderSeparation,
-    );
+    // const initialCodeBlock = modifiedCode.substring(0, importsStart);
 
-    const endCodeBlock = modifiedCode.substring(importsStart);
+    // const middleCodeBlock = getAllGeneratedImportCodeTogether(
+    //     thirdPartyImportsAsCode,
+    //     localImportsAsCode,
+    //     importOrderSeparation,
+    // );
 
-    return `${initialCodeBlock}${middleCodeBlock}${endCodeBlock}`;
+    // const endCodeBlock = modifiedCode.substring(importsStart);
+
+    // return `${middleCodeBlock}`;
+
+    return newAST;
 }
