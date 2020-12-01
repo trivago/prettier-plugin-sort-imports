@@ -3,12 +3,7 @@ import { merge } from 'lodash';
 import { loadPartialConfig } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration } from '@babel/types';
-import {
-    PrettierParserOptions,
-    getCodeFromAst,
-    getSortedNodesByImportOrder,
-    getSortedNodesNotInTheImportOrder,
-} from './utils';
+import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
     const { importOrder, importOrderSeparation } = options;
@@ -27,17 +22,12 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const { node, scope } = path;
             importNodes.push(node);
-            path.remove();
         },
     });
 
-    const thirdPartyImports = getSortedNodesNotInTheImportOrder(
-        importNodes,
-        importOrder,
-    );
-    const localImports = getSortedNodesByImportOrder(importNodes, importOrder);
+    const localImports = getSortedNodes(importNodes, importOrder);
 
-    const newAST = getCodeFromAst([...thirdPartyImports, ...localImports], ast);
+    const newAST = getCodeFromAst(localImports, ast);
 
     return newAST;
 }

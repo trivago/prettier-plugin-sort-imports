@@ -28,11 +28,11 @@ const isSimilarTextExistInArray = (arr: string[], text: string) =>
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
  */
-export const getSortedNodesByImportOrder = (
+export const getSortedNodes = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
 ) => {
-    const sorted = order.reduce(
+    const sortedNodesByImportOrder = order.reduce(
         (res: ImportDeclaration[], val): ImportDeclaration[] => {
             const x = nodes.filter(
                 (node) => node.source.value.match(new RegExp(val)) !== null,
@@ -46,18 +46,27 @@ export const getSortedNodesByImportOrder = (
         [],
     );
 
-    const copy = sorted.map((iD) => cloneNode(iD));
+    const sortedNodesNotInImportOrder = nodes.filter(
+        (node) => !isSimilarTextExistInArray(order, node.source.value),
+    );
+    sortedNodesNotInImportOrder.sort((a, b) =>
+        naturalSort(a.source.value, b.source.value),
+    );
 
-    sorted.forEach(removeComments);
+    const allSortedNodes = [
+        ...sortedNodesNotInImportOrder,
+        ...sortedNodesByImportOrder,
+    ];
 
-    const firstNodesComment = nodes[0]?.leadingComments;
+    const copy = allSortedNodes.map((n) => cloneNode(n));
 
-    if (firstNodesComment) {
-        addComments(sorted[0], 'leading', firstNodesComment);
-    }
+    const firstNodesComment = nodes[0].leadingComments;
+
+    // Now we remove all comments
+    allSortedNodes.forEach(removeComments);
 
     // comments in-between the imports
-    sorted.forEach((importDeclaration, index) => {
+    allSortedNodes.forEach((importDeclaration, index) => {
         addComments(
             importDeclaration,
             'leading',
@@ -65,31 +74,32 @@ export const getSortedNodesByImportOrder = (
         );
     });
 
-    return sorted;
-};
+    if (firstNodesComment) {
+        addComments(allSortedNodes[0], 'leading', firstNodesComment);
+    }
 
-/**
- * This function returns all the nodes which are not in the importOrder array.
- * The plugin considered these import nodes as third party import declarations.
- */
-export const getSortedNodesNotInTheImportOrder = (
-    nodes: ImportDeclaration[],
-    order: PrettierParserOptions['importOrder'],
-) => {
-    const x = nodes.filter(
-        (node) => !isSimilarTextExistInArray(order, node.source.value),
-    );
-    x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-    return x;
+    return allSortedNodes;
 };
 
 /**
  * This function generate a code string from the passed nodes.
  */
 export const getCodeFromAst = (nodes: Statement[], ast: File) => {
+    const allCommentsFromImports = getAllCommentsFromNodes(nodes);
+
+    const originalAstWithoutImportComments = removeNodesFromAnotherListOfNodes(
+        ast.program.body,
+        allCommentsFromImports,
+    );
+
+    const originalAstWithoutImportCommentsAndImports = removeNodesFromAnotherListOfNodes(
+        originalAstWithoutImportComments,
+        nodes,
+    );
+
     const newAST = file({
         type: 'Program',
-        body: nodes.concat(ast.program.body),
+        body: nodes.concat(originalAstWithoutImportCommentsAndImports),
         directives: [],
         sourceType: 'module',
         interpreter: null,
@@ -108,4 +118,32 @@ export const getCodeFromAst = (nodes: Statement[], ast: File) => {
     return generate(newAST).code;
 };
 
-export const getNewLine = () => '\n';
+const getAllCommentsFromNodes = (nodes: Statement[]) =>
+    nodes.reduce((acc, node) => {
+        if (
+            Array.isArray(node.leadingComments) &&
+            node.leadingComments.length > 0
+        ) {
+            acc = [...acc, ...node.leadingComments];
+        }
+        return acc;
+    }, [] as Statement[]);
+
+const removeNodesFromAnotherListOfNodes = (
+    nodesToRemoveFrom: Statement[],
+    nodesToRemove: Statement[],
+) =>
+    nodesToRemoveFrom.reduce((acc, node) => {
+        let deleteThisNode = false;
+        nodesToRemove.forEach((n) => {
+            if (n.start === node.start && n.end === node.end) {
+                deleteThisNode = true;
+            }
+        });
+
+        if (!deleteThisNode) {
+            acc.push(node);
+        }
+
+        return acc;
+    }, [] as Statement[]);
