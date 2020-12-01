@@ -12,7 +12,8 @@ import otherthing from '@core/otherthing';
 // eslint-comment
 import {
     twoLevelRelativePath, // innerComment
-    somethingElse } from '../../twoLevelRelativePath';
+    somethingElse,
+} from '../../twoLevelRelativePath';
 // trailingComment
 import component from '@ui/hello';
 // this is export
