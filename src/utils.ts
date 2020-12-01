@@ -11,12 +11,25 @@ import {
     removeComments,
     cloneNode,
     Statement,
+    expressionStatement,
+    stringLiteral,
+    ExpressionStatement,
 } from '@babel/types';
+import { compact } from 'lodash';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
     importOrderSeparation: boolean;
 }
+
+const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE =
+    'PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE';
+
+const newLineNode = expressionStatement(
+    stringLiteral(PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE),
+);
+
+const newLineCharacters = '\n\n';
 
 /**
  * This function checks that specified string exists in the specified list.
@@ -31,15 +44,21 @@ const isSimilarTextExistInArray = (arr: string[], text: string) =>
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
+    importOrderSeparation: boolean,
 ) => {
+    const newLine = importOrderSeparation ? newLineNode : null;
+
     const sortedNodesByImportOrder = order.reduce(
-        (res: ImportDeclaration[], val): ImportDeclaration[] => {
+        (
+            res: (ImportDeclaration | ExpressionStatement)[],
+            val,
+        ): (ImportDeclaration | ExpressionStatement)[] => {
             const x = nodes.filter(
                 (node) => node.source.value.match(new RegExp(val)) !== null,
             );
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-                return [...res, ...x];
+                return compact([...res, newLine, ...x]);
             }
             return res;
         },
@@ -56,6 +75,7 @@ export const getSortedNodes = (
     const allSortedNodes = [
         ...sortedNodesNotInImportOrder,
         ...sortedNodesByImportOrder,
+        newLineNode,
     ];
 
     const copy = allSortedNodes.map((n) => cloneNode(n));
@@ -115,7 +135,12 @@ export const getCodeFromAst = (nodes: Statement[], ast: File) => {
         },
     });
 
-    return generate(newAST).code;
+    const { code } = generate(newAST);
+
+    return code.replace(
+        /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
+        newLineCharacters,
+    );
 };
 
 const getAllCommentsFromNodes = (nodes: Statement[]) =>

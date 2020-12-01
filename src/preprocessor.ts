@@ -7,7 +7,8 @@ import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
     const { importOrder, importOrderSeparation } = options;
-    let importNodes: ImportDeclaration[] = [];
+
+    const importNodes: ImportDeclaration[] = [];
 
     const defaultConfig = {
         sourceType: 'module',
@@ -25,7 +26,11 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         },
     });
 
-    const localImports = getSortedNodes(importNodes, importOrder);
+    const localImports = getSortedNodes(
+        importNodes,
+        importOrder,
+        importOrderSeparation,
+    );
 
     const newAST = getCodeFromAst(localImports, ast);
 
