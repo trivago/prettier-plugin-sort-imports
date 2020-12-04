@@ -1,9 +1,5 @@
-// I am top level comment in this file.
-// I am second line of top level comment in this file.
-import './commands';
-import React from 'react';
-// Comment
-// Comment
-function add(a: number, b: number) {
-    return a + b;
-}
+// eslint-disable-next-line max-len
+import { UpdateCheckoutShippingAddress_checkoutEmailUpdate_checkoutErrors as CheckoutError } from '@api-sdk/mutations/types/UpdateCheckoutShippingAddress';
+
+import BusinessForm, { BusinessFormValues } from './Forms/BusinessForm';
+import ProfileForm, { ProfileFormValues } from './Forms/ProfileForm';
