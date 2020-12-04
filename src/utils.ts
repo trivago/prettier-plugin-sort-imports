@@ -46,7 +46,10 @@ export const getSortedNodes = (
     order: PrettierParserOptions['importOrder'],
     importOrderSeparation: boolean,
 ) => {
-    const newLine = importOrderSeparation ? newLineNode : null;
+    const newLine =
+        importOrderSeparation && nodes.length > 1 ? newLineNode : null;
+
+    debugger;
 
     const sortedNodesByImportOrder = order.reduce(
         (
@@ -97,7 +100,7 @@ export const getSortedNodes = (
     if (firstNodesComment) {
         addComments(allSortedNodes[0], 'leading', firstNodesComment);
     }
-
+    debugger;
     return allSortedNodes;
 };
 

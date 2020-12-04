@@ -26,6 +26,8 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         },
     });
 
+    if (importNodes.length === 0) return code;
+
     const localImports = getSortedNodes(
         importNodes,
         importOrder,

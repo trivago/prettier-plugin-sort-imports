@@ -39,7 +39,6 @@ import oneLevelRelativePath from '../oneLevelRelativePath';
 import sameLevelRelativePath from './sameLevelRelativePath';
 
 export { random } from './random';
-
 export default {
     title: 'hello',
 };
@@ -97,7 +96,6 @@ import oneLevelRelativePath from '../oneLevelRelativePath';
 import sameLevelRelativePath from './sameLevelRelativePath';
 
 export { random } from './random';
-
 export default {
     title: 'hello',
 };
