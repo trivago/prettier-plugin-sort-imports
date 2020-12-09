@@ -5,7 +5,6 @@ import { RequiredOptions } from 'prettier';
 import generate from '@babel/generator';
 import {
     ImportDeclaration,
-    File,
     file,
     addComments,
     removeComments,
@@ -48,8 +47,6 @@ export const getSortedNodes = (
 ) => {
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-
-    debugger;
 
     const sortedNodesByImportOrder = order.reduce(
         (
@@ -100,29 +97,45 @@ export const getSortedNodes = (
     if (firstNodesComment) {
         addComments(allSortedNodes[0], 'leading', firstNodesComment);
     }
-    debugger;
+
     return allSortedNodes;
+};
+
+export const removeImportsFromOriginalCode = (
+    code: string,
+    nodes: Statement[],
+) => {
+    let text = code;
+    for (const node of nodes) {
+        const start = Number(node.start);
+        const end = Number(node.end);
+
+        if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
+            text = text.replace(code.substring(start, end), '');
+        }
+    }
+    return text;
 };
 
 /**
  * This function generate a code string from the passed nodes.
  */
-export const getCodeFromAst = (nodes: Statement[], ast: File) => {
+export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
-    const originalAstWithoutImportComments = removeNodesFromAnotherListOfNodes(
-        ast.program.body,
-        allCommentsFromImports,
-    );
+    const commentAndImportsToRemoveFromCode = [
+        ...nodes,
+        ...allCommentsFromImports,
+    ];
 
-    const originalAstWithoutImportCommentsAndImports = removeNodesFromAnotherListOfNodes(
-        originalAstWithoutImportComments,
-        nodes,
+    const codeWithoutImportDeclarations = removeImportsFromOriginalCode(
+        originalCode,
+        commentAndImportsToRemoveFromCode,
     );
 
     const newAST = file({
         type: 'Program',
-        body: nodes.concat(originalAstWithoutImportCommentsAndImports),
+        body: nodes,
         directives: [],
         sourceType: 'module',
         interpreter: null,
@@ -140,9 +153,11 @@ export const getCodeFromAst = (nodes: Statement[], ast: File) => {
 
     const { code } = generate(newAST);
 
-    return code.replace(
-        /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
-        newLineCharacters,
+    return (
+        code.replace(
+            /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
+            newLineCharacters,
+        ) + codeWithoutImportDeclarations
     );
 };
 

@@ -21,6 +21,7 @@ import './commands';
 
 // Comment
 // Comment
+
 function add(a: number, b: number) {
     return a + b;
 }
@@ -53,6 +54,7 @@ import './commands';
 
 // Comment
 // Comment
+
 function add(a: number, b: number) {
     return a + b;
 }
@@ -84,6 +86,7 @@ import './commands';
 
 // Comment
 // Comment
+
 function add(a: number, b: number) {
     return a + b;
 }
@@ -117,6 +120,7 @@ import './commands';
 
 // Comment
 // Comment
+
 function add(a: number, b: number) {
     return a + b;
 }
@@ -193,11 +197,13 @@ import sameLevelRelativePath from './sameLevelRelativePath';
 export {
     random, // inner comment
 } from './random';
+
 export default {
     title: 'hello',
 };
 
 // I am function comment
+
 function add(a: number, b: number) {
     return a + b; // I am inside function
 }

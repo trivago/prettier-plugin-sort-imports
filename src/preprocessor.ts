@@ -28,13 +28,13 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
 
     if (importNodes.length === 0) return code;
 
-    const localImports = getSortedNodes(
+    const allImports = getSortedNodes(
         importNodes,
         importOrder,
         importOrderSeparation,
     );
 
-    const newAST = getCodeFromAst(localImports, ast);
+    const newAST = getCodeFromAst(allImports, code);
 
     return newAST;
 }
