@@ -14,7 +14,7 @@ import {
     stringLiteral,
     ExpressionStatement,
 } from '@babel/types';
-import { compact } from 'lodash';
+import { compact, isEqual } from 'lodash';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
@@ -94,7 +94,7 @@ export const getSortedNodes = (
         );
     });
 
-    if (firstNodesComment) {
+    if (firstNodesComment && !isEqual(nodes[0], allSortedNodes[0])) {
         addComments(allSortedNodes[0], 'leading', firstNodesComment);
     }
 
