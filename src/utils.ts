@@ -32,13 +32,18 @@ const newLineCharacters = '\n\n';
 
 /**
  * This function checks that specified string exists in the specified list.
+ * @param list
+ * @param text
  */
-const isSimilarTextExistInArray = (arr: string[], text: string) =>
-    arr.some((element) => text.match(new RegExp(element)) !== null);
+const isSimilarTextExistInArray = (list: string[], text: string) =>
+    list.some((element) => text.match(new RegExp(element)) !== null);
 
 /**
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
+ * @param nodes all import nodes
+ * @param order import order
+ * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
@@ -68,6 +73,7 @@ export const getSortedNodes = (
     const sortedNodesNotInImportOrder = nodes.filter(
         (node) => !isSimilarTextExistInArray(order, node.source.value),
     );
+
     sortedNodesNotInImportOrder.sort((a, b) =>
         naturalSort(a.source.value, b.source.value),
     );
@@ -75,32 +81,38 @@ export const getSortedNodes = (
     const allSortedNodes = [
         ...sortedNodesNotInImportOrder,
         ...sortedNodesByImportOrder,
-        newLineNode,
+        newLineNode, // insert a newline after all sorted imports
     ];
 
-    const copy = allSortedNodes.map((n) => cloneNode(n));
+    // maintain a copy of th nodes to extract comments from
+    const sortedNodesClone = allSortedNodes.map((n) => cloneNode(n));
 
-    const firstNodesComment = nodes[0].leadingComments;
+    const firstNodesComments = nodes[0].leadingComments;
 
-    // Now we remove all comments
+    // Remove all comments from sorted nodes
     allSortedNodes.forEach(removeComments);
 
-    // comments in-between the imports
+    // insert comments other than the first commens
     allSortedNodes.forEach((importDeclaration, index) => {
         addComments(
             importDeclaration,
             'leading',
-            copy[index].leadingComments || [],
+            sortedNodesClone[index].leadingComments || [],
         );
     });
 
-    if (firstNodesComment && !isEqual(nodes[0], allSortedNodes[0])) {
-        addComments(allSortedNodes[0], 'leading', firstNodesComment);
+    if (firstNodesComments && !isEqual(nodes[0], allSortedNodes[0])) {
+        addComments(allSortedNodes[0], 'leading', firstNodesComments);
     }
 
     return allSortedNodes;
 };
 
+/**
+ * Removes imports from original file
+ * @param code the whole file as text
+ * @param nodes to be removd
+ */
 export const removeImportsFromOriginalCode = (
     code: string,
     nodes: Statement[],
@@ -119,6 +131,8 @@ export const removeImportsFromOriginalCode = (
 
 /**
  * This function generate a code string from the passed nodes.
+ * @param nodes all imports
+ * @param originalCode
  */
 export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
@@ -169,24 +183,5 @@ const getAllCommentsFromNodes = (nodes: Statement[]) =>
         ) {
             acc = [...acc, ...node.leadingComments];
         }
-        return acc;
-    }, [] as Statement[]);
-
-const removeNodesFromAnotherListOfNodes = (
-    nodesToRemoveFrom: Statement[],
-    nodesToRemove: Statement[],
-) =>
-    nodesToRemoveFrom.reduce((acc, node) => {
-        let deleteThisNode = false;
-        nodesToRemove.forEach((n) => {
-            if (n.start === node.start && n.end === node.end) {
-                deleteThisNode = true;
-            }
-        });
-
-        if (!deleteThisNode) {
-            acc.push(node);
-        }
-
         return acc;
     }, [] as Statement[]);

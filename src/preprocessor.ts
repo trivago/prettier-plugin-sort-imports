@@ -21,11 +21,11 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const { node, scope } = path;
-            importNodes.push(node);
+            importNodes.push(path.node);
         },
     });
 
+    // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
 
     const allImports = getSortedNodes(
@@ -34,7 +34,5 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
         importOrderSeparation,
     );
 
-    const newAST = getCodeFromAst(allImports, code);
-
-    return newAST;
+    return getCodeFromAst(allImports, code);
 }
