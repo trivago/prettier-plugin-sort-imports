@@ -1,13 +1,11 @@
-// @ts-nocheck
-// I am top level comment in this file.
-// I am second line of top level comment in this file.
 import threeLevelRelativePath from '../../../threeLevelRelativePath';
 import sameLevelRelativePath from './sameLevelRelativePath';
 import thirdParty from 'third-party';
-import React from 'react';
 export { random } from './random';
+import c from 'c';
 import oneLevelRelativePath from '../oneLevelRelativePath';
 import otherthing from '@core/otherthing';
+import a from 'a';
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 import component from '@ui/hello';
 export default {
@@ -15,6 +13,7 @@ export default {
 };
 import fourLevelRelativePath from '../../../../fourLevelRelativePath';
 import something from '@server/something';
+import x from 'x';
 
 function add(a: number, b: number) {
     return a + b;

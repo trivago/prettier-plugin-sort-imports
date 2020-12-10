@@ -3,65 +3,119 @@
 import naturalSort from 'javascript-natural-sort';
 import { RequiredOptions } from 'prettier';
 import generate from '@babel/generator';
-import { file } from '@babel/types';
-import { ImportDeclaration } from '@babel/types';
+import {
+    ImportDeclaration,
+    file,
+    addComments,
+    removeComments,
+    cloneNode,
+    Statement,
+    expressionStatement,
+    stringLiteral,
+    ExpressionStatement,
+} from '@babel/types';
+import { compact, isEqual } from 'lodash';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
     importOrderSeparation: boolean;
 }
 
+const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE =
+    'PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE';
+
+const newLineNode = expressionStatement(
+    stringLiteral(PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE),
+);
+
+const newLineCharacters = '\n\n';
+
 /**
  * This function checks that specified string exists in the specified list.
+ * @param list
+ * @param text
  */
-const isSimilarTextExistInArray = (arr: string[], text: string) =>
-    arr.some((element) => text.match(new RegExp(element)) !== null);
+const isSimilarTextExistInArray = (list: string[], text: string) =>
+    list.some((element) => text.match(new RegExp(element)) !== null);
 
 /**
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
+ * @param nodes all import nodes
+ * @param order import order
+ * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
  */
-export const getSortedNodesByImportOrder = (
+export const getSortedNodes = (
     nodes: ImportDeclaration[],
     order: PrettierParserOptions['importOrder'],
+    importOrderSeparation: boolean,
 ) => {
-    return order.reduce(
-        (res: ImportDeclaration[][], val): ImportDeclaration[][] => {
+    const newLine =
+        importOrderSeparation && nodes.length > 1 ? newLineNode : null;
+
+    const sortedNodesByImportOrder = order.reduce(
+        (
+            res: (ImportDeclaration | ExpressionStatement)[],
+            val,
+        ): (ImportDeclaration | ExpressionStatement)[] => {
             const x = nodes.filter(
                 (node) => node.source.value.match(new RegExp(val)) !== null,
             );
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-                return [...res, x];
+                return compact([...res, newLine, ...x]);
             }
             return res;
         },
         [],
     );
-};
 
-/**
- * This function returns all the nodes which are not in the importOrder array.
- * The plugin considered these import nodes as third party import declarations.
- */
-export const getSortedNodesNotInTheImportOrder = (
-    nodes: ImportDeclaration[],
-    order: PrettierParserOptions['importOrder'],
-) => {
-    const x = nodes.filter(
+    const sortedNodesNotInImportOrder = nodes.filter(
         (node) => !isSimilarTextExistInArray(order, node.source.value),
     );
-    x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-    return x;
+
+    sortedNodesNotInImportOrder.sort((a, b) =>
+        naturalSort(a.source.value, b.source.value),
+    );
+
+    const allSortedNodes = [
+        ...sortedNodesNotInImportOrder,
+        ...sortedNodesByImportOrder,
+        newLineNode, // insert a newline after all sorted imports
+    ];
+
+    // maintain a copy of th nodes to extract comments from
+    const sortedNodesClone = allSortedNodes.map((n) => cloneNode(n));
+
+    const firstNodesComments = nodes[0].leadingComments;
+
+    // Remove all comments from sorted nodes
+    allSortedNodes.forEach(removeComments);
+
+    // insert comments other than the first commens
+    allSortedNodes.forEach((importDeclaration, index) => {
+        addComments(
+            importDeclaration,
+            'leading',
+            sortedNodesClone[index].leadingComments || [],
+        );
+    });
+
+    if (firstNodesComments && !isEqual(nodes[0], allSortedNodes[0])) {
+        addComments(allSortedNodes[0], 'leading', firstNodesComments);
+    }
+
+    return allSortedNodes;
 };
 
 /**
- * When we get all the imports from the code, we remove these import statements
- * from the original code which is passed to prettier preprocessor.
+ * Removes imports from original file
+ * @param code the whole file as text
+ * @param nodes to be removd
  */
 export const removeImportsFromOriginalCode = (
     code: string,
-    nodes: ImportDeclaration[],
+    nodes: Statement[],
 ) => {
     let text = code;
     for (const node of nodes) {
@@ -77,11 +131,25 @@ export const removeImportsFromOriginalCode = (
 
 /**
  * This function generate a code string from the passed nodes.
+ * @param nodes all imports
+ * @param originalCode
  */
-export const getCodeFromAst = (node: ImportDeclaration[]) => {
-    const ast = file({
+export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
+    const allCommentsFromImports = getAllCommentsFromNodes(nodes);
+
+    const commentAndImportsToRemoveFromCode = [
+        ...nodes,
+        ...allCommentsFromImports,
+    ];
+
+    const codeWithoutImportDeclarations = removeImportsFromOriginalCode(
+        originalCode,
+        commentAndImportsToRemoveFromCode,
+    );
+
+    const newAST = file({
         type: 'Program',
-        body: node,
+        body: nodes,
         directives: [],
         sourceType: 'module',
         interpreter: null,
@@ -97,32 +165,23 @@ export const getCodeFromAst = (node: ImportDeclaration[]) => {
         },
     });
 
-    return generate(ast).code;
+    const { code } = generate(newAST);
+
+    return (
+        code.replace(
+            /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
+            newLineCharacters,
+        ) + codeWithoutImportDeclarations
+    );
 };
 
-export const handleImportSeparation = (isNewLine: boolean) =>
-    isNewLine ? '\n\n' : '';
-
-export const getNewLine = () => '\n';
-
-/**
- * This function stitches all the imports together. If import separation is
- * enabled then this function adds new line accordingly.
- */
-export const getAllGeneratedImportCodeTogether = (
-    thirdPartyImportsAsCode: string,
-    localImportsAsCode: string,
-    importOrderSeparation: boolean,
-) => {
-    if (thirdPartyImportsAsCode.length > 0) {
-        return `${thirdPartyImportsAsCode}${handleImportSeparation(
-            importOrderSeparation,
-        )}${localImportsAsCode}${handleImportSeparation(
-            importOrderSeparation,
-        )}${getNewLine()}`;
-    }
-
-    return `${localImportsAsCode}${handleImportSeparation(
-        importOrderSeparation,
-    )}${getNewLine()}`;
-};
+const getAllCommentsFromNodes = (nodes: Statement[]) =>
+    nodes.reduce((acc, node) => {
+        if (
+            Array.isArray(node.leadingComments) &&
+            node.leadingComments.length > 0
+        ) {
+            acc = [...acc, ...node.leadingComments];
+        }
+        return acc;
+    }, [] as Statement[]);

@@ -95,10 +95,9 @@ There is a _examples_ directory. The examples file can be formatted by using
 npm run example examples/example.tsx
 ```
 
-### Maintainer
+### Maintainers
 
-|  [Ayush Sharma](https://github.com/ayusharma) 
-|---|
-| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4)
-| [@ayusharma_](https://twitter.com/ayusharma_) 
-
+|  [Ayush Sharma](https://github.com/ayusharma) | [Behrang Yarahmadi](https://github.com/byara) 
+|---|---|
+| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4)
+| [@ayusharma_](https://twitter.com/ayusharma_) | [@byara_](https://twitter.com/behrang_y) 
