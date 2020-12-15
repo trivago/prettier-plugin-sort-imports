@@ -8,13 +8,14 @@ import {
     file,
     addComments,
     removeComments,
-    cloneNode,
     Statement,
     expressionStatement,
     stringLiteral,
     ExpressionStatement,
+    CommentBlock,
+    CommentLine,
 } from '@babel/types';
-import { compact, isEqual } from 'lodash';
+import { compact, isEqual, pull, clone } from 'lodash';
 
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
@@ -50,6 +51,7 @@ export const getSortedNodes = (
     order: PrettierParserOptions['importOrder'],
     importOrderSeparation: boolean,
 ) => {
+    const originalNodes = nodes.map(clone);
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
 
@@ -58,9 +60,13 @@ export const getSortedNodes = (
             res: (ImportDeclaration | ExpressionStatement)[],
             val,
         ): (ImportDeclaration | ExpressionStatement)[] => {
-            const x = nodes.filter(
+            const x = originalNodes.filter(
                 (node) => node.source.value.match(new RegExp(val)) !== null,
             );
+
+            // remove "found" imports from the list of nodes
+            pull(originalNodes, ...x);
+
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
                 return compact([...res, newLine, ...x]);
@@ -70,7 +76,7 @@ export const getSortedNodes = (
         [],
     );
 
-    const sortedNodesNotInImportOrder = nodes.filter(
+    const sortedNodesNotInImportOrder = originalNodes.filter(
         (node) => !isSimilarTextExistInArray(order, node.source.value),
     );
 
@@ -85,7 +91,7 @@ export const getSortedNodes = (
     ];
 
     // maintain a copy of th nodes to extract comments from
-    const sortedNodesClone = allSortedNodes.map((n) => cloneNode(n));
+    const sortedNodesClone = allSortedNodes.map(clone);
 
     const firstNodesComments = nodes[0].leadingComments;
 
@@ -115,7 +121,7 @@ export const getSortedNodes = (
  */
 export const removeImportsFromOriginalCode = (
     code: string,
-    nodes: Statement[],
+    nodes: (Statement | CommentBlock | CommentLine | ImportDeclaration)[],
 ) => {
     let text = code;
     for (const node of nodes) {
@@ -184,4 +190,4 @@ const getAllCommentsFromNodes = (nodes: Statement[]) =>
             acc = [...acc, ...node.leadingComments];
         }
         return acc;
-    }, [] as Statement[]);
+    }, [] as (CommentBlock | CommentLine)[]);

@@ -26,6 +26,6 @@ export const getConfigWithParser = (parserName: BuiltInParserName) => ({
     ...config,
     importOrderSeparation: true,
     parser: parserName,
-})
+});
 
 export default config;
