@@ -177,7 +177,7 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
         code.replace(
             /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
             newLineCharacters,
-        ) + codeWithoutImportDeclarations
+        ) + codeWithoutImportDeclarations.trim()
     );
 };
 
