@@ -4,7 +4,6 @@ import { loadPartialConfig } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
 import {
     ImportDeclaration,
-    TSModuleDeclaration,
     isTSModuleDeclaration,
 } from '@babel/types';
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
