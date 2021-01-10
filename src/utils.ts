@@ -108,7 +108,15 @@ export const getSortedNodes = (
     });
 
     if (firstNodesComments && !isEqual(nodes[0], allSortedNodes[0])) {
-        addComments(allSortedNodes[0], 'leading', firstNodesComments);
+
+      const firstNodesLastComment = firstNodesComments[firstNodesComments.length - 1];
+      const totalNewLines = (nodes[0]?.loc?.start.line || 0) - firstNodesLastComment.loc.start.line - 1;
+
+      if (totalNewLines > 0) {
+        allSortedNodes.unshift(newLineNode);
+      }
+
+      addComments(allSortedNodes[0], 'leading', firstNodesComments);
     }
 
     return allSortedNodes;
