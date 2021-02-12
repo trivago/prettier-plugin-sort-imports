@@ -14,6 +14,7 @@ import {
     ExpressionStatement,
     CommentBlock,
     CommentLine,
+    isImportDeclaration,
 } from '@babel/types';
 import { compact, isEqual, pull, clone } from 'lodash';
 
@@ -54,7 +55,6 @@ export const getSortedNodes = (
     const originalNodes = nodes.map(clone);
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-
     const sortedNodesByImportOrder = order.reduce(
         (
             res: (ImportDeclaration | ExpressionStatement)[],
@@ -69,7 +69,11 @@ export const getSortedNodes = (
 
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-                return compact([...res, newLine, ...x]);
+
+                if (res.length > 0) {
+                    return compact([...res, newLine, ...x]);
+                }
+                return x;
             }
             return res;
         },
@@ -84,11 +88,15 @@ export const getSortedNodes = (
         naturalSort(a.source.value, b.source.value),
     );
 
-    const allSortedNodes = [
+    const shouldAddNewLineInBetween =
+        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
+
+    const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,
+        shouldAddNewLineInBetween ? newLineNode : null,
         ...sortedNodesByImportOrder,
         newLineNode, // insert a newline after all sorted imports
-    ];
+    ]);
 
     // maintain a copy of th nodes to extract comments from
     const sortedNodesClone = allSortedNodes.map(clone);
@@ -185,7 +193,8 @@ const getAllCommentsFromNodes = (nodes: Statement[]) =>
     nodes.reduce((acc, node) => {
         if (
             Array.isArray(node.leadingComments) &&
-            node.leadingComments.length > 0
+            node.leadingComments.length > 0 &&
+            isImportDeclaration(node)
         ) {
             acc = [...acc, ...node.leadingComments];
         }
