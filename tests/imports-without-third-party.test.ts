@@ -42,15 +42,18 @@ import something from "@server/something";`;
     const formattedCode = `// I am top level comment
 import abc from '@core/abc';
 import otherthing from '@core/otherthing';
+
 import something from '@server/something';
+
 import component from '@ui/hello';
+
 import fourLevelRelativePath from '../../../../fourLevelRelativePath';
 // I am comment
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 `;
 
     test.only('format', () => {
-        const output = prettier.format(code, config);
+        const output = prettier.format(code, configWithSeparation);
 
         expect(output).to.equal(formattedCode);
     });
