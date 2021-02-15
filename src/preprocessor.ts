@@ -2,7 +2,10 @@ import { parse as parser, ParserOptions } from '@babel/parser';
 import { merge } from 'lodash';
 import { loadPartialConfig } from '@babel/core';
 import traverse, { NodePath } from '@babel/traverse';
-import { ImportDeclaration } from '@babel/types';
+import {
+    ImportDeclaration,
+    isTSModuleDeclaration,
+} from '@babel/types';
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
@@ -21,7 +24,10 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            importNodes.push(path.node);
+            const tsModuleParent = path.findParent((p) => isTSModuleDeclaration(p));
+            if (!tsModuleParent) {
+                importNodes.push(path.node);
+            }
         },
     });
 
