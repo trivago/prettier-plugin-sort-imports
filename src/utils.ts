@@ -54,7 +54,6 @@ export const getSortedNodes = (
     const originalNodes = nodes.map(clone);
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-
     const sortedNodesByImportOrder = order.reduce(
         (
             res: (ImportDeclaration | ExpressionStatement)[],
@@ -69,7 +68,11 @@ export const getSortedNodes = (
 
             if (x.length > 0) {
                 x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-                return compact([...res, newLine, ...x]);
+
+                if (res.length > 0) {
+                    return compact([...res, newLine, ...x]);
+                }
+                return x;
             }
             return res;
         },
@@ -84,13 +87,17 @@ export const getSortedNodes = (
         naturalSort(a.source.value, b.source.value),
     );
 
-    const allSortedNodes = [
+    const shouldAddNewLineInBetween =
+        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
+
+    const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,
+        shouldAddNewLineInBetween ? newLineNode : null,
         ...sortedNodesByImportOrder,
         newLineNode, // insert a newline after all sorted imports
-    ];
+    ]);
 
-    // maintain a copy of th nodes to extract comments from
+    // maintain a copy of the nodes to extract comments from
     const sortedNodesClone = allSortedNodes.map(clone);
 
     const firstNodesComments = nodes[0].leadingComments;
@@ -98,16 +105,18 @@ export const getSortedNodes = (
     // Remove all comments from sorted nodes
     allSortedNodes.forEach(removeComments);
 
-    // insert comments other than the first commens
-    allSortedNodes.forEach((importDeclaration, index) => {
-        addComments(
-            importDeclaration,
-            'leading',
-            sortedNodesClone[index].leadingComments || [],
-        );
+    // insert comments other than the first comments
+    allSortedNodes.forEach((node, index) => {
+        if (!isEqual(nodes[0].loc, node.loc)) {
+            addComments(
+                node,
+                'leading',
+                sortedNodesClone[index].leadingComments || [],
+            );
+        }
     });
 
-    if (firstNodesComments && !isEqual(nodes[0], allSortedNodes[0])) {
+    if (firstNodesComments) {
 
       const firstNodesLastComment = firstNodesComments[firstNodesComments.length - 1];
       const totalNewLines = (nodes[0]?.loc?.start.line || 0) - firstNodesLastComment.loc.start.line - 1;
@@ -125,9 +134,9 @@ export const getSortedNodes = (
 /**
  * Removes imports from original file
  * @param code the whole file as text
- * @param nodes to be removd
+ * @param nodes to be removed
  */
-export const removeImportsFromOriginalCode = (
+export const removeNodesFromOriginalCode = (
     code: string,
     nodes: (Statement | CommentBlock | CommentLine | ImportDeclaration)[],
 ) => {
@@ -135,7 +144,6 @@ export const removeImportsFromOriginalCode = (
     for (const node of nodes) {
         const start = Number(node.start);
         const end = Number(node.end);
-
         if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
             text = text.replace(code.substring(start, end), '');
         }
@@ -156,7 +164,7 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
         ...allCommentsFromImports,
     ];
 
-    const codeWithoutImportDeclarations = removeImportsFromOriginalCode(
+    const codeWithoutImportDeclarations = removeNodesFromOriginalCode(
         originalCode,
         commentAndImportsToRemoveFromCode,
     );
