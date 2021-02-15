@@ -14,7 +14,6 @@ import {
     ExpressionStatement,
     CommentBlock,
     CommentLine,
-    isImportDeclaration,
 } from '@babel/types';
 import { compact, isEqual, pull, clone } from 'lodash';
 
@@ -98,7 +97,7 @@ export const getSortedNodes = (
         newLineNode, // insert a newline after all sorted imports
     ]);
 
-    // maintain a copy of th nodes to extract comments from
+    // maintain a copy of the nodes to extract comments from
     const sortedNodesClone = allSortedNodes.map(clone);
 
     const firstNodesComments = nodes[0].leadingComments;
@@ -106,16 +105,18 @@ export const getSortedNodes = (
     // Remove all comments from sorted nodes
     allSortedNodes.forEach(removeComments);
 
-    // insert comments other than the first commens
-    allSortedNodes.forEach((importDeclaration, index) => {
-        addComments(
-            importDeclaration,
-            'leading',
-            sortedNodesClone[index].leadingComments || [],
-        );
+    // insert comments other than the first comments
+    allSortedNodes.forEach((node, index) => {
+        if (!isEqual(nodes[0].loc, node.loc)) {
+            addComments(
+                node,
+                'leading',
+                sortedNodesClone[index].leadingComments || [],
+            );
+        }
     });
 
-    if (firstNodesComments && !isEqual(nodes[0], allSortedNodes[0])) {
+    if (firstNodesComments) {
         addComments(allSortedNodes[0], 'leading', firstNodesComments);
     }
 
@@ -125,9 +126,9 @@ export const getSortedNodes = (
 /**
  * Removes imports from original file
  * @param code the whole file as text
- * @param nodes to be removd
+ * @param nodes to be removed
  */
-export const removeImportsFromOriginalCode = (
+export const removeNodesFromOriginalCode = (
     code: string,
     nodes: (Statement | CommentBlock | CommentLine | ImportDeclaration)[],
 ) => {
@@ -135,7 +136,6 @@ export const removeImportsFromOriginalCode = (
     for (const node of nodes) {
         const start = Number(node.start);
         const end = Number(node.end);
-
         if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
             text = text.replace(code.substring(start, end), '');
         }
@@ -156,7 +156,7 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
         ...allCommentsFromImports,
     ];
 
-    const codeWithoutImportDeclarations = removeImportsFromOriginalCode(
+    const codeWithoutImportDeclarations = removeNodesFromOriginalCode(
         originalCode,
         commentAndImportsToRemoveFromCode,
     );
@@ -193,8 +193,7 @@ const getAllCommentsFromNodes = (nodes: Statement[]) =>
     nodes.reduce((acc, node) => {
         if (
             Array.isArray(node.leadingComments) &&
-            node.leadingComments.length > 0 &&
-            isImportDeclaration(node)
+            node.leadingComments.length > 0
         ) {
             acc = [...acc, ...node.leadingComments];
         }

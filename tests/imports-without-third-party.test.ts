@@ -22,7 +22,7 @@ import fourLevelRelativePath from '../../../../fourLevelRelativePath';
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 `;
 
-    test.only('format', () => {
+    test('format', () => {
         const output = prettier.format(code, config);
 
         expect(output).to.equal(formattedCode);
@@ -52,7 +52,7 @@ import fourLevelRelativePath from '../../../../fourLevelRelativePath';
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 `;
 
-    test.only('format', () => {
+    test('format', () => {
         const output = prettier.format(code, configWithSeparation);
 
         expect(output).to.equal(formattedCode);
