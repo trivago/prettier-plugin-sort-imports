@@ -153,7 +153,7 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
 
     const commentAndImportsToRemoveFromCode = [
         ...nodes,
-        ...allCommentsFromImports, //
+        ...allCommentsFromImports,
     ];
 
     const codeWithoutImportDeclarations = removeNodesFromOriginalCode(
