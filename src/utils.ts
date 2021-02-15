@@ -149,7 +149,6 @@ export const removeNodesFromOriginalCode = (
  * @param originalCode
  */
 export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
-    debugger;
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
     const commentAndImportsToRemoveFromCode = [
