@@ -95,6 +95,23 @@ There is a _examples_ directory. The examples file can be formatted by using
 npm run example examples/example.tsx
 ```
 
+#### Q. How to use the plugin with `*.d.ts` files ?
+The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. (Read more here)[https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore].  
+
+#### Q. How do the plugin handles the first commnet in the file. 
+The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import. 
+**input:**
+```js
+// comment
+
+import a from 'a'
+```
+**output:**
+```js
+// comment
+import a from 'a'
+```
+
 ### Maintainers
 
 |  [Ayush Sharma](https://github.com/ayusharma) | [Behrang Yarahmadi](https://github.com/byara)
