@@ -9,13 +9,15 @@ import {
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
-    const { importOrder, importOrderSeparation } = options;
+    const { importOrder, importOrderSeparation, importOrderFlow } = options;
 
     const importNodes: ImportDeclaration[] = [];
+    const parserPlugins = ['jsx', 'classProperties'];
+    parserOptions.push(importOrderFlow ? 'jsx' : 'typescript');
 
     const defaultConfig = {
         sourceType: 'module',
-        plugins: ['typescript', 'jsx'],
+        plugins: parserPlugins, 
     } as ParserOptions;
     const babelConfig = loadPartialConfig() as ParserOptions;
     const mergedOptions = merge(defaultConfig, babelConfig);

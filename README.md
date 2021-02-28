@@ -32,6 +32,7 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
+  "importOrderFlow": true,
 }
 ```
 
@@ -47,6 +48,9 @@ is the string provided in import order.
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
 
+#### `importOrderFlow`
+A boolean value to choose whether to parse using Flow or TypeScript.
+This controls the used Babel configuration.
 
 ### How does import sort work ?
 
