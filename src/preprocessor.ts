@@ -1,6 +1,3 @@
-// @ts-ignore
-import findBabelConfig from 'find-babel-config';
-import * as p from 'process';
 import merge from 'deepmerge';
 import { parse as parser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
@@ -9,12 +6,7 @@ import {
     isTSModuleDeclaration,
 } from '@babel/types';
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
-
-export function getBabelConf() {
-    const { config } = findBabelConfig.sync(p.cwd());
-
-    return config || {};
-}
+import { getBabelConf } from './get-babel-conf';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
     const { importOrder, importOrderSeparation } = options;
