@@ -2,12 +2,9 @@
 import findBabelConfig from 'find-babel-config';
 import * as p from 'process';
 import merge from 'deepmerge';
-import { parse as parser, ParserOptions } from '@babel/parser';
+import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
-import {
-    ImportDeclaration,
-    isTSModuleDeclaration,
-} from '@babel/types';
+import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
 
 export function getBabelConf() {
@@ -17,22 +14,40 @@ export function getBabelConf() {
 }
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
-    const { importOrder, importOrderSeparation } = options;
+    const {
+        importOrder,
+        importOrderSeparation,
+        parser: selectedPrettierParser,
+    } = options;
+
+    const isTSParserUsed = selectedPrettierParser === 'typescript';
+    const angularPlugins = [
+        ['decorators', { decoratorsBeforeExport: true }],
+        'classProperties',
+    ];
+
+    console.log({ isTSParserUsed });
 
     const importNodes: ImportDeclaration[] = [];
 
     const defaultConfig = {
         sourceType: 'module',
-        plugins: ['typescript', 'jsx'],
+        plugins: [
+            'typescript',
+            'jsx',
+            ...(isTSParserUsed ? angularPlugins : []),
+        ],
     } as ParserOptions;
     const babelConfig = getBabelConf();
     const mergedOptions = merge(defaultConfig, babelConfig);
 
-    const ast = parser(code, mergedOptions);
+    const ast = babelParser(code, mergedOptions);
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) => isTSModuleDeclaration(p));
+            const tsModuleParent = path.findParent((p) =>
+                isTSModuleDeclaration(p),
+            );
             if (!tsModuleParent) {
                 importNodes.push(path.node);
             }
