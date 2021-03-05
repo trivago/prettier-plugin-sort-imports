@@ -20,6 +20,7 @@ import { compact, isEqual, pull, clone } from 'lodash';
 export interface PrettierParserOptions extends RequiredOptions {
     importOrder: string[];
     importOrderSeparation: boolean;
+    experimentalBabelParserPluginsList: [];
 }
 
 const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE =

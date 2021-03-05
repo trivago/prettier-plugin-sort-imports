@@ -15,6 +15,13 @@ const options = {
         default: false,
         description: 'Should imports be separated by new line ?',
     },
+    experimentalBabelParserPluginsList: {
+        type: 'path',
+        category: 'Global',
+        array: true,
+        default: [{ value: [] }],
+        description: 'Provide a list of plugins for special syntax',
+    }
 };
 
 module.exports = {
