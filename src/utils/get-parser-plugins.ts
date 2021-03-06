@@ -6,7 +6,7 @@ import {
     decoratorsLegacy,
     classProperties,
     jsx,
-} from './constants';
+} from '../constants';
 
 export const getParserPlugins = (
     prettierParser: BuiltInParserName | CustomParser,

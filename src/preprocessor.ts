@@ -2,9 +2,14 @@ import merge from 'deepmerge';
 import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
-import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
-import { getBabelConf } from './utils/get-babel-conf';
-import { getParserPlugins } from './utils/get-parser-plugins';
+
+import {
+    getBabelConf,
+    getCodeFromAst,
+    getParserPlugins,
+    getSortedNodes,
+} from './utils';
+import { PrettierParserOptions } from './types';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
     const {
