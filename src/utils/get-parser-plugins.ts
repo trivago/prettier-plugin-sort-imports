@@ -1,7 +1,7 @@
+import { ParserPlugin } from '@babel/parser';
 import { BuiltInParserName, CustomParser } from 'prettier';
 import {
     flow,
-    babelFlow,
     typescript,
     decoratorsLegacy,
     classProperties,
@@ -10,13 +10,11 @@ import {
 
 export const getParserPlugins = (
     prettierParser: BuiltInParserName | CustomParser,
-) => {
-    const isFlow = prettierParser === flow || prettierParser === babelFlow;
+): ParserPlugin[] => {
+    const isFlow = prettierParser === flow;
     const isTypescript = prettierParser === typescript;
 
     const tsPlugins = [typescript, jsx, decoratorsLegacy, classProperties];
 
-    return [isFlow && flow, ...(isTypescript ? tsPlugins : [])].filter(
-        Boolean,
-    );
+    return [...(isFlow ? [flow] : []), ...(isTypescript ? tsPlugins : [])];
 };

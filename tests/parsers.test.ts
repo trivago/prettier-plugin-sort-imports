@@ -3,7 +3,7 @@ import prettier from 'prettier';
 import { getConfigWithParser } from './test-config';
 
 describe('Parsers', () => {
-    describe('babel-flow', () => {
+    describe('flow', () => {
         const code = `// I am top level comment in this file.
 import { type Something } from './__generated__/';
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
@@ -49,8 +49,8 @@ function add(a: number, b: number) {
     return a + b;
 }
 `;
-        test('formats with babel-flow', () => {
-            const config = getConfigWithParser('babel-flow');
+        test('formats with flow', () => {
+            const config = getConfigWithParser('flow');
             const output = prettier.format(code, config);
 
             expect(output).to.equal(formattedCode);

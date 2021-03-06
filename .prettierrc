@@ -6,6 +6,5 @@
     "jsxBracketSameLine": true,
     "semi": true,
     "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
-    "importOrderSeparation": true,
-    "experimentalBabelParserPluginsList": ["decorators-legacy", "classProperties"]
+    "importOrderSeparation": true
 }

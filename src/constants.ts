@@ -1,11 +1,11 @@
+import { ParserPlugin } from '@babel/parser';
 import { expressionStatement, stringLiteral } from '@babel/types';
 
-export const flow = 'flow';
-export const babelFlow = 'babel-flow';
-export const typescript = 'typescript';
-export const decoratorsLegacy = 'decorators-legacy';
-export const classProperties = 'classProperties';
-export const jsx = 'jsx';
+export const flow: ParserPlugin = 'flow';
+export const typescript: ParserPlugin = 'typescript';
+export const decoratorsLegacy: ParserPlugin = 'decorators-legacy';
+export const classProperties: ParserPlugin = 'classProperties';
+export const jsx: ParserPlugin = 'jsx';
 
 export const newLineCharacters = '\n\n';
 
