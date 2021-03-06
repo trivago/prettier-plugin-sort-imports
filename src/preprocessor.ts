@@ -1,27 +1,31 @@
 import merge from 'deepmerge';
-import { parse as parser, ParserOptions } from '@babel/parser';
+import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
-import { getBabelConf } from './get-babel-conf';
+import { getBabelConf } from './utils/get-babel-conf';
+import { getParserPlugins } from './utils/get-parser-plugins';
 
 export function preprocessor(code: string, options: PrettierParserOptions) {
     const {
         importOrder,
         importOrderSeparation,
+        parser: prettierParser,
         experimentalBabelParserPluginsList = [],
     } = options;
+
+    const plugins = getParserPlugins(prettierParser);
 
     const importNodes: ImportDeclaration[] = [];
 
     const defaultConfig = {
         sourceType: 'module',
-        plugins: ['typescript', 'jsx', ...experimentalBabelParserPluginsList],
+        plugins: [...plugins, ...experimentalBabelParserPluginsList],
     } as ParserOptions;
     const babelConfig = getBabelConf();
     const mergedOptions = merge(defaultConfig, babelConfig);
 
-    const ast = parser(code, mergedOptions);
+    const ast = babelParser(code, mergedOptions);
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {

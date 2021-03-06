@@ -34,6 +34,10 @@ module.exports = {
             ...babelParsers['babel-flow'],
             preprocess: preprocessor,
         },
+        flow: {
+            ...babelParsers.flow,
+            preprocess: preprocessor,
+        },
         typescript: {
             ...babelParsers['babel-ts'],
             preprocess: preprocessor,
