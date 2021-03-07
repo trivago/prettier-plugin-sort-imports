@@ -1,10 +1,8 @@
 import { Options } from 'prettier';
 
-export interface ModifiedOptions extends Options {
-    importOrder: string[];
-    importOrderSeparation?: boolean;
-    experimentalBabelParserPluginsList?: any[];
-}
+import { PrettierOptions } from '../src/types';
+
+export interface ModifiedOptions extends Partial<PrettierOptions> {}
 
 export const config: ModifiedOptions = {
     parser: 'typescript',

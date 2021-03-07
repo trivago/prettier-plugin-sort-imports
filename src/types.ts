@@ -1,7 +1,7 @@
 import { RequiredOptions } from 'prettier';
 
-export interface PrettierParserOptions extends RequiredOptions {
+export interface PrettierOptions extends RequiredOptions {
     importOrder: string[];
     importOrderSeparation: boolean;
-    experimentalBabelParserPluginsList: [];
+    experimentalBabelParserPluginsList: any[];
 }

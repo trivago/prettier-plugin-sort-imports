@@ -7,9 +7,9 @@ import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
 import { getBabelConf } from './utils/get-babel-conf';
 import { getParserPlugins } from './utils/get-parser-plugins';
-import { PrettierParserOptions } from './types';
+import { PrettierOptions } from './types';
 
-export function preprocessor(code: string, options: PrettierParserOptions) {
+export function preprocessor(code: string, options: PrettierOptions) {
     const {
         importOrder,
         importOrderSeparation,

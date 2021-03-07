@@ -11,7 +11,7 @@ import {
 } from '@babel/types';
 
 import { isSimilarTextExistInArray } from './is-similar-text-in-array';
-import { PrettierParserOptions } from '../types';
+import { PrettierOptions } from '../types';
 import { newLineNode } from '../constants';
 
 /**
@@ -23,7 +23,7 @@ import { newLineNode } from '../constants';
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
-    order: PrettierParserOptions['importOrder'],
+    order: PrettierOptions['importOrder'],
     importOrderSeparation: boolean,
 ) => {
     const originalNodes = nodes.map(clone);
