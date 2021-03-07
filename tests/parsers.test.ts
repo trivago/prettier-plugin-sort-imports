@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import prettier from 'prettier';
-import { getConfigWithParser } from './test-config';
+import { getConfigWithOptions } from './test-config';
 
 describe('Parsers', () => {
     describe('flow', () => {
@@ -50,7 +50,11 @@ function add(a: number, b: number) {
 }
 `;
         test('formats with flow', () => {
-            const config = getConfigWithParser('flow');
+            const config = getConfigWithOptions({
+                parser: 'flow',
+                importOrder: ['^@core/(.*)$', '^@server/(.*)', '^@ui/(.*)$', '^[./]'],
+                importOrderSeparation: true,
+            });
             const output = prettier.format(code, config);
 
             expect(output).to.equal(formattedCode);
@@ -100,7 +104,11 @@ function add(a, b) {
 }
 `;
         test('formats with babel', () => {
-            const config = getConfigWithParser('babel');
+            const config = getConfigWithOptions({
+                parser: 'babel',
+                importOrder: ['^@core/(.*)$', '^@server/(.*)', '^@ui/(.*)$', '^[./]'],
+                importOrderSeparation: true,
+            });
             const output = prettier.format(code, config);
 
             expect(output).to.equal(formattedCode);
@@ -171,7 +179,10 @@ export class AppComponent {
 `;
 
         test('formats with typescript', () => {
-            const config = getConfigWithParser('typescript');
+            const config = getConfigWithOptions({
+                importOrder: ['^@core/(.*)$', '^@server/(.*)', '^@ui/(.*)$', '^[./]'],
+                importOrderSeparation: true,
+            });
             const output = prettier.format(code, config);
 
             expect(output).to.equal(formattedCode);

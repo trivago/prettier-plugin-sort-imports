@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import prettier from 'prettier';
-import config, { configWithSeparation } from './test-config';
+import { config, configWithSeparation } from './test-config';
 
 describe('import export only', () => {
     const code = `import React from 'react';

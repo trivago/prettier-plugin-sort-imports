@@ -1,11 +1,12 @@
-import { Options, BuiltInParserName } from 'prettier';
+import { Options } from 'prettier';
 
-interface ModifiedOptions extends Options {
+export interface ModifiedOptions extends Options {
     importOrder: string[];
     importOrderSeparation?: boolean;
+    experimentalBabelParserPluginsList?: any[];
 }
 
-const config: ModifiedOptions = {
+export const config: ModifiedOptions = {
     parser: 'typescript',
     plugins: ['./src/index.ts'],
     importOrder: ['^@core/(.*)$', '^@server/(.*)', '^@ui/(.*)$', '^[./]'],
@@ -22,10 +23,7 @@ export const configWithSeparation: ModifiedOptions = {
     importOrderSeparation: true,
 };
 
-export const getConfigWithParser = (parserName: BuiltInParserName) => ({
+export const getConfigWithOptions = (options: ModifiedOptions) => ({
     ...config,
-    importOrderSeparation: true,
-    parser: parserName,
+    ...options,
 });
-
-export default config;

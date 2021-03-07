@@ -21,10 +21,10 @@ export function preprocessor(code: string, options: PrettierParserOptions) {
 
     const importNodes: ImportDeclaration[] = [];
 
-    const defaultConfig = {
+    const defaultConfig: ParserOptions = {
         sourceType: 'module',
         plugins: [...plugins, ...experimentalBabelParserPluginsList],
-    } as ParserOptions;
+    };
     const babelConfig = getBabelConf();
     const mergedOptions = merge(defaultConfig, babelConfig);
 

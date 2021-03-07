@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import prettier from 'prettier';
-import config, { configWithSeparation } from './test-config';
+import { config, configWithSeparation } from './test-config';
 
 describe('import with comments', () => {
     const code = `// I am top level comment in this file.
