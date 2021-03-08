@@ -5,7 +5,7 @@ import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
-import { getBabelConf } from './utils/get-babel-conf';
+import { getBabelConfing } from './utils/get-babel-config';
 import { getParserPlugins } from './utils/get-parser-plugins';
 import { PrettierOptions } from './types';
 
@@ -25,7 +25,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         sourceType: 'module',
         plugins: [...plugins, ...experimentalBabelParserPluginsList],
     };
-    const babelConfig = getBabelConf();
+    const babelConfig = getBabelConfing();
     const mergedOptions = merge(defaultConfig, babelConfig);
 
     const ast = babelParser(code, mergedOptions);

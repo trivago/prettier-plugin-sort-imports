@@ -2,7 +2,7 @@
 import findBabelConfig from 'find-babel-config';
 import * as p from 'process';
 
-export function getBabelConf() {
+export function getBabelConfing() {
     const { config } = findBabelConfig.sync(p.cwd());
 
     return config || {};
