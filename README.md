@@ -47,7 +47,7 @@ is the string provided in import order.
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
 
-### `experimentalBabelParserPluginsList`
+#### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
 
 
