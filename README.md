@@ -103,13 +103,6 @@ The plugin automatically ignores the  `*.d.ts` files. We encourage you to declar
 
 #### Q. How does the plugin handle the first comment in the file. 
 The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
-
-#### Q. I'm getting error about experimental syntax.
-If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
-```shell script
-SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
-```
-To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
 **input:**
 ```js
 // comment
@@ -121,6 +114,13 @@ import a from 'a'
 // comment
 import a from 'a'
 ```
+
+#### Q. I'm getting error about experimental syntax.
+If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
+```shell script
+SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
+```
+To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
 
 ### Maintainers
 
