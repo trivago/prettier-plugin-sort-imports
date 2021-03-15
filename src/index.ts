@@ -1,6 +1,6 @@
 import { parsers as babelParsers } from 'prettier/parser-babel';
+import { parsers as flowParsers } from 'prettier/parser-flow';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
-import { parsers as babelFlowParsers } from 'prettier/parser-flow';
 import { preprocessor } from './preprocessor';
 
 const options = {
@@ -17,6 +17,13 @@ const options = {
         default: false,
         description: 'Should imports be separated by new line ?',
     },
+    experimentalBabelParserPluginsList: {
+        type: 'path',
+        category: 'Global',
+        array: true,
+        default: [{ value: [] }],
+        description: 'Provide a list of plugins for special syntax',
+    }
 };
 
 module.exports = {
@@ -25,8 +32,8 @@ module.exports = {
             ...babelParsers.babel,
             preprocess: preprocessor,
         },
-        'babel-flow': {
-            ...babelFlowParsers.flow,
+        flow: {
+            ...flowParsers.flow,
             preprocess: preprocessor,
         },
         typescript: {

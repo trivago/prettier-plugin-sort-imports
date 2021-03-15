@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import prettier from 'prettier';
-import config, { configWithSeparation } from './test-config';
+import { config, configWithSeparation } from './test-config';
 
 describe('no third party imports', () => {
     const code = `// I am top level comment
