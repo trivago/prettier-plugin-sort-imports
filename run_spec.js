@@ -7,7 +7,7 @@ const prettier = require("prettier");
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
         {
-            plugins: [`${__dirname}/../`],
+            plugins: ["."],
             tabWidth: 4
         },
         options
