@@ -2,7 +2,12 @@
 
 A prettier plugin to sort import declarations by provided RegEx order.
 
-![import order gif](./import-sort.gif)
+### Input
+![input](./public/images/input.png)
+
+### Output
+![output](./public/images/output.png)
+
 
 ### Install
 
@@ -49,6 +54,20 @@ between sorted import declarations. The separation takes place according to `imp
 
 #### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
+
+```ecmascript 6
+module.exports = {
+  "printWidth": 80,
+  "tabWidth": 4,
+  "trailingComma": "all",
+  "singleQuote": true,
+  "jsxBracketSameLine": true,
+  "semi": true,
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "experimentalBabelParserPluginsList" : ["jsx", "typescript"]
+}
+```
 
 
 ### How does import sort work ?
