@@ -3,6 +3,10 @@ import { parsers as flowParsers } from 'prettier/parser-flow';
 import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 import { preprocessor } from './preprocessor';
 
+import prettier from 'prettier';
+
+const bla: prettier.Options = {};
+
 const options = {
     importOrder: {
         type: 'path',
@@ -23,7 +27,7 @@ const options = {
         array: true,
         default: [{ value: [] }],
         description: 'Provide a list of plugins for special syntax',
-    }
+    },
 };
 
 module.exports = {

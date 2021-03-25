@@ -27,50 +27,48 @@ export const getSortedNodes = (
     importOrderSeparation: boolean,
 ) => {
     const originalNodes = nodes.map(clone);
+
+    // ignore empty regex separation if importOrderSeparation is true to not break existing configs
+    order = importOrderSeparation ? compact(order) : order;
+
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-    const sortedNodesByImportOrder = order.reduce(
-        (
-            res: (ImportDeclaration | ExpressionStatement)[],
-            val,
-        ): (ImportDeclaration | ExpressionStatement)[] => {
-            const x = originalNodes.filter(
-                (node) => node.source.value.match(new RegExp(val)) !== null,
-            );
+    const sortedNodesByImportOrder = order.reduce((res, val) => {
+        if (val === '') return [...res, newLineNode];
+        const x = originalNodes.filter(
+            (node) => node.source.value.match(new RegExp(val)) !== null,
+        );
 
-            // remove "found" imports from the list of nodes
-            pull(originalNodes, ...x);
+        // remove "found" imports from the list of nodes
+        pull(originalNodes, ...x);
 
-            if (x.length > 0) {
-                x.sort((a, b) => naturalSort(a.source.value, b.source.value));
-
-                if (res.length > 0) {
-                    return compact([...res, newLine, ...x]);
-                }
-                return x;
+        if (x.length > 0) {
+            x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+            if (res.length > 0) {
+                return compact([...res, newLine, ...x]);
             }
-            return res;
-        },
-        [],
-    );
+            return x;
+        }
+        return res;
+    }, [] as (ImportDeclaration | ExpressionStatement)[]);
 
     const sortedNodesNotInImportOrder = originalNodes.filter(
-        (node) => !isSimilarTextExistInArray(order, node.source.value),
+        (node) => !isSimilarTextExistInArray(compact(order), node.source.value),
     );
 
     sortedNodesNotInImportOrder.sort((a, b) =>
         naturalSort(a.source.value, b.source.value),
     );
 
-    const shouldAddNewLineInBetween =
-        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
-
     const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,
-        shouldAddNewLineInBetween ? newLineNode : null,
+        newLine,
         ...sortedNodesByImportOrder,
         newLineNode, // insert a newline after all sorted imports
     ]);
+    if (allSortedNodes.length > 1 && allSortedNodes[0] === newLineNode) {
+        allSortedNodes.shift(); // remove trailing new line
+    }
 
     // maintain a copy of the nodes to extract comments from
     const sortedNodesClone = allSortedNodes.map(clone);
