@@ -13,5 +13,5 @@
         "",
         "^[./]"
     ],
-    "importOrderSeparation": true
+    "importOrderSeparation": false
 }
