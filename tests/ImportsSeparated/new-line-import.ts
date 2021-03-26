@@ -1,0 +1,5 @@
+/*
+ * Comment block
+ */
+
+import './commands';

@@ -82,51 +82,6 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-with-comments-and-new-line-on-top.ts - typescript-verify: imports-with-comments-and-new-line-on-top.ts 1`] = `
-// I am top level comment in this file.
-// I am second line of top level comment in this file.
-
-import z from 'z';
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
-import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
-import qwerty from "@server/qwerty";
-
-function add(a:number,b:number) {
-  return a + b;
-}
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// I am top level comment in this file.
-// I am second line of top level comment in this file.
-
-import thirdParty from "third-party";
-import z from "z";
-import abc from "@core/abc";
-import otherthing from "@core/otherthing";
-import qwerty from "@server/qwerty";
-import something from "@server/something";
-import component from "@ui/hello";
-import xyz from "@ui/xyz";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
-
-function add(a: number, b: number) {
-    return a + b;
-}
-
-`;
-
 exports[`imports-with-comments-and-third-party.ts - typescript-verify: imports-with-comments-and-third-party.ts 1`] = `
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
@@ -287,6 +242,21 @@ import component from "@ui/hello";
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 // I am comment
 import twoLevelRelativePath from "../../twoLevelRelativePath";
+
+`;
+
+exports[`new-line-import.ts - typescript-verify: new-line-import.ts 1`] = `
+/*
+ * Comment block
+ */
+
+import './commands';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/*
+ * Comment block
+ */
+
+import "./commands";
 
 `;
 
