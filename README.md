@@ -2,7 +2,12 @@
 
 A prettier plugin to sort import declarations by provided RegEx order.
 
-![import order gif](./import-sort.gif)
+### Input
+![input](./public/images/input.png)
+
+### Output
+![output](./public/images/output.png)
+
 
 ### Install
 
@@ -46,6 +51,23 @@ is the string provided in import order.
 #### `importOrderSeparation`
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
+
+#### `experimentalBabelParserPluginsList`
+A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
+
+```ecmascript 6
+module.exports = {
+  "printWidth": 80,
+  "tabWidth": 4,
+  "trailingComma": "all",
+  "singleQuote": true,
+  "jsxBracketSameLine": true,
+  "semi": true,
+  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+  "importOrderSeparation": true,
+  "experimentalBabelParserPluginsList" : ["jsx", "typescript"]
+}
+```
 
 
 ### How does import sort work ?
@@ -99,7 +121,7 @@ npm run example examples/example.tsx
 The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. (Read more here)[https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore].  
 
 #### Q. How does the plugin handle the first comment in the file. 
-The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import. 
+The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
 **input:**
 ```js
 // comment
@@ -111,6 +133,13 @@ import a from 'a'
 // comment
 import a from 'a'
 ```
+
+#### Q. I'm getting error about experimental syntax.
+If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
+```shell script
+SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
+```
+To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
 
 ### Maintainers
 

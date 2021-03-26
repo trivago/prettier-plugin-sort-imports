@@ -1,30 +1,36 @@
-import { parse as parser, ParserOptions } from '@babel/parser';
-import { merge } from 'lodash';
-import { loadPartialConfig } from '@babel/core';
+import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
-import {
-    ImportDeclaration,
-    isTSModuleDeclaration,
-} from '@babel/types';
-import { PrettierParserOptions, getCodeFromAst, getSortedNodes } from './utils';
+import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
-export function preprocessor(code: string, options: PrettierParserOptions) {
-    const { importOrder, importOrderSeparation } = options;
+import { getCodeFromAst } from './utils/get-code-from-ast';
+import { getSortedNodes } from './utils/get-sorted-nodes';
+import { getParserPlugins } from './utils/get-parser-plugins';
+import { PrettierOptions } from './types';
+
+export function preprocessor(code: string, options: PrettierOptions) {
+    const {
+        importOrder,
+        importOrderSeparation,
+        parser: prettierParser,
+        experimentalBabelParserPluginsList = [],
+    } = options;
+
+    const plugins = getParserPlugins(prettierParser);
 
     const importNodes: ImportDeclaration[] = [];
 
-    const defaultConfig = {
+    const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: ['typescript', 'jsx'],
-    } as ParserOptions;
-    const babelConfig = loadPartialConfig() as ParserOptions;
-    const mergedOptions = merge(defaultConfig, babelConfig);
+        plugins: [...plugins, ...experimentalBabelParserPluginsList],
+    };
 
-    const ast = parser(code, mergedOptions);
+    const ast = babelParser(code, parserOptions);
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) => isTSModuleDeclaration(p));
+            const tsModuleParent = path.findParent((p) =>
+                isTSModuleDeclaration(p),
+            );
             if (!tsModuleParent) {
                 importNodes.push(path.node);
             }
