@@ -94,7 +94,7 @@ export const getSortedNodes = (
     if (firstNodesComments) {
 
       const firstNodesLastComment = firstNodesComments[firstNodesComments.length - 1];
-      const totalNewLines = (nodes[0]?.loc?.start.line || 0) - firstNodesLastComment.loc.start.line - 1;
+      const totalNewLines = (nodes[0]?.loc?.start.line || 0) - firstNodesLastComment.loc.end.line - 1;
 
       if (totalNewLines > 0) {
         allSortedNodes.unshift(newLineNode);
