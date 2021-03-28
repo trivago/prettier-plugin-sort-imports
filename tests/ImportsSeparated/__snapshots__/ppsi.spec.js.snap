@@ -237,6 +237,40 @@ function add(a: number, b: number) {
 
 `;
 
+exports[`imports-with-interpreter-directive.ts - typescript-verify: imports-with-interpreter-directive.ts 1`] = `
+#!/usr/bin/env node
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+import qwerty from "@server/qwerty";
+
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/usr/bin/env node
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import qwerty from "@server/qwerty";
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
 exports[`imports-without-third-party.ts - typescript-verify: imports-without-third-party.ts 1`] = `
 // I am top level comment
 import otherthing from "@core/otherthing";

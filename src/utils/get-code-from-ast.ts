@@ -1,5 +1,5 @@
 import generate from '@babel/generator';
-import { file, Statement } from '@babel/types';
+import { file, Statement, InterpreterDirective } from '@babel/types';
 
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
 import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
@@ -10,7 +10,11 @@ import { newLineCharacters } from '../constants';
  * @param nodes all imports
  * @param originalCode
  */
-export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
+export const getCodeFromAst = (
+    nodes: Statement[],
+    originalCode: string,
+    interpreter: InterpreterDirective | null | undefined,
+) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
     const commentAndImportsToRemoveFromCode = [
@@ -23,12 +27,16 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
         commentAndImportsToRemoveFromCode,
     );
 
+    const codeWithoutInterpreterDirective = interpreter
+        ? codeWithoutImportDeclarations.replace(`#!${interpreter.value}`, '')
+        : codeWithoutImportDeclarations;
+
     const newAST = file({
         type: 'Program',
         body: nodes,
         directives: [],
         sourceType: 'module',
-        interpreter: null,
+        interpreter: interpreter ? interpreter : null,
         sourceFile: '',
         leadingComments: [],
         innerComments: [],
@@ -47,6 +55,6 @@ export const getCodeFromAst = (nodes: Statement[], originalCode: string) => {
         code.replace(
             /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
             newLineCharacters,
-        ) + codeWithoutImportDeclarations.trim()
+        ) + codeWithoutInterpreterDirective.trim()
     );
 };

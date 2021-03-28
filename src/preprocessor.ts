@@ -26,6 +26,10 @@ export function preprocessor(code: string, options: PrettierOptions) {
 
     const ast = babelParser(code, parserOptions);
 
+    const {
+        program: { interpreter },
+    } = ast;
+
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
@@ -46,5 +50,5 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
     );
 
-    return getCodeFromAst(allImports, code);
+    return getCodeFromAst(allImports, code, interpreter);
 }
