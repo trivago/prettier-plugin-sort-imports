@@ -17,19 +17,16 @@ export const getCodeFromAst = (
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
-    const commentAndImportsToRemoveFromCode = [
+    const nodesToRemoveFromCode = [
         ...nodes,
         ...allCommentsFromImports,
+        ...(interpreter ? [interpreter] : []),
     ];
 
-    const codeWithoutImportDeclarations = removeNodesFromOriginalCode(
+    const codeWithoutImportsAndInterpreter = removeNodesFromOriginalCode(
         originalCode,
-        commentAndImportsToRemoveFromCode,
+        nodesToRemoveFromCode,
     );
-
-    const codeWithoutInterpreterDirective = interpreter
-        ? codeWithoutImportDeclarations.replace(`#!${interpreter.value}`, '')
-        : codeWithoutImportDeclarations;
 
     const newAST = file({
         type: 'Program',
@@ -55,6 +52,6 @@ export const getCodeFromAst = (
         code.replace(
             /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
             newLineCharacters,
-        ) + codeWithoutInterpreterDirective.trim()
+        ) + codeWithoutImportsAndInterpreter.trim()
     );
 };
