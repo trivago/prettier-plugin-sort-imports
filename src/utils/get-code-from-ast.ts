@@ -13,7 +13,7 @@ import { newLineCharacters } from '../constants';
 export const getCodeFromAst = (
     nodes: Statement[],
     originalCode: string,
-    interpreter: InterpreterDirective | null,
+    interpreter?: InterpreterDirective | null,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
