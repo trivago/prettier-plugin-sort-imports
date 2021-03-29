@@ -25,10 +25,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
     };
 
     const ast = babelParser(code, parserOptions);
-
-    const {
-        program: { interpreter },
-    } = ast;
+    const interpreter = ast.program.interpreter || null;
 
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
