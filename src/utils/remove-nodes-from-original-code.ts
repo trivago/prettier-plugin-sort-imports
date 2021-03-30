@@ -3,6 +3,7 @@ import {
     Statement,
     CommentBlock,
     CommentLine,
+    InterpreterDirective,
 } from '@babel/types';
 
 /**
@@ -12,7 +13,13 @@ import {
  */
 export const removeNodesFromOriginalCode = (
     code: string,
-    nodes: (Statement | CommentBlock | CommentLine | ImportDeclaration)[],
+    nodes: (
+        | Statement
+        | CommentBlock
+        | CommentLine
+        | ImportDeclaration
+        | InterpreterDirective
+    )[],
 ) => {
     let text = code;
     for (const node of nodes) {
