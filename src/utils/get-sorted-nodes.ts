@@ -11,6 +11,7 @@ import {
 } from '@babel/types';
 
 import { isSimilarTextExistInArray } from './is-similar-text-in-array';
+import { getSortedSpecifiers } from '../utils/get-sorted-specifiers';
 import { PrettierOptions } from '../types';
 import { newLineNode } from '../constants';
 
@@ -66,9 +67,9 @@ export const getSortedNodes = (
         sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
 
     const allSortedNodes = compact([
-        ...sortedNodesNotInImportOrder,
+        ...sortedNodesNotInImportOrder.map(getSortedSpecifiers),
         shouldAddNewLineInBetween ? newLineNode : null,
-        ...sortedNodesByImportOrder,
+        ...sortedNodesByImportOrder.map(getSortedSpecifiers),
         newLineNode, // insert a newline after all sorted imports
     ]);
 

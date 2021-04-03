@@ -255,6 +255,84 @@ function add(a: number, b: number) {
 
 `;
 
+exports[`imports-with-multiple-specifiers.ts - typescript-verify: imports-with-multiple-specifiers.ts 1`] = `
+// top comment
+import {
+    aLetter,
+    zLetter, // in-between comment
+    bLetter,
+} from './random';
+export default {
+    title: 'hello',
+};
+// fourth level import comment
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+// some comment
+import something from "@server/something";
+/**
+ * there is a block comment
+ */
+import {
+    a,
+    c, // this is c
+    j, // this is j
+    q,
+    b,
+    d, // this is d
+} from 'xkcd';
+
+import {
+    dayCalendarPath,
+    weekCalendarPath,
+    monthCalendarPath,
+    agendaCalendarPath,
+  } from "../path_helpers/calendar_paths";
+
+// function comment
+function add(a:number,b:number) {
+  return a + b; // I am inside function
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// top comment
+
+/**
+ * there is a block comment
+ */
+import {
+    a,
+    b,
+    c, // this is c
+    d, // this is d
+    j, // this is j
+    q,
+} from "xkcd";
+// some comment
+import something from "@server/something";
+// fourth level import comment
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import {
+    agendaCalendarPath,
+    dayCalendarPath,
+    monthCalendarPath,
+    weekCalendarPath,
+} from "../path_helpers/calendar_paths";
+import {
+    aLetter,
+    bLetter,
+    zLetter, // in-between comment
+} from "./random";
+
+export default {
+    title: "hello",
+};
+
+// function comment
+function add(a: number, b: number) {
+    return a + b; // I am inside function
+}
+
+`;
+
 exports[`imports-without-third-party.ts - typescript-verify: imports-without-third-party.ts 1`] = `
 // I am top level comment
 import otherthing from "@core/otherthing";
