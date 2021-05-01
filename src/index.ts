@@ -17,6 +17,12 @@ const options = {
         default: false,
         description: 'Should imports be separated by new line ?',
     },
+    keepOriginalOrderInGroups: {
+        type: 'boolean',
+        category: 'Global',
+        default: false,
+        description: 'Save initial order inside groups? (default: false)',
+    },
     experimentalBabelParserPluginsList: {
         type: 'path',
         category: 'Global',

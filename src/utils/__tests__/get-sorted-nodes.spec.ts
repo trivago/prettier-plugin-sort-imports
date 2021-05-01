@@ -41,7 +41,7 @@ const getSortedNodesNames = (imports: ImportDeclaration[]) =>
 
 test('it returns all sorted nodes', () => {
     const result = getImportNodes(code);
-    const sorted = getSortedNodes(result, [], false) as ImportDeclaration[];
+    const sorted = getSortedNodes(result, [], false, false) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual(['a', 'c', 'g', 'k', 't', 'z']);
 });
@@ -52,6 +52,7 @@ test('it returns all sorted nodes with sort order', () => {
         result,
         ['^a$', '^t$', '^k$'],
         true,
+        false,
     ) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual(['c', 'g', 'z', 'a', 't', 'k']);

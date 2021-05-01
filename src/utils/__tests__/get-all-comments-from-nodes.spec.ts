@@ -27,7 +27,7 @@ const getSortedImportNodes = (code: string, options?: ParserOptions) => {
         },
     });
 
-    return getSortedNodes(importNodes, [], false);
+    return getSortedNodes(importNodes, [], false, false);
 };
 
 const getComments = (commentNodes: (CommentBlock | CommentLine)[]) =>

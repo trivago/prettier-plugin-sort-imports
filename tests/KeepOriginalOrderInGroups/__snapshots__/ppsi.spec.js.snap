@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`default-plus-one-group.ts - typescript-verify: default-plus-one-group.ts 1`] = `
+import styles from '../src/styles/main.module.scss';
+import { SIZE, THEMES } from '../src/components/website/vars';
+import { titleize } from '../src/components/common/utils';
+import PatternSection from '../src/components/website/components/pattern/PatternSection';
+import PatternBlock from '../src/components/website/components/pattern/PatternBlock';
+import * as React from 'react';
+import PatternHeading from '../src/components/website/components/pattern/PatternHeading';
+import cn from 'classnames';
+import { select } from '@storybook/addon-knobs';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import * as React from "react";
+import cn from "classnames";
+import { select } from "@storybook/addon-knobs";
+
+import styles from "../src/styles/main.module.scss";
+import { SIZE, THEMES } from "../src/components/website/vars";
+import { titleize } from "../src/components/common/utils";
+import PatternSection from "../src/components/website/components/pattern/PatternSection";
+import PatternBlock from "../src/components/website/components/pattern/PatternBlock";
+import PatternHeading from "../src/components/website/components/pattern/PatternHeading";
+
+`;
+
+exports[`only-default-group.ts - typescript-verify: only-default-group.ts 1`] = `
+import * as React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { configure, addDecorator } from '@storybook/react';
+import requireContext from 'require-context.macro';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import * as React from "react";
+import { MemoryRouter } from "react-router-dom";
+import { configure, addDecorator } from "@storybook/react";
+import requireContext from "require-context.macro";
+
+`;
+
+exports[`only-non-default-group.ts - typescript-verify: only-non-default-group.ts 1`] = `
+import { ALIGNMENT, PATTERN_LENGTH, THEMES } from '../src/components/website/vars';
+import Pattern from '../src/components/website/components/pattern/Pattern';
+import PatternHeading from '../src/components/website/components/pattern/PatternHeading';
+import PatternAvatar from '../src/components/website/components/pattern/PatternAvatar';
+import PatternParagraph from '../src/components/website/components/pattern/PatternParagraph';
+import PatternSection from '../src/components/website/components/pattern/PatternSection';
+import PatternButton from '../src/components/website/components/pattern/PatternButton';
+import PatternActions from '../src/components/website/components/pattern/PatternActions';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {
+    ALIGNMENT,
+    PATTERN_LENGTH,
+    THEMES,
+} from "../src/components/website/vars";
+import Pattern from "../src/components/website/components/pattern/Pattern";
+import PatternHeading from "../src/components/website/components/pattern/PatternHeading";
+import PatternAvatar from "../src/components/website/components/pattern/PatternAvatar";
+import PatternParagraph from "../src/components/website/components/pattern/PatternParagraph";
+import PatternSection from "../src/components/website/components/pattern/PatternSection";
+import PatternButton from "../src/components/website/components/pattern/PatternButton";
+import PatternActions from "../src/components/website/components/pattern/PatternActions";
+
+`;
+
+exports[`two-non-default-groups.ts - typescript-verify: two-non-default-groups.ts 1`] = `
+import Template from './components/common/Template/Template';
+import dynamicPages from './dynamic_pages/common/dynamicPages';
+import LoadingScreen from './components/common/LoadingScreen/LoadingScreen';
+
+import { ALIGNMENT, PATTERN_LENGTH, THEMES } from '../src/components/website/vars';
+import Pattern from '../src/components/website/components/pattern/Pattern';
+import PatternHeading from '../src/components/website/components/pattern/PatternHeading';
+import PatternAvatar from '../src/components/website/components/pattern/PatternAvatar';
+import PatternParagraph from '../src/components/website/components/pattern/PatternParagraph';
+import PatternSection from '../src/components/website/components/pattern/PatternSection';
+import PatternButton from '../src/components/website/components/pattern/PatternButton';
+import PatternActions from '../src/components/website/components/pattern/PatternActions';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import {
+    ALIGNMENT,
+    PATTERN_LENGTH,
+    THEMES,
+} from "../src/components/website/vars";
+import Pattern from "../src/components/website/components/pattern/Pattern";
+import PatternHeading from "../src/components/website/components/pattern/PatternHeading";
+import PatternAvatar from "../src/components/website/components/pattern/PatternAvatar";
+import PatternParagraph from "../src/components/website/components/pattern/PatternParagraph";
+import PatternSection from "../src/components/website/components/pattern/PatternSection";
+import PatternButton from "../src/components/website/components/pattern/PatternButton";
+import PatternActions from "../src/components/website/components/pattern/PatternActions";
+
+import Template from "./components/common/Template/Template";
+import dynamicPages from "./dynamic_pages/common/dynamicPages";
+import LoadingScreen from "./components/common/LoadingScreen/LoadingScreen";
+
+`;

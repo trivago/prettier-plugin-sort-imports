@@ -25,6 +25,7 @@ export const getSortedNodes = (
     nodes: ImportDeclaration[],
     order: PrettierOptions['importOrder'],
     importOrderSeparation: boolean,
+    keepOriginalOrderInGroups: boolean,
 ) => {
     const originalNodes = nodes.map(clone);
     const newLine =
@@ -42,7 +43,9 @@ export const getSortedNodes = (
             pull(originalNodes, ...x);
 
             if (x.length > 0) {
-                x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+                if (!keepOriginalOrderInGroups) {
+                    x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+                }
 
                 if (res.length > 0) {
                     return compact([...res, newLine, ...x]);
@@ -57,10 +60,11 @@ export const getSortedNodes = (
     const sortedNodesNotInImportOrder = originalNodes.filter(
         (node) => !isSimilarTextExistInArray(order, node.source.value),
     );
-
-    sortedNodesNotInImportOrder.sort((a, b) =>
-        naturalSort(a.source.value, b.source.value),
-    );
+    if (!keepOriginalOrderInGroups) {
+        sortedNodesNotInImportOrder.sort((a, b) =>
+            naturalSort(a.source.value, b.source.value),
+        );
+    }
 
     const shouldAddNewLineInBetween =
         sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
