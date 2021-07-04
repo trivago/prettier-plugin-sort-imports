@@ -7,6 +7,12 @@ export const jsx: ParserPlugin = 'jsx';
 
 export const newLineCharacters = '\n\n';
 
+/*
+ * Used to mark the position between RegExps,
+ * where the not matched imports should be placed
+ */
+export const THIRD_PARTY_MODULES_SPECIAL_WORD = '<THIRD_PARTY_MODULES>'
+
 const PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE =
     'PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE';
 

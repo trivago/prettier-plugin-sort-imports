@@ -44,10 +44,13 @@ module.exports = {
 ### APIs
 
 #### `importOrder`
-A collection of regular expressions in string format. The plugin
+A collection of:
+- Regular expressions in string format. The plugin
 uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
 to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
+- Special words (optional):
+   - `<3RD_PARTY>` - marks the position between RegExps, where the not matched imports will be placed. By default, it's the top position (above all the groups in `importOrder`).
 
 #### `importOrderCaseInsensitive`
 A boolean value to enable case-insensitivity in the sorting algorithm 
@@ -103,10 +106,12 @@ These imports are _local imports_. The imports which are not part of the
 `importOrder` is considered as _3rd party imports_.
 
 After, the plugin sorts the _local imports_ and _3rd party imports_ using
-[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order), 
-with case-insensitivity specified by `importOrderCaseInsensitive` (or false by default).
-In the end, the plugin returns final imports with _3rd party imports_ on top and 
-_local imports_ at the end.
+
+[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+
+In the end, the plugin returns final imports with _3rd party imports_ on top and _local imports_ at the end.
+
+The _3rd party imports_ position (it's top by default) can be overrided using the `<3RD_PARTY>` special word.
 
 ### FAQ / Troubleshooting
 
@@ -132,6 +137,20 @@ import p from '@ui/p';
 import q from '@ui/q';
 import a from '@server/a';
 import z from '@server/z';
+import s from './';
+```
+
+#### Q. How can I move `react` and `classnames` to place between my RegEx imports without hardcoding?
+You can define the `<3RD_PARTY>` special word in the `importOrder`. For example above, the `importOrder` would be like `["^@ui/(.*)$", "^@server/(.*)$", "<3RD_PARTY>", '^[./]']`. 
+Now, the final output would be as follows:
+
+```ecmascript 6
+import p from '@ui/p';
+import q from '@ui/q';
+import a from '@server/a';
+import z from '@server/z';
+import classnames from 'classnames';
+import React from 'react';
 import s from './';
 ```
 

@@ -314,3 +314,18 @@ test('it returns all sorted nodes with sort order case-insensitive and sorted mo
         ['BY'],
     ]);
 });
+
+test('it returns all sorted nodes with custom REST position', () => {
+    const result = getImportNodes(code);
+    const sorted = getSortedNodes(
+        result,
+        {
+            importOrder: ['^a$', '<3RD_PARTY>', '^t$', '^k$'],
+            importOrderSeparation:false,
+            importOrderCaseInsensitive: true,
+            importOrderSortSpecifiers: true,
+        }
+    ) as ImportDeclaration[];
+    expect(sorted).toMatchSnapshot();
+    expect(getSortedNodesNames(sorted)).toEqual(['a', 'c', 'g', 'z', 't', 'k']);
+})
