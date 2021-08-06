@@ -1,5 +1,5 @@
 import { ParserPlugin } from '@babel/parser';
-import { BuiltInParserName, CustomParser } from 'prettier';
+import { RequiredOptions } from 'prettier';
 import {
     flow,
     typescript,
@@ -14,7 +14,7 @@ import {
  * @returns list of parser plugins to be passed to babel parser
  */
 export const getParserPlugins = (
-    prettierParser: BuiltInParserName | CustomParser,
+    prettierParser: RequiredOptions['parser'],
 ): ParserPlugin[] => {
     const isFlow = prettierParser === flow;
     const isTypescript = prettierParser === typescript;
