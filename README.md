@@ -152,7 +152,7 @@ To solve this issue, you can use the new option `experimentalBabelParserPluginsL
 | Svelte    | ❌ Not supported                           | Any contribution is welcome. |
 
 ### Contribution
-For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING).
+For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING.md).
 
 ### Maintainers
 
