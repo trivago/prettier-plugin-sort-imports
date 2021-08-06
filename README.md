@@ -154,6 +154,9 @@ To solve this issue, you can use the new option `experimentalBabelParserPluginsL
 ### Contribution
 For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING.md).
 
+### Disclaimer
+This plugin modifies the AST which is against the rules of prettier.
+
 ### Maintainers
 
 |  [Ayush Sharma](https://github.com/ayusharma) | [Behrang Yarahmadi](https://github.com/byara)
