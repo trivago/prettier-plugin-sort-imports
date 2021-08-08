@@ -11,6 +11,10 @@ import g from 'g';
 import t from 't';
 import k from 'k';
 import a from 'a';
+import BY from 'BY';
+import Ba from 'Ba';
+import XY from 'XY';
+import Xa from 'Xa';
 `;
 
 const getImportNodes = (code: string, options?: ParserOptions) => {
@@ -41,18 +45,38 @@ const getSortedNodesNames = (imports: ImportDeclaration[]) =>
 
 test('it returns all sorted nodes', () => {
     const result = getImportNodes(code);
-    const sorted = getSortedNodes(result, [], false) as ImportDeclaration[];
+    const sorted = getSortedNodes(result, [], false, false) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
-    expect(getSortedNodesNames(sorted)).toEqual(['a', 'c', 'g', 'k', 't', 'z']);
+    expect(getSortedNodesNames(sorted)).toEqual(['BY', 'Ba', 'XY', 'Xa', 'a', 'c', 'g', 'k', 't', 'z']);
+});
+
+test('it returns all sorted nodes case-insensitive', () => {
+  const result = getImportNodes(code);
+  const sorted = getSortedNodes(result, [], false, true) as ImportDeclaration[];
+  expect(sorted).toMatchSnapshot();
+  expect(getSortedNodesNames(sorted)).toEqual(['a', 'Ba', 'BY', 'c', 'g', 'k', 't', 'Xa', 'XY', 'z']);
 });
 
 test('it returns all sorted nodes with sort order', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(
         result,
-        ['^a$', '^t$', '^k$'],
+        ['^a$', '^t$', '^k$', '^B'],
         true,
+        false,
     ) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
-    expect(getSortedNodesNames(sorted)).toEqual(['c', 'g', 'z', 'a', 't', 'k']);
+    expect(getSortedNodesNames(sorted)).toEqual(['XY', 'Xa', 'c', 'g', 'z', 'a', 't', 'k', 'BY', 'Ba']);
+});
+
+test('it returns all sorted nodes with sort order case-insensitive', () => {
+  const result = getImportNodes(code);
+  const sorted = getSortedNodes(
+      result,
+      ['^a$', '^t$', '^k$', '^B'],
+      true,
+      true,
+  ) as ImportDeclaration[];
+  expect(sorted).toMatchSnapshot();
+  expect(getSortedNodesNames(sorted)).toEqual(['c', 'g', 'Xa', 'XY', 'z', 'a', 't', 'k', 'Ba', 'BY']);
 });

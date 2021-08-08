@@ -39,7 +39,7 @@ import a from 'a';
 
 test('it should remove nodes from the original code', () => {
     const importNodes = getImportNodes(code);
-    const sortedNodes = getSortedNodes(importNodes, [], false);
+    const sortedNodes = getSortedNodes(importNodes, [], false, false);
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
 
     const commentAndImportsToRemoveFromCode = [
