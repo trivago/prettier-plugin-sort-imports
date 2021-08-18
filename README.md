@@ -141,6 +141,22 @@ SyntaxError: This experimental syntax requires enabling one of the following par
 ```
 To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
 
+### Compatibility
+| Framework | Supported                                | Note                         |
+|-----------|------------------------------------------|------------------------------|
+| JS with ES Modules     | ✅ Everything                              | -                            |
+| NodeJS with ES Modules     | ✅ Everything                              | -                            |
+| React     | ✅ Everything                              | -                            |
+| Angular   | ❌ Experimental features are not supported | Any contribution is welcome. |
+| Vue       | ❌ Not supported                           | Any contribution is welcome. |
+| Svelte    | ❌ Not supported                           | Any contribution is welcome. |
+
+### Contribution
+For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING.md).
+
+### Disclaimer
+This plugin modifies the AST which is against the rules of prettier.
+
 ### Maintainers
 
 |  [Ayush Sharma](https://github.com/ayusharma) | [Behrang Yarahmadi](https://github.com/byara)
