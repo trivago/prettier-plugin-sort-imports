@@ -15,6 +15,25 @@ import { PrettierOptions } from '../types';
 import { newLineNode } from '../constants';
 
 /**
+ * This function returns import nodes with alphabeticaly sorted modules
+ * @param node Import declaration node
+ */
+const getSortedModulesImport = (node: ImportDeclaration) => {
+    if (node.specifiers.length > 1) {
+        debugger;
+    }
+
+    node.specifiers.sort((a, b) => {
+        if (a.type !== b.type) {
+            return a.type === 'ImportDefaultSpecifier' ? -1 : 1;
+        }
+
+        return naturalSort(a.local.name, b.local.name);
+    });
+    return node;
+};
+
+/**
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
  * @param nodes all import nodes
@@ -73,6 +92,19 @@ export const getSortedNodes = (
 
     const shouldAddNewLineInBetween =
         sortedNodesNotInImportOrder.length > 0 && options.importOrderSeparation;
+
+    if (options.sortModules) {
+        sortedNodesByImportOrder
+            .filter(
+                (node): node is ImportDeclaration =>
+                    node.type === 'ImportDeclaration',
+            )
+            .forEach((node) => getSortedModulesImport(node));
+
+        sortedNodesNotInImportOrder.forEach((node) =>
+            getSortedModulesImport(node),
+        );
+    }
 
     const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,
