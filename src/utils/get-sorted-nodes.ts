@@ -20,12 +20,16 @@ import { newLineNode } from '../constants';
  * @param nodes all import nodes
  * @param order import order
  * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
+ * @param importOrderCaseInsensitive boolean indicating if ordering within import groups should be case-insensitive
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
     order: PrettierOptions['importOrder'],
     importOrderSeparation: boolean,
+    importOrderCaseInsensitive: boolean,
 ) => {
+    naturalSort.insensitive = importOrderCaseInsensitive;
+
     const originalNodes = nodes.map(clone);
     const newLine =
         importOrderSeparation && nodes.length > 1 ? newLineNode : null;
