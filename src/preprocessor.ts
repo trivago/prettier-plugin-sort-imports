@@ -9,11 +9,12 @@ import { PrettierOptions } from './types';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
-        importOrder,
-        importOrderSeparation,
-        importOrderCaseInsensitive,
-        parser: prettierParser,
         experimentalBabelParserPluginsList = [],
+        importOrder,
+        importOrderCaseInsensitive,
+        importOrderSeparation,
+        parser: prettierParser,
+        sortModules,
     } = options;
 
     const plugins = getParserPlugins(prettierParser);
@@ -42,12 +43,12 @@ export function preprocessor(code: string, options: PrettierOptions) {
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
 
-    const allImports = getSortedNodes(
-        importNodes,
+    const allImports = getSortedNodes(importNodes, {
         importOrder,
-        importOrderSeparation,
         importOrderCaseInsensitive,
-    );
+        importOrderSeparation,
+        sortModules,
+    });
 
     return getCodeFromAst(allImports, code, interpreter);
 }

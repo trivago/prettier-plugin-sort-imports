@@ -24,16 +24,20 @@ import { newLineNode } from '../constants';
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
-    order: PrettierOptions['importOrder'],
-    importOrderSeparation: boolean,
-    importOrderCaseInsensitive: boolean,
+    options: Pick<
+        PrettierOptions,
+        | 'importOrder'
+        | 'importOrderCaseInsensitive'
+        | 'importOrderSeparation'
+        | 'sortModules'
+    >,
 ) => {
-    naturalSort.insensitive = importOrderCaseInsensitive;
+    naturalSort.insensitive = options.importOrderCaseInsensitive;
 
     const originalNodes = nodes.map(clone);
     const newLine =
-        importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-    const sortedNodesByImportOrder = order.reduce(
+        options.importOrderSeparation && nodes.length > 1 ? newLineNode : null;
+    const sortedNodesByImportOrder = options.importOrder.reduce(
         (
             res: (ImportDeclaration | ExpressionStatement)[],
             val,
@@ -59,7 +63,8 @@ export const getSortedNodes = (
     );
 
     const sortedNodesNotInImportOrder = originalNodes.filter(
-        (node) => !isSimilarTextExistInArray(order, node.source.value),
+        (node) =>
+            !isSimilarTextExistInArray(options.importOrder, node.source.value),
     );
 
     sortedNodesNotInImportOrder.sort((a, b) =>
@@ -67,7 +72,7 @@ export const getSortedNodes = (
     );
 
     const shouldAddNewLineInBetween =
-        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
+        sortedNodesNotInImportOrder.length > 0 && options.importOrderSeparation;
 
     const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,

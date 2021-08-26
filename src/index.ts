@@ -4,6 +4,13 @@ import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 import { preprocessor } from './preprocessor';
 
 const options = {
+    experimentalBabelParserPluginsList: {
+        type: 'path',
+        category: 'Global',
+        array: true,
+        default: [{ value: [] }],
+        description: 'Provide a list of plugins for special syntax',
+    },
     importOrder: {
         type: 'path',
         category: 'Global',
@@ -17,13 +24,12 @@ const options = {
         default: false,
         description: 'Should imports be separated by new line ?',
     },
-    experimentalBabelParserPluginsList: {
-        type: 'path',
+    sortModules: {
+        type: 'boolean',
         category: 'Global',
-        array: true,
-        default: [{ value: [] }],
-        description: 'Provide a list of plugins for special syntax',
-    }
+        default: false,
+        description: 'Should modules be sorted ?',
+    },
 };
 
 module.exports = {
