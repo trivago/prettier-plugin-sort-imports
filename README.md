@@ -118,7 +118,7 @@ npm run example examples/example.tsx
 ```
 
 #### Q. How to use the plugin with `*.d.ts` files ?
-The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. (Read more here)[https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore].  
+The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. [Read more here](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore).
 
 #### Q. How does the plugin handle the first comment in the file. 
 The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
