@@ -6,6 +6,7 @@ import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
 import { getParserPlugins } from './utils/get-parser-plugins';
 import { PrettierOptions } from './types';
+import { getExperimentalParserPlugins } from './utils/get-experimental-parser-plugins';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
@@ -16,12 +17,13 @@ export function preprocessor(code: string, options: PrettierOptions) {
     } = options;
 
     const plugins = getParserPlugins(prettierParser);
+    const experimentalParserPlugins = getExperimentalParserPlugins(experimentalBabelParserPluginsList);
 
     const importNodes: ImportDeclaration[] = [];
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: [...plugins, ...experimentalBabelParserPluginsList],
+        plugins: [...plugins, ...experimentalParserPlugins],
     };
 
     const ast = babelParser(code, parserOptions);
