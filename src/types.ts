@@ -1,8 +1,7 @@
 import { RequiredOptions } from 'prettier';
-import { ParserPlugin } from '@babel/parser';
 
 export interface PrettierOptions extends RequiredOptions {
     importOrder: string[];
     importOrderSeparation: boolean;
-    experimentalBabelParserPluginsList: ParserPlugin[];
+    experimentalBabelParserPluginsList: string[]; // should be of type ParserPlugin from '@babel/parser' but babel does not support nested arrays in options
 }
