@@ -1,4 +1,4 @@
-import { ParserPlugin, ParserPluginWithOptions } from '@babel/parser';
+import { ParserPlugin } from '@babel/parser';
 
 /**
  * Returns a list of babel parser plugin names
