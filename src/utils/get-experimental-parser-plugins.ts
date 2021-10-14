@@ -6,8 +6,6 @@ import { ParserPlugin, ParserPluginWithOptions } from '@babel/parser';
  * @returns list of parser plugins to be passed to babel parser
  */
 export const getExperimentalParserPlugins = (experimentalBabelParserPluginsList: string[]): ParserPlugin[] => {
-    // Some experimental plugins have configurations so they are passed as JSON
-    // in the form of ["plugin-name", { configuration: true }]
     return experimentalBabelParserPluginsList.map(pluginNameOrJson => {
         // ParserPlugin can be either a string or and array of [name: string, options: object]
         // in prettier options the array will be sent in a JSON string
