@@ -1,4 +1,4 @@
-import { ParserPlugin } from '@babel/parser';
+import { ParserPlugin, ParserPluginWithOptions } from '@babel/parser';
 
 /**
  * Returns a list of babel parser plugin names
@@ -14,12 +14,12 @@ export const getExperimentalParserPlugins = (experimentalBabelParserPluginsList:
         let plugin;
         if (isParserPluginWithOptions) {
             try {
-                plugin = JSON.parse(pluginNameOrJson);
+                plugin = JSON.parse(pluginNameOrJson) as ParserPluginWithOptions;
             } catch (e) {
                 throw Error("Invalid JSON in experimentalBabelParserPluginsList: " + pluginNameOrJson);
             }
         } else {
-            plugin = pluginNameOrJson;
+            plugin = pluginNameOrJson as ParserPlugin;
         }
 
         return plugin;
