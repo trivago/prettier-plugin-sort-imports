@@ -17,13 +17,13 @@ export function preprocessor(code: string, options: PrettierOptions) {
     } = options;
 
     const plugins = getParserPlugins(prettierParser);
-    const experimentalParserPlugins = getExperimentalParserPlugins(experimentalBabelParserPluginsList);
+    const parsedExperimentalBabelParserPluginsList = getExperimentalParserPlugins(experimentalBabelParserPluginsList);
 
     const importNodes: ImportDeclaration[] = [];
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: [...plugins, ...experimentalParserPlugins],
+        plugins: [...plugins, ...parsedExperimentalBabelParserPluginsList],
     };
 
     const ast = babelParser(code, parserOptions);
