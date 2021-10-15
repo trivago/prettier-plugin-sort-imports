@@ -14,9 +14,5 @@ test('it should return flow', () => {
 });
 
 test('it should return ts related plugins', () => {
-    expect(getParserPlugins('typescript')).toEqual([
-        'typescript',
-        'jsx',
-        'classProperties',
-    ]);
+    expect(getParserPlugins('typescript')).toEqual(['typescript', 'jsx']);
 });

@@ -3,7 +3,6 @@ import { RequiredOptions } from 'prettier';
 import {
     flow,
     typescript,
-    classProperties,
     jsx,
 } from '../constants';
 
@@ -19,8 +18,7 @@ export const getParserPlugins = (
     const isTypescript = prettierParser === typescript;
 
     // In case of typescript as prettier parser, we pass the following
-    // classProperties is passed in case of angular projects.
-    const tsPlugins = [typescript, jsx, classProperties];
+    const tsPlugins = [typescript, jsx];
 
     return [...(isFlow ? [flow] : []), ...(isTypescript ? tsPlugins : [])];
 };
