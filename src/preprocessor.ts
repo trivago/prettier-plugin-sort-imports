@@ -12,6 +12,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
     const {
         importOrder,
         importOrderSeparation,
+        importOrderCaseInsensitive,
         parser: prettierParser,
         experimentalBabelParserPluginsList = [],
     } = options;
@@ -47,6 +48,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importNodes,
         importOrder,
         importOrderSeparation,
+        importOrderCaseInsensitive,
     );
 
     return getCodeFromAst(allImports, code, interpreter);

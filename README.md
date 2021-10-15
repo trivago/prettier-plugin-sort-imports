@@ -37,6 +37,7 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
+  "importOrderCaseInsensitive": true,
 }
 ```
 
@@ -51,6 +52,24 @@ is the string provided in import order.
 #### `importOrderSeparation`
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
+
+#### `importOrderCaseInsensitive`
+A boolean value to enable case-insensitivity in the sorting algorithm 
+used to order imports within each match group.
+
+For example, when false (or not specified):
+
+```ecmascript 6
+import ExampleView from './ExampleView';
+import ExamplesList from './ExamplesList';
+```
+
+compared with `"importOrderCaseInsensitive": true`:
+
+```ecmascript 6
+import ExamplesList from './ExamplesList';
+import ExampleView from './ExampleView';
+```
 
 #### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
@@ -67,6 +86,7 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
+  "importOrderCaseInsensitive": true,
   "experimentalBabelParserPluginsList" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 }
 ```
@@ -79,7 +99,8 @@ These imports are _local imports_. The imports which are not part of the
 `importOrder` is considered as _3rd party imports_.
 
 After, the plugin sorts the _local imports_ and _3rd party imports_ using
-[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order), 
+with case-insensitivity specified by `importOrderCaseInsensitive` (or false by default).
 In the end, the plugin returns final imports with _3rd party imports_ on top and 
 _local imports_ at the end.
 
