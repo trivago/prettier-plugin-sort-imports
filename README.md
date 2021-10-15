@@ -170,7 +170,7 @@ To solve this issue, you can use the new option `experimentalBabelParserPluginsL
 | JS with ES Modules     | ✅ Everything                              | -                            |
 | NodeJS with ES Modules     | ✅ Everything                              | -                            |
 | React     | ✅ Everything                              | -                            |
-| Angular   | ❌ Experimental features are not supported | Any contribution is welcome. |
+| Angular   | 🔜 Experimental features are not supported | To be supported in v3.x.x, coming soon 😉 |
 | Vue       | ❌ Not supported                           | Any contribution is welcome. |
 | Svelte    | ❌ Not supported                           | Any contribution is welcome. |
 
