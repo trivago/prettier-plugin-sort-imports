@@ -17,7 +17,6 @@ test('it should return ts related plugins', () => {
     expect(getParserPlugins('typescript')).toEqual([
         'typescript',
         'jsx',
-        'decorators-legacy',
         'classProperties',
     ]);
 });
