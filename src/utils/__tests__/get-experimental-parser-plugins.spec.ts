@@ -9,16 +9,16 @@ test('it should return flow and decorators', () => {
 });
 
 test('it should return decorators with parsed options', () => {
-    expect(getExperimentalParserPlugins(['["decorators", { "decoratorsBeforeExport": true }]']))
+    expect(getExperimentalParserPlugins(["[\"decorators\", { \"decoratorsBeforeExport\": true }]"]))
         .toEqual([['decorators', { decoratorsBeforeExport: true }]]);
 });
 
 test('it should return decorators with parsed options', () => {
-    expect(getExperimentalParserPlugins(['flow', '["decorators", { "decoratorsBeforeExport": true }]']))
+    expect(getExperimentalParserPlugins(['flow', "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]))
         .toEqual(['flow', ['decorators', { decoratorsBeforeExport: true }]]);
 });
 
 test('it should throw an Error for invalid JSON', () => {
-    expect(() => getExperimentalParserPlugins(['flow', '["decorators", { decoratorsBeforeExport: true }]']))
+    expect(() => getExperimentalParserPlugins(['flow', "[\"decorators\", { decoratorsBeforeExport: true }]"]))
         .toThrowError("Invalid JSON in experimentalBabelParserPluginsList: ");
 });

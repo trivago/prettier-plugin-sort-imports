@@ -55,7 +55,7 @@ between sorted import declarations. The separation takes place according to `imp
 #### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
 
-Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `'["plugin-name", { "pluginOption": true }]'`.
+Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `"[\"plugin-name\", { \"pluginOption\": true }]"`.
 
 ```ecmascript 6
 module.exports = {
@@ -67,7 +67,7 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList" : ["jsx", "typescript", '["decorators", "decoratorsBeforeExport": true }]']
+  "experimentalBabelParserPluginsList" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 }
 ```
 
