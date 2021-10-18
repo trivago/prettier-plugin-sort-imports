@@ -34,17 +34,4 @@ export class TemplateController {
       });
     };
   }
-
-  @Post("/update_text_height")
-  async update_text_height(@Body() body: UpdateTextDao) {
-    const { template_id, system } = body;
-    let templateData: DesignTemplate;
-    if (system) {
-      templateData = await this.templateService.getSystemTemplateData(template_id);
-    } else {
-      templateData = await this.templateService.getUserTemplateData(template_id);
-    }
-
-    Logger.log(`${template_id} - ${system}`, "UpdateTextHeight");
-  }
 }
