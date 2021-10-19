@@ -49,10 +49,6 @@ uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
 
-#### `importOrderSeparation`
-A boolean value to enable or disable the new line separation 
-between sorted import declarations. The separation takes place according to `importOrder`.
-
 #### `importOrderCaseInsensitive`
 A boolean value to enable case-insensitivity in the sorting algorithm 
 used to order imports within each match group.
@@ -70,6 +66,14 @@ compared with `"importOrderCaseInsensitive": true`:
 import ExamplesList from './ExamplesList';
 import ExampleView from './ExampleView';
 ```
+
+#### `importOrderSeparation`
+A boolean value to enable or disable the new line separation 
+between sorted import declarations. The separation takes place according to `importOrder`.
+
+#### `sortModules`
+A boolean value to enable or disable sorting of the imports module declarations.
+It is disabled by default
 
 #### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
