@@ -78,6 +78,8 @@ It is disabled by default
 #### `experimentalBabelParserPluginsList`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
 
+Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `"[\"plugin-name\", { \"pluginOption\": true }]"`.
+
 ```ecmascript 6
 module.exports = {
   "printWidth": 80,
@@ -89,7 +91,7 @@ module.exports = {
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderCaseInsensitive": true,
-  "experimentalBabelParserPluginsList" : ["jsx", "typescript"]
+  "experimentalBabelParserPluginsList" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 }
 ```
 
@@ -143,7 +145,7 @@ npm run example examples/example.tsx
 ```
 
 #### Q. How to use the plugin with `*.d.ts` files ?
-The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. (Read more here)[https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore].  
+The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. [Read more here](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore).
 
 #### Q. How does the plugin handle the first comment in the file. 
 The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
@@ -172,7 +174,7 @@ To solve this issue, you can use the new option `experimentalBabelParserPluginsL
 | JS with ES Modules     | ✅ Everything                              | -                            |
 | NodeJS with ES Modules     | ✅ Everything                              | -                            |
 | React     | ✅ Everything                              | -                            |
-| Angular   | ❌ Experimental features are not supported | Any contribution is welcome. |
+| Angular   | 🔜 Experimental features are not supported | To be supported in v3.x.x, coming soon 😉 |
 | Vue       | ❌ Not supported                           | Any contribution is welcome. |
 | Svelte    | ❌ Not supported                           | Any contribution is welcome. |
 

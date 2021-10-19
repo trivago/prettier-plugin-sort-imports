@@ -19,10 +19,6 @@ import { newLineNode } from '../constants';
  * @param node Import declaration node
  */
 const getSortedModulesImport = (node: ImportDeclaration) => {
-    if (node.specifiers.length > 1) {
-        debugger;
-    }
-
     node.specifiers.sort((a, b) => {
         if (a.type !== b.type) {
             return a.type === 'ImportDefaultSpecifier' ? -1 : 1;
