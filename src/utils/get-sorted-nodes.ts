@@ -33,9 +33,7 @@ const getSortedModulesImport = (node: ImportDeclaration) => {
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
  * @param nodes all import nodes
- * @param order import order
- * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
- * @param importOrderCaseInsensitive boolean indicating if ordering within import groups should be case-insensitive
+ * @param options
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
