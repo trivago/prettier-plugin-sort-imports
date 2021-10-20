@@ -36,13 +36,13 @@ const options = {
         type: 'boolean',
         category: 'Global',
         default: false,
-        description: 'Should imports be separated by new line ?',
+        description: 'Should imports be separated by new line?',
     },
     importOrderSortSpecifiers: {
         type: 'boolean',
         category: 'Global',
         default: false,
-        description: 'Should modules be sorted ?',
+        description: 'Should specifiers be sorted?',
     },
 };
 
