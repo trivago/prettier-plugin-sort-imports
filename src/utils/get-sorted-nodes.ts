@@ -15,21 +15,42 @@ import { PrettierOptions } from '../types';
 import { newLineNode } from '../constants';
 
 /**
+ * This function returns import nodes with alphabeticaly sorted modules
+ * @param node Import declaration node
+ */
+const getSortedModulesImport = (node: ImportDeclaration) => {
+    node.specifiers.sort((a, b) => {
+        if (a.type !== b.type) {
+            return a.type === 'ImportDefaultSpecifier' ? -1 : 1;
+        }
+
+        return naturalSort(a.local.name, b.local.name);
+    });
+    return node;
+};
+
+/**
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
  * @param nodes all import nodes
- * @param order import order
- * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
+ * @param options
  */
 export const getSortedNodes = (
     nodes: ImportDeclaration[],
-    order: PrettierOptions['importOrder'],
-    importOrderSeparation: boolean,
+    options: Pick<
+        PrettierOptions,
+        | 'importOrder'
+        | 'importOrderCaseInsensitive'
+        | 'importOrderSeparation'
+        | 'importOrderSortSpecifiers'
+    >,
 ) => {
+    naturalSort.insensitive = options.importOrderCaseInsensitive;
+
     const originalNodes = nodes.map(clone);
     const newLine =
-        importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-    const sortedNodesByImportOrder = order.reduce(
+        options.importOrderSeparation && nodes.length > 1 ? newLineNode : null;
+    const sortedNodesByImportOrder = options.importOrder.reduce(
         (
             res: (ImportDeclaration | ExpressionStatement)[],
             val,
@@ -55,7 +76,8 @@ export const getSortedNodes = (
     );
 
     const sortedNodesNotInImportOrder = originalNodes.filter(
-        (node) => !isSimilarTextExistInArray(order, node.source.value),
+        (node) =>
+            !isSimilarTextExistInArray(options.importOrder, node.source.value),
     );
 
     sortedNodesNotInImportOrder.sort((a, b) =>
@@ -63,7 +85,20 @@ export const getSortedNodes = (
     );
 
     const shouldAddNewLineInBetween =
-        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
+        sortedNodesNotInImportOrder.length > 0 && options.importOrderSeparation;
+
+    if (options.importOrderSortSpecifiers) {
+        sortedNodesByImportOrder
+            .filter(
+                (node): node is ImportDeclaration =>
+                    node.type === 'ImportDeclaration',
+            )
+            .forEach((node) => getSortedModulesImport(node));
+
+        sortedNodesNotInImportOrder.forEach((node) =>
+            getSortedModulesImport(node),
+        );
+    }
 
     const allSortedNodes = compact([
         ...sortedNodesNotInImportOrder,

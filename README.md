@@ -37,6 +37,7 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
+  "importOrderCaseInsensitive": true,
 }
 ```
 
@@ -48,12 +49,36 @@ uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
 
+#### `importOrderCaseInsensitive`
+A boolean value to enable case-insensitivity in the sorting algorithm 
+used to order imports within each match group.
+
+For example, when false (or not specified):
+
+```ecmascript 6
+import ExampleView from './ExampleView';
+import ExamplesList from './ExamplesList';
+```
+
+compared with `"importOrderCaseInsensitive": true`:
+
+```ecmascript 6
+import ExamplesList from './ExamplesList';
+import ExampleView from './ExampleView';
+```
+
 #### `importOrderSeparation`
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
 
-#### `experimentalBabelParserPluginsList`
+#### `importOrderSortSpecifiers`
+A boolean value to enable or disable sorting of the imports module declarations.
+It is disabled by default
+
+#### `importOrderParserPlugins`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
+
+Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `"[\"plugin-name\", { \"pluginOption\": true }]"`.
 
 ```ecmascript 6
 module.exports = {
@@ -65,7 +90,8 @@ module.exports = {
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList" : ["jsx", "typescript"]
+  "importOrderCaseInsensitive": true,
+  "importOrderParserPlugins" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 }
 ```
 
@@ -77,7 +103,8 @@ These imports are _local imports_. The imports which are not part of the
 `importOrder` is considered as _3rd party imports_.
 
 After, the plugin sorts the _local imports_ and _3rd party imports_ using
-[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order), 
+with case-insensitivity specified by `importOrderCaseInsensitive` (or false by default).
 In the end, the plugin returns final imports with _3rd party imports_ on top and 
 _local imports_ at the end.
 
@@ -139,7 +166,7 @@ If you are using some experimental syntax and the plugin has trouble parsing you
 ```shell script
 SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
 ```
-To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
+To solve this issue, you can use the new option `importOrderParserPlugins` in your `.prettierrc` and pass an array of plugin names to be used.
 
 ### Compatibility
 | Framework | Supported                                | Note                         |
