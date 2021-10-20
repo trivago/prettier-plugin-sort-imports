@@ -10,12 +10,11 @@ import { isEmpty } from 'lodash';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
-        experimentalBabelParserPluginsList = [],
+        experimentalBabelParserPluginsList = [], // Deprecated in favor of importOrderParserPlugins
         importOrderParserPlugins = [],
         importOrder,
         importOrderCaseInsensitive,
         importOrderSeparation,
-        parser: prettierParser,
         importOrderSortSpecifiers,
     } = options;
 
