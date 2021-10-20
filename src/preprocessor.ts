@@ -4,7 +4,6 @@ import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
-import { getParserPlugins } from './utils/get-parser-plugins';
 import { PrettierOptions } from './types';
 
 export function preprocessor(code: string, options: PrettierOptions) {
@@ -15,13 +14,11 @@ export function preprocessor(code: string, options: PrettierOptions) {
         experimentalBabelParserPluginsList = [],
     } = options;
 
-    const plugins = getParserPlugins(prettierParser);
-
     const importNodes: ImportDeclaration[] = [];
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: [...plugins, ...experimentalBabelParserPluginsList],
+        plugins: experimentalBabelParserPluginsList,
     };
 
     const ast = babelParser(code, parserOptions);
