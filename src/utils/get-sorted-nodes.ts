@@ -42,7 +42,7 @@ export const getSortedNodes = (
         | 'importOrder'
         | 'importOrderCaseInsensitive'
         | 'importOrderSeparation'
-        | 'sortModules'
+        | 'importOrderSortSpecifiers'
     >,
 ) => {
     naturalSort.insensitive = options.importOrderCaseInsensitive;
@@ -87,7 +87,7 @@ export const getSortedNodes = (
     const shouldAddNewLineInBetween =
         sortedNodesNotInImportOrder.length > 0 && options.importOrderSeparation;
 
-    if (options.sortModules) {
+    if (options.importOrderSortSpecifiers) {
         sortedNodesByImportOrder
             .filter(
                 (node): node is ImportDeclaration =>

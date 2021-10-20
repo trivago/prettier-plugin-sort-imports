@@ -7,25 +7,30 @@ import { getSortedNodes } from './utils/get-sorted-nodes';
 import { getParserPlugins } from './utils/get-parser-plugins';
 import { PrettierOptions } from './types';
 import { getExperimentalParserPlugins } from './utils/get-experimental-parser-plugins';
+import { isEmpty } from 'lodash';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
         experimentalBabelParserPluginsList = [],
+        importOrderParserPlugins = [],
         importOrder,
         importOrderCaseInsensitive,
         importOrderSeparation,
         parser: prettierParser,
-        sortModules,
+        importOrderSortSpecifiers,
     } = options;
 
     const plugins = getParserPlugins(prettierParser);
-    const parsedExperimentalBabelParserPluginsList = getExperimentalParserPlugins(experimentalBabelParserPluginsList);
+    const parserPlugins = isEmpty(importOrderParserPlugins)
+        ? experimentalBabelParserPluginsList
+        : importOrderParserPlugins;
+    const parsedParserPlugins = getExperimentalParserPlugins(parserPlugins);
 
     const importNodes: ImportDeclaration[] = [];
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: [...plugins, ...parsedExperimentalBabelParserPluginsList],
+        plugins: [...plugins, ...parsedParserPlugins],
     };
 
     const ast = babelParser(code, parserOptions);
@@ -49,7 +54,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrder,
         importOrderCaseInsensitive,
         importOrderSeparation,
-        sortModules,
+        importOrderSortSpecifiers,
     });
 
     return getCodeFromAst(allImports, code, interpreter);

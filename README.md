@@ -71,11 +71,11 @@ import ExampleView from './ExampleView';
 A boolean value to enable or disable the new line separation 
 between sorted import declarations. The separation takes place according to `importOrder`.
 
-#### `sortModules`
+#### `importOrderSortSpecifiers`
 A boolean value to enable or disable sorting of the imports module declarations.
 It is disabled by default
 
-#### `experimentalBabelParserPluginsList`
+#### `importOrderParserPlugins`
 A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
 
 Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `"[\"plugin-name\", { \"pluginOption\": true }]"`.
@@ -91,7 +91,7 @@ module.exports = {
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
   "importOrderCaseInsensitive": true,
-  "experimentalBabelParserPluginsList" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
+  "importOrderParserPlugins" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 }
 ```
 
@@ -166,7 +166,7 @@ If you are using some experimental syntax and the plugin has trouble parsing you
 ```shell script
 SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
 ```
-To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
+To solve this issue, you can use the new option `importOrderParserPlugins` in your `.prettierrc` and pass an array of plugin names to be used.
 
 ### Compatibility
 | Framework | Supported                                | Note                         |

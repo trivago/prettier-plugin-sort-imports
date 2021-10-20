@@ -72,7 +72,7 @@ test('it returns all sorted nodes', () => {
         importOrder: [],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
-        sortModules: false,
+        importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
     expect(sorted).toMatchSnapshot();
@@ -114,7 +114,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrder: [],
         importOrderCaseInsensitive: true,
         importOrderSeparation: false,
-        sortModules: false,
+        importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
     expect(sorted).toMatchSnapshot();
@@ -156,7 +156,7 @@ test('it returns all sorted nodes with sort order', () => {
         importOrder: ['^a$', '^t$', '^k$', '^B'],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
-        sortModules: false,
+        importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
     expect(sorted).toMatchSnapshot();
@@ -198,7 +198,7 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrder: ['^a$', '^t$', '^k$', '^B'],
         importOrderCaseInsensitive: true,
         importOrderSeparation: false,
-        sortModules: false,
+        importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -239,7 +239,7 @@ test('it returns all sorted nodes with sort order and sorted modules', () => {
         importOrder: ['^a$', '^t$', '^k$', '^B'],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
-        sortModules: true,
+        importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -280,7 +280,7 @@ test('it returns all sorted nodes with sort order case-insensitive and sorted mo
         importOrder: ['^a$', '^t$', '^k$', '^B'],
         importOrderCaseInsensitive: true,
         importOrderSeparation: false,
-        sortModules: true,
+        importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
     expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([

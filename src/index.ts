@@ -9,7 +9,8 @@ const options = {
         category: 'Global',
         array: true,
         default: [{ value: [] }],
-        description: 'Provide a list of plugins for special syntax',
+        description:
+            'Deprecated! Please use `importOrderParserPlugins` to provide a list of parser plugins for special syntax.',
     },
     importOrder: {
         type: 'path',
@@ -24,13 +25,20 @@ const options = {
         default: true,
         description: 'Provide a case sensitivity boolean flag',
     },
+    importOrderParserPlugins: {
+        type: 'path',
+        category: 'Global',
+        array: true,
+        default: [{ value: [] }],
+        description: 'Provide a list of plugins for special syntax',
+    },
     importOrderSeparation: {
         type: 'boolean',
         category: 'Global',
         default: false,
         description: 'Should imports be separated by new line ?',
     },
-    sortModules: {
+    importOrderSortSpecifiers: {
         type: 'boolean',
         category: 'Global',
         default: false,
