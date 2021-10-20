@@ -4,23 +4,20 @@ import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
-import { getParserPlugins } from './utils/get-parser-plugins';
 import { PrettierOptions } from './types';
 import { getExperimentalParserPlugins } from './utils/get-experimental-parser-plugins';
 import { isEmpty } from 'lodash';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
-        experimentalBabelParserPluginsList = [],
+        experimentalBabelParserPluginsList = [], // Deprecated in favor of importOrderParserPlugins
         importOrderParserPlugins = [],
         importOrder,
         importOrderCaseInsensitive,
         importOrderSeparation,
-        parser: prettierParser,
         importOrderSortSpecifiers,
     } = options;
 
-    const plugins = getParserPlugins(prettierParser);
     const parserPlugins = isEmpty(importOrderParserPlugins)
         ? experimentalBabelParserPluginsList
         : importOrderParserPlugins;
@@ -30,7 +27,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: [...plugins, ...parsedParserPlugins],
+        plugins: parsedParserPlugins,
     };
 
     const ast = babelParser(code, parserOptions);
