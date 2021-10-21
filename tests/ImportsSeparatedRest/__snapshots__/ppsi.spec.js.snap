@@ -1,0 +1,349 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`import-export-in-between.ts - typescript-verify: import-export-in-between.ts 1`] = `
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+export { random } from './random';
+import c from 'c';
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import a from 'a';
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+export default {
+    title: 'hello',
+};
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import x from 'x';
+
+function add(a:number,b:number) {
+  return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+
+import a from "a";
+import c from "c";
+import thirdParty from "third-party";
+import x from "x";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+export { random } from "./random";
+
+export default {
+    title: "hello",
+};
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`import-export-only.ts - typescript-verify: import-export-only.ts 1`] = `
+import React from 'react';
+export const a = 1;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import React from "react";
+
+export const a = 1;
+
+`;
+
+exports[`imports-with-comments.ts - typescript-verify: imports-with-comments.ts 1`] = `
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import './commands';
+
+// Comment
+// Comment
+
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import "./commands";
+
+// Comment
+// Comment
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`imports-with-comments-and-third-party.ts - typescript-verify: imports-with-comments-and-third-party.ts 1`] = `
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import './commands';
+import React from 'react';
+// Comment
+// Comment
+
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import React from "react";
+
+import "./commands";
+
+// Comment
+// Comment
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`imports-with-comments-on-top.ts - typescript-verify: imports-with-comments-on-top.ts 1`] = `
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import z from 'z';
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+import qwerty from "@server/qwerty";
+
+function add(a:number,b:number) {
+  return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// I am top level comment in this file.
+// I am second line of top level comment in this file.
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import qwerty from "@server/qwerty";
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import thirdParty from "third-party";
+import z from "z";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`imports-with-file-level-comments.ts - typescript-verify: imports-with-file-level-comments.ts 1`] = `
+//@ts-ignore
+// I am file top level comments
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+// I am stick to sameLevelRelativePath
+import sameLevelRelativePath from "./sameLevelRelativePath";
+// I am stick to third party comment
+import thirdParty from "third-party";
+// leading comment
+import { 
+    random // inner comment
+} from './random';
+// leading comment
+export { 
+    random // inner comment
+} from './random';
+import c from 'c';
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import a from 'a';
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+export default {
+    title: 'hello',
+};
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import x from 'x';
+
+// I am function comment
+
+function add(a:number,b:number) {
+  return a + b; // I am inside function 
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//@ts-ignore
+// I am file top level comments
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+
+import a from "a";
+import c from "c";
+// I am stick to third party comment
+import thirdParty from "third-party";
+import x from "x";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+// leading comment
+import {
+    random, // inner comment
+} from "./random";
+// I am stick to sameLevelRelativePath
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+// leading comment
+export {
+    random, // inner comment
+} from "./random";
+
+export default {
+    title: "hello",
+};
+
+// I am function comment
+
+function add(a: number, b: number) {
+    return a + b; // I am inside function
+}
+
+`;
+
+exports[`imports-with-interpreter-directive.ts - typescript-verify: imports-with-interpreter-directive.ts 1`] = `
+#!/usr/bin/env node
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+import qwerty from "@server/qwerty";
+
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#!/usr/bin/env node
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import qwerty from "@server/qwerty";
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`imports-without-third-party.ts - typescript-verify: imports-without-third-party.ts 1`] = `
+// I am top level comment
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+// I am comment
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// I am top level comment
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+// I am comment
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+
+`;
+
+exports[`no-import-export.ts - typescript-verify: no-import-export.ts 1`] = `
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`one-import.ts - typescript-verify: one-import.ts 1`] = `
+// This example support/index.js is processed and
+// loaded automatically before your test files.
+//
+// This is a great place to put global configuration and
+// behavior that modifies Cypress.
+//
+// You can change the location of this file or turn off
+// automatically serving support files with the
+// 'supportFile' configuration option.
+//
+// You can read more here:
+// https://on.cypress.io/configuration
+// ***********************************************************
+
+// Import commands.js using ES2015 syntax:
+import './commands';
+
+// Alternatively you can use CommonJS syntax:
+// require('./commands')
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// This example support/index.js is processed and
+// loaded automatically before your test files.
+//
+// This is a great place to put global configuration and
+// behavior that modifies Cypress.
+//
+// You can change the location of this file or turn off
+// automatically serving support files with the
+// 'supportFile' configuration option.
+//
+// You can read more here:
+// https://on.cypress.io/configuration
+// ***********************************************************
+// Import commands.js using ES2015 syntax:
+import "./commands";
+
+// Alternatively you can use CommonJS syntax:
+// require('./commands')
+
+`;

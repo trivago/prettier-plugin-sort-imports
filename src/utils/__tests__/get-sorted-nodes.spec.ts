@@ -233,7 +233,7 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
     ]);
 });
 
-test('it returns all sorted nodes with sort order and sorted modules', () => {
+test('it returns all sorted import nodes with sorted import specifiers', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(result, {
         importOrder: ['^a$', '^t$', '^k$', '^B'],
@@ -274,7 +274,7 @@ test('it returns all sorted nodes with sort order and sorted modules', () => {
     ]);
 });
 
-test('it returns all sorted nodes with sort order case-insensitive and sorted modules', () => {
+test('it returns all sorted import nodes with sorted import specifiers with case-insensitive ', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(result, {
         importOrder: ['^a$', '^t$', '^k$', '^B'],
@@ -312,5 +312,28 @@ test('it returns all sorted nodes with sort order case-insensitive and sorted mo
         ['k', 'kB', 'kE'],
         ['Ba'],
         ['BY'],
+    ]);
+});
+
+test('it returns all sorted nodes with custom third party modules', () => {
+    const result = getImportNodes(code);
+    const sorted = getSortedNodes(result, {
+        importOrder: ['^a$', '<THIRD_PARTY_MODULES>', '^t$', '^k$'],
+        importOrderSeparation: false,
+        importOrderCaseInsensitive: true,
+        importOrderSortSpecifiers: false,
+    }) as ImportDeclaration[];
+    expect(sorted).toMatchSnapshot();
+    expect(getSortedNodesNames(sorted)).toEqual([
+        'a',
+        'Ba',
+        'BY',
+        'c',
+        'g',
+        'Xa',
+        'XY',
+        'z',
+        't',
+        'k',
     ]);
 });

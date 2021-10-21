@@ -1,16 +1,16 @@
-"use strict";
+'use strict';
 
-const fs = require("fs");
-const extname = require("path").extname;
-const prettier = require("prettier");
+const fs = require('fs');
+const extname = require('path').extname;
+const prettier = require('prettier');
 
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
         {
-            plugins: ["./src"],
-            tabWidth: 4
+            plugins: ['./src'],
+            tabWidth: 4,
         },
-        options
+        options,
     );
 
     /* instabul ignore if */
@@ -18,35 +18,39 @@ function run_spec(dirname, parsers, options) {
         throw new Error(`No parsers were specified for ${dirname}`);
     }
 
-    fs.readdirSync(dirname).forEach(filename => {
-        const path = dirname + "/" + filename;
+    fs.readdirSync(dirname).forEach((filename) => {
+        const path = dirname + '/' + filename;
         if (
-            extname(filename) !== ".snap" &&
+            extname(filename) !== '.snap' &&
             fs.lstatSync(path).isFile() &&
-            filename[0] !== "." &&
-            filename !== "ppsi.spec.js"
+            filename[0] !== '.' &&
+            filename !== 'ppsi.spec.js'
         ) {
-            const source = read(path).replace(/\r\n/g, "\n");
+            const source = read(path).replace(/\r\n/g, '\n');
 
             const mergedOptions = Object.assign({}, options, {
-                parser: parsers[0]
+                parser: parsers[0],
             });
             const output = prettyprint(source, path, mergedOptions);
             test(`${filename} - ${mergedOptions.parser}-verify`, () => {
-                expect(
-                    raw(source + "~".repeat(80) + "\n" + output)
-                ).toMatchSnapshot(filename);
+                try {
+                    expect(
+                        raw(source + '~'.repeat(80) + '\n' + output),
+                    ).toMatchSnapshot(filename);
+                } catch (e) {
+                    console.error(e, path);
+                }
             });
 
-            parsers.slice(1).forEach(parserName => {
+            parsers.slice(1).forEach((parserName) => {
                 test(`${filename} - ${parserName}-verify`, () => {
                     const verifyOptions = Object.assign(mergedOptions, {
-                        parser: parserName
+                        parser: parserName,
                     });
                     const verifyOutput = prettyprint(
                         source,
                         path,
-                        verifyOptions
+                        verifyOptions,
                     );
                     expect(output).toEqual(verifyOutput);
                 });
@@ -58,18 +62,18 @@ global.run_spec = run_spec;
 
 function stripLocation(ast) {
     if (Array.isArray(ast)) {
-        return ast.map(e => stripLocation(e));
+        return ast.map((e) => stripLocation(e));
     }
-    if (typeof ast === "object") {
+    if (typeof ast === 'object') {
         const newObj = {};
         for (const key in ast) {
             if (
-                key === "loc" ||
-                key === "range" ||
-                key === "raw" ||
-                key === "comments" ||
-                key === "parent" ||
-                key === "prev"
+                key === 'loc' ||
+                key === 'range' ||
+                key === 'raw' ||
+                key === 'comments' ||
+                key === 'parent' ||
+                key === 'prev'
             ) {
                 continue;
             }
@@ -89,15 +93,15 @@ function prettyprint(src, filename, options) {
         src,
         Object.assign(
             {
-                filepath: filename
+                filepath: filename,
             },
-            options
-        )
+            options,
+        ),
     );
 }
 
 function read(filename) {
-    return fs.readFileSync(filename, "utf8");
+    return fs.readFileSync(filename, 'utf8');
 }
 
 /**
@@ -106,8 +110,8 @@ function read(filename) {
  * Backticks will still be escaped.
  */
 function raw(string) {
-    if (typeof string !== "string") {
-        throw new Error("Raw snapshots have to be strings.");
+    if (typeof string !== 'string') {
+        throw new Error('Raw snapshots have to be strings.');
     }
-    return { [Symbol.for("raw")]: string };
+    return { [Symbol.for('raw')]: string };
 }
