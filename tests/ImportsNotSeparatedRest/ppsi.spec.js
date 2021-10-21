@@ -3,8 +3,8 @@ run_spec(__dirname, ['typescript'], {
         '^@core/(.*)$',
         '^@server/(.*)',
         '^@ui/(.*)$',
-        '<3RD_PARTY>',
+        '<THIRD_PARTY_MODULES>',
         '^[./]',
     ],
-    importOrderParserPlugins : ["typescript"]
+    importOrderParserPlugins: ['typescript'],
 });

@@ -12,51 +12,13 @@ import {
 
 import { PrettierOptions } from '../types';
 import { newLineNode, THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
+import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
+import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
 
 type ImportGroups = Record<string, ImportDeclaration[]>;
 type ImportOrLine = ImportDeclaration | ExpressionStatement;
 
-/**
- * This function returns import nodes with alphabeticaly sorted modules
- * @param node Import declaration node
- */
-const getSortedModulesImport = (node: ImportDeclaration) => {
-    node.specifiers.sort((a, b) => {
-        if (a.type !== b.type) {
-            return a.type === 'ImportDefaultSpecifier' ? -1 : 1;
-        }
-
-        return naturalSort(a.local.name, b.local.name);
-    });
-    return node;
-};
-
-/**
- * Get the regexp group to keep the import nodes.
- * @param node
- * @param importOrder
- */
-const getMatchedGroup = (node: ImportDeclaration, importOrder: string[]) => {
-    const groupWithRegExp = importOrder.map((group) => ({
-        group,
-        regExp: new RegExp(group),
-    }));
-
-    for (const { group, regExp } of groupWithRegExp) {
-        const matched = node.source.value.match(regExp) !== null;
-        if (matched) return group;
-    }
-
-    return THIRD_PARTY_MODULES_SPECIAL_WORD;
-};
-
-/**
- * This function returns all the nodes which are in the importOrder array.
- * The plugin considered these import nodes as local import declarations.
- * @param nodes all import nodes
- * @param options
- */
-export const getSortedNodes = (
+type GetSortedNodes = (
     nodes: ImportDeclaration[],
     options: Pick<
         PrettierOptions,
@@ -65,47 +27,62 @@ export const getSortedNodes = (
         | 'importOrderSeparation'
         | 'importOrderSortSpecifiers'
     >,
-) => {
+) => ImportOrLine[];
 
-
+/**
+ * This function returns all the nodes which are in the importOrder array.
+ * The plugin considered these import nodes as local import declarations.
+ * @param nodes all import nodes
+ * @param options
+ */
+export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     naturalSort.insensitive = options.importOrderCaseInsensitive;
 
     let { importOrder } = options;
-    const {importOrderSeparation} = options
-    const originalNodes = nodes.map(clone);
+    const { importOrderSeparation, importOrderSortSpecifiers } = options;
 
+    const originalNodes = nodes.map(clone);
     const finalNodes: ImportOrLine[] = [];
 
-
     if (!importOrder.includes(THIRD_PARTY_MODULES_SPECIAL_WORD)) {
-        importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder]
+        importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder];
     }
 
-    const importOrderGroups = importOrder.reduce<ImportGroups>((groups, regexp) => ({
-        ...groups,
-        [regexp]:[]
-    }),{});
+    const importOrderGroups = importOrder.reduce<ImportGroups>(
+        (groups, regexp) => ({
+            ...groups,
+            [regexp]: [],
+        }),
+        {},
+    );
 
-
-    const importOrderWithOutThirdPartyPlaceholder = importOrder
-        .filter((group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD);
-
+    const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
+        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+    );
 
     for (const node of originalNodes) {
-        const matchedGroup = getMatchedGroup(node,importOrderWithOutThirdPartyPlaceholder);
+        const matchedGroup = getImportNodesMatchedGroup(
+            node,
+            importOrderWithOutThirdPartyPlaceholder,
+        );
         importOrderGroups[matchedGroup].push(node);
     }
 
     for (const group of importOrder) {
         const groupNodes = importOrderGroups[group];
 
-        if (groupNodes.length === 0) {
-            return;
-        }
+        if (groupNodes.length === 0) continue;
 
         const sortedInsideGroup = groupNodes.sort((a, b) =>
             naturalSort(a.source.value, b.source.value),
         );
+
+        // Sort the import specifiers
+        if (importOrderSortSpecifiers) {
+            sortedInsideGroup.forEach((node) =>
+                getSortedImportSpecifiers(node),
+            );
+        }
 
         finalNodes.push(...sortedInsideGroup);
 
@@ -113,14 +90,6 @@ export const getSortedNodes = (
             finalNodes.push(newLineNode);
         }
     }
-
-    if (options.importOrderSortSpecifiers) {
-        finalNodes.forEach((node) =>
-            // @ts-ignore
-            getSortedModulesImport(node),
-        );
-    }
-
 
     if (finalNodes.length > 0 && !importOrderSeparation) {
         // a newline after all imports

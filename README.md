@@ -50,7 +50,7 @@ uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Refe
 to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
 is the string provided in import order.
 - Special words (optional):
-   - `<3RD_PARTY>` - marks the position between RegExps, where the not matched imports will be placed. By default, it's the top position (above all the groups in `importOrder`).
+   - `<THIRD_PARTY_MODULES>` - marks the position between RegExps, where the not matched imports will be placed. By default, it's the top position (above all the groups in `importOrder`).
 
 #### `importOrderCaseInsensitive`
 A boolean value to enable case-insensitivity in the sorting algorithm 
@@ -111,7 +111,7 @@ After, the plugin sorts the _local imports_ and _3rd party imports_ using
 
 In the end, the plugin returns final imports with _3rd party imports_ on top and _local imports_ at the end.
 
-The _3rd party imports_ position (it's top by default) can be overrided using the `<3RD_PARTY>` special word.
+The _3rd party imports_ position (it's top by default) can be overrided using the `<THIRD_PARTY_MODULES>` special word.
 
 ### FAQ / Troubleshooting
 
@@ -141,7 +141,7 @@ import s from './';
 ```
 
 #### Q. How can I move `react` and `classnames` to place between my RegEx imports without hardcoding?
-You can define the `<3RD_PARTY>` special word in the `importOrder`. For example above, the `importOrder` would be like `["^@ui/(.*)$", "^@server/(.*)$", "<3RD_PARTY>", '^[./]']`. 
+You can define the `<THIRD_PARTY_MODULES>` special word in the `importOrder`. For example above, the `importOrder` would be like `["^@ui/(.*)$", "^@server/(.*)$", "<THIRD_PARTY_MODULES>", '^[./]']`. 
 Now, the final output would be as follows:
 
 ```ecmascript 6
