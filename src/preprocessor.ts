@@ -6,11 +6,9 @@ import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getSortedNodes } from './utils/get-sorted-nodes';
 import { PrettierOptions } from './types';
 import { getExperimentalParserPlugins } from './utils/get-experimental-parser-plugins';
-import { isEmpty } from 'lodash';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
-        experimentalBabelParserPluginsList, // Deprecated in favor of importOrderParserPlugins
         importOrderParserPlugins,
         importOrder,
         importOrderCaseInsensitive,
@@ -18,10 +16,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
     } = options;
 
-    const parserPlugins = isEmpty(importOrderParserPlugins)
-        ? experimentalBabelParserPluginsList
-        : importOrderParserPlugins;
-    const parsedParserPlugins = getExperimentalParserPlugins(parserPlugins);
+    const parsedParserPlugins = getExperimentalParserPlugins(importOrderParserPlugins);
 
     const importNodes: ImportDeclaration[] = [];
 
