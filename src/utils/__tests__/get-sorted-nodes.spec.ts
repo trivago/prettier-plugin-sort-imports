@@ -75,7 +75,6 @@ test('it returns all sorted nodes', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'BY',
         'Ba',
@@ -117,7 +116,6 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'a',
         'Ba',
@@ -159,7 +157,6 @@ test('it returns all sorted nodes with sort order', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'XY',
         'Xa',
@@ -200,7 +197,6 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrderSeparation: false,
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
         'g',
@@ -241,7 +237,6 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         importOrderSeparation: false,
         importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'XY',
         'Xa',
@@ -282,7 +277,6 @@ test('it returns all sorted import nodes with sorted import specifiers with case
         importOrderSeparation: false,
         importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
         'g',
@@ -323,7 +317,6 @@ test('it returns all sorted nodes with custom third party modules', () => {
         importOrderCaseInsensitive: true,
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
-    expect(sorted).toMatchSnapshot();
     expect(getSortedNodesNames(sorted)).toEqual([
         'a',
         'Ba',
