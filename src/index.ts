@@ -8,7 +8,9 @@ const options = {
         type: 'path',
         category: 'Global',
         array: true,
-        default: [{ value: [] }],
+        // By default, we add ts and jsx as parsers but if users define something
+        // we take that option
+        default: [{ value: ['typescript', 'jsx'] }],
         description:
             'Deprecated! Please use `importOrderParserPlugins` to provide a list of parser plugins for special syntax.',
     },
@@ -29,7 +31,9 @@ const options = {
         type: 'path',
         category: 'Global',
         array: true,
-        default: [{ value: [] }],
+        // By default, we add ts and jsx as parsers but if users define something
+        // we take that option
+        default: [{ value: ['typescript', 'jsx'] }],
         description: 'Provide a list of plugins for special syntax',
     },
     importOrderSeparation: {
