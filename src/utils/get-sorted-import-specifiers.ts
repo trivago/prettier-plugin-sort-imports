@@ -1,6 +1,4 @@
-// we do not have types for javascript-natural-sort
-//@ts-ignore
-import naturalSort from 'javascript-natural-sort';
+import { naturalSort } from '../natural-sort';
 import { ImportDeclaration } from '@babel/types';
 
 /**
