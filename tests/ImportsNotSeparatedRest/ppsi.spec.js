@@ -1,7 +1,7 @@
 run_spec(__dirname, ['typescript'], {
     importOrder: [
         '^@core/(.*)$',
-        '^@server/(.*)',
+        '^@server/(.*)$',
         '^@ui/(.*)$',
         '<THIRD_PARTY_MODULES>',
         '^[./]',
