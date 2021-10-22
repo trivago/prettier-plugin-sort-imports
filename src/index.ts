@@ -22,7 +22,7 @@ const options = {
     importOrderCaseInsensitive: {
         type: 'boolean',
         category: 'Global',
-        default: true,
+        default: false,
         description: 'Provide a case sensitivity boolean flag',
     },
     importOrderParserPlugins: {
