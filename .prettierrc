@@ -8,5 +8,4 @@
     "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true,
     "importOrderParserPlugins" : ["typescript"]
-
 }
