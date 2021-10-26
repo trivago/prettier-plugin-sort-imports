@@ -1,6 +1,6 @@
 # Prettier plugin sort imports
 
-A prettier plugin to sort import declarations by provided RegEx order.
+A prettier plugin to sort import declarations by provided Regular Expression order.
 
 ### Input
 ![input](./public/images/input.png)
@@ -33,27 +33,53 @@ module.exports = {
   "tabWidth": 4,
   "trailingComma": "all",
   "singleQuote": true,
-  "jsxBracketSameLine": true,
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderCaseInsensitive": true,
+  "importOrderSortSpecifiers": true
 }
 ```
 
 ### APIs
 
-#### `importOrder`
-A collection of:
-- Regular expressions in string format. The plugin
-uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
-to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
-is the string provided in import order.
-- Special words (optional):
-   - `<THIRD_PARTY_MODULES>` - marks the position between RegExps, where the not matched imports will be placed. By default, it's the top position (above all the groups in `importOrder`).
+#### **`importOrder`** 
+type: `Array<string>`
+
+A collection of Regular expressions in string format. 
+
+```
+"importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+```
+
+_Default behavior:_ The plugin moves the third party imports to the top which are not part of the `importOrder` list. 
+To move the third party imports at desired place, You can use
+```
+"importOrder": ["^@core/(.*)$", <THIRD_PARTY_MODULES>,"^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+```
+
+#### `importOrderSeparation`
+type: `boolean`
+default value: `false`
+
+A boolean value to enable or disable the new line separation 
+between sorted import declarations group. The separation takes place according to the `importOrder`.
+
+```
+"importOrderSeparation": false,
+```
+
+#### `importOrderSortSpecifiers`
+type: `boolean`
+default value: `false`
+
+A boolean value to enable or disable sorting of the imports' module declarations.
+
 
 #### `importOrderCaseInsensitive`
-A boolean value to enable case-insensitivity in the sorting algorithm 
+type: `boolean`
+default value: `false`
+
+A boolean value to enable case-insensitivity in the sorting algorithm
 used to order imports within each match group.
 
 For example, when false (or not specified):
@@ -70,32 +96,25 @@ import ExamplesList from './ExamplesList';
 import ExampleView from './ExampleView';
 ```
 
-#### `importOrderSeparation`
-A boolean value to enable or disable the new line separation 
-between sorted import declarations. The separation takes place according to `importOrder`.
-
-#### `importOrderSortSpecifiers`
-A boolean value to enable or disable sorting of the imports module declarations.
-It is disabled by default
-
 #### `importOrderParserPlugins`
-A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
+type: `Array<string>`
+default value: `["typescript", "jsx"]`
 
-Since prettier options are limited to strings, you can pass plugins with options as a JSON string of the plugin array: `"[\"plugin-name\", { \"pluginOption\": true }]"`.
+A collection of plugins for babel parser. The plugin passes this list to babel parser so it can understand the syntax's 
+used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails,
+you can use this field to enforce the usage of the plugins' babel parser needs.
 
-```ecmascript 6
-module.exports = {
-  "printWidth": 80,
-  "tabWidth": 4,
-  "trailingComma": "all",
-  "singleQuote": true,
-  "jsxBracketSameLine": true,
-  "semi": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "importOrderCaseInsensitive": true,
-  "importOrderParserPlugins" : ["jsx", "typescript", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
-}
+To disable default plugins, pass an empty array: 
+```
+importOrderParserPlugins: []
+```
+
+To pass options to the plugins: 
+Since prettier options are limited to string, you can pass plugins with options as a JSON string of the plugin array: 
+`"[\"plugin-name\", { \"pluginOption\": true }]"`.
+
+```
+  "importOrderParserPlugins" : ["angular", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 ```
 
 
@@ -168,24 +187,38 @@ The plugin automatically ignores the  `*.d.ts` files. We encourage you to declar
 
 #### Q. How does the plugin handle the first comment in the file. 
 The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
+
 **input:**
 ```js
 // comment
 
-import a from 'a'
+import a from 'a';
 ```
 **output:**
 ```js
 // comment
-import a from 'a'
+import a from 'a';
 ```
 
-#### Q. I'm getting error about experimental syntax.
+#### Q. I am getting error about experimental syntax.
 If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
 ```shell script
 SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
 ```
 To solve this issue, you can use the new option `importOrderParserPlugins` in your `.prettierrc` and pass an array of plugin names to be used.
+
+#### Q. Why does the plugin remove the inline comments of the import declaration ?
+Due to the comment handling in Babel, the plugin removes the inline comment of the
+import declaration.
+
+**input:**
+```js
+import a from 'a'; // comment
+```
+**output:**
+```js
+import a from 'a';
+```
 
 ### Compatibility
 | Framework | Supported                                | Note                         |
@@ -193,9 +226,9 @@ To solve this issue, you can use the new option `importOrderParserPlugins` in yo
 | JS with ES Modules     | ✅ Everything                              | -                            |
 | NodeJS with ES Modules     | ✅ Everything                              | -                            |
 | React     | ✅ Everything                              | -                            |
-| Angular   | 🔜 Experimental features are not supported | To be supported in v3.x.x, coming soon 😉 |
-| Vue       | ❌ Not supported                           | Any contribution is welcome. |
-| Svelte    | ❌ Not supported                           | Any contribution is welcome. |
+| Angular   | ✅ Everything   | Supported through `importOrderParserPlugins` API  |
+| Vue       | ⚠️ Soon to be supported.                           | Any contribution is welcome. |
+| Svelte    | ⚠️ Soon to be supported.                             | Any contribution is welcome. |
 
 ### Contribution
 For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING.md).
