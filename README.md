@@ -43,7 +43,8 @@ module.exports = {
 ### APIs
 
 #### **`importOrder`** 
-type: `Array<string>`
+
+**type**: `Array<string>`
 
 A collection of Regular expressions in string format. 
 
@@ -58,8 +59,10 @@ To move the third party imports at desired place, You can use
 ```
 
 #### `importOrderSeparation`
-type: `boolean`
-default value: `false`
+
+**type**: `boolean`
+
+**default value**: `false`
 
 A boolean value to enable or disable the new line separation 
 between sorted import declarations group. The separation takes place according to the `importOrder`.
@@ -69,15 +72,19 @@ between sorted import declarations group. The separation takes place according t
 ```
 
 #### `importOrderSortSpecifiers`
-type: `boolean`
-default value: `false`
+
+**type**: `boolean`
+
+**default value:** `false`
 
 A boolean value to enable or disable sorting of the imports' module declarations.
 
 
 #### `importOrderCaseInsensitive`
-type: `boolean`
-default value: `false`
+
+**type**: `boolean`
+
+**default value**: `false`
 
 A boolean value to enable case-insensitivity in the sorting algorithm
 used to order imports within each match group.
@@ -97,8 +104,10 @@ import ExampleView from './ExampleView';
 ```
 
 #### `importOrderParserPlugins`
-type: `Array<string>`
-default value: `["typescript", "jsx"]`
+
+**type**: `Array<string>`
+
+**default value**: `["typescript", "jsx"]`
 
 A collection of plugins for babel parser. The plugin passes this list to babel parser so it can understand the syntax's 
 used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails,
@@ -122,15 +131,15 @@ Since prettier options are limited to string, you can pass plugins with options 
 
 The plugin extracts the imports which are defined in `importOrder`. 
 These imports are _local imports_. The imports which are not part of the 
-`importOrder` is considered as _3rd party imports_.
+`importOrder` is considered as _third party imports_.
 
-After, the plugin sorts the _local imports_ and _3rd party imports_ using
+After, the plugin sorts the _local imports_ and _third party imports_ using
 
 [natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
 
-In the end, the plugin returns final imports with _3rd party imports_ on top and _local imports_ at the end.
+In the end, the plugin returns final imports with _third party imports_ on top and _local imports_ at the end.
 
-The _3rd party imports_ position (it's top by default) can be overrided using the `<THIRD_PARTY_MODULES>` special word.
+The _third party imports_ position (it's top by default) can be overridden using the `<THIRD_PARTY_MODULES>` special word in the `importOrder`.
 
 ### FAQ / Troubleshooting
 
