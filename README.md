@@ -201,11 +201,12 @@ import a from 'a';
 ```
 
 #### Q. I am getting error about experimental syntax.
-If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
+If you are using some experimental syntax and the plugin has trouble parsing your files, you might get errors similar to this:
 ```shell script
 SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
 ```
-To solve this issue, you can use the new option `importOrderParserPlugins` in your `.prettierrc` and pass an array of plugin names to be used.
+To solve this issue, you can use the new option `importOrderParserPlugins` in your `.prettierrc` (prettier config) and pass
+an array of plugin names to be used.
 
 #### Q. Why does the plugin remove the inline comments of the import declaration ?
 Due to the comment handling in Babel, the plugin removes the inline comment of the
@@ -218,6 +219,16 @@ import a from 'a'; // comment
 **output:**
 ```js
 import a from 'a';
+```
+
+#### Q. Why the plugin does not work with [pnpm](https://pnpm.io/) ? or Why do I see the `[warn] Ignored unknown option` ?
+
+Due to the package handling of the pnpm, sometimes, the plugin is not automatically loaded. You can load the plugin
+via prettier config.
+```js
+  module.exports = {
+    plugins: [require('@trivago/prettier-plugin-sort-imports')],
+  }
 ```
 
 ### Compatibility
