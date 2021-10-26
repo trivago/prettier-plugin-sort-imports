@@ -4,16 +4,6 @@ import { parsers as typescriptParsers } from 'prettier/parser-typescript';
 import { preprocessor } from './preprocessor';
 
 const options = {
-    experimentalBabelParserPluginsList: {
-        type: 'path',
-        category: 'Global',
-        array: true,
-        // By default, we add ts and jsx as parsers but if users define something
-        // we take that option
-        default: [{ value: ['typescript', 'jsx'] }],
-        description:
-            'Deprecated! Please use `importOrderParserPlugins` to provide a list of parser plugins for special syntax.',
-    },
     importOrder: {
         type: 'path',
         category: 'Global',
