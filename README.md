@@ -8,10 +8,10 @@ A prettier plugin to sort import declarations by provided Regular Expression ord
 **Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Input
-![input](./public/images/input-v3.png)
+![input](./public/images/input-v3-1.png)
 
 ### Output
-![output](./public/images/output-v3.png)
+![output](./public/images/output-v3-1.png)
 
 
 ### Install
