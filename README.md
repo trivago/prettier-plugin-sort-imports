@@ -5,7 +5,7 @@
 
 A prettier plugin to sort import declarations by provided Regular Expression order.
 
-**Note: If you are migrating from the v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
+**Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Input
 ![input](./public/images/input-v3.png)
@@ -29,7 +29,7 @@ yarn add --dev @trivago/prettier-plugin-sort-imports
 ```
 
 
-**Note: If you are migrating from the v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
+**Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Usage
 
@@ -119,33 +119,34 @@ import ExampleView from './ExampleView';
 
 Previously known as `experimentalBabelParserPluginsList`.
 
-A collection of plugins for babel parser. The plugin passes this list to babel parser so it can understand the syntax's 
+A collection of plugins for babel parser. The plugin passes this list to babel parser, so it can understand the syntax's 
 used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails,
 you can use this field to enforce the usage of the plugins' babel parser needs.
 
-To disable default plugins, pass an empty array: 
+**To pass the plugins to babel parser**:
 ```
-importOrderParserPlugins: []
+  "importOrderParserPlugins" : ["angular", "decorators"]
 ```
 
-To pass options to the plugins: 
-Since prettier options are limited to string, you can pass plugins with options as a JSON string of the plugin array: 
+**To pass the options to the babel parser plugins**: Since prettier options are limited to string, you can pass plugins 
+with options as a JSON string of the plugin array: 
 `"[\"plugin-name\", { \"pluginOption\": true }]"`.
 
 ```
   "importOrderParserPlugins" : ["angular", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 ```
 
+**To disable default plugins for babel parser, pass an empty array**:
+```
+importOrderParserPlugins: []
+```
 
 ### How does import sort work ?
 
-The plugin extracts the imports which are defined in `importOrder`. 
-These imports are _local imports_. The imports which are not part of the 
-`importOrder` is considered as _third party imports_.
+The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_. 
+The imports which are not part of the `importOrder` is considered as _third party imports_.
 
-After, the plugin sorts the _local imports_ and _third party imports_ using
-
-[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+After, the plugin sorts the _local imports_ and _third party imports_ using [natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
 
 In the end, the plugin returns final imports with _third party imports_ on top and _local imports_ at the end.
 
