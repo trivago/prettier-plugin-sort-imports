@@ -5,13 +5,13 @@
 
 A prettier plugin to sort import declarations by provided Regular Expression order.
 
-**Note: If you are migrating from the v2.x.x to v3.x.x. [Read Migration Guidelines](./docs/MIGRATION.md)**
+**Note: If you are migrating from the v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Input
-![input](./public/images/input.png)
+![input](./public/images/input-v3.png)
 
 ### Output
-![output](./public/images/output.png)
+![output](./public/images/output-v3.png)
 
 
 ### Install
@@ -29,7 +29,7 @@ yarn add --dev @trivago/prettier-plugin-sort-imports
 ```
 
 
-**Note: If you are migrating from the v2.x.x to v3.x.x. [Read Migration Guidelines](./docs/MIGRATION.md)**
+**Note: If you are migrating from the v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Usage
 
