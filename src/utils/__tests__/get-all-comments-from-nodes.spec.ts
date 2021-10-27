@@ -8,24 +8,10 @@ import {
 } from '@babel/types';
 import { getAllCommentsFromNodes } from '../get-all-comments-from-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
+import { getImportNodes } from '../get-import-nodes';
 
 const getSortedImportNodes = (code: string, options?: ParserOptions) => {
-    const importNodes: ImportDeclaration[] = [];
-    const ast = babelParser(code, {
-        ...options,
-        sourceType: 'module',
-    });
-
-    traverse(ast, {
-        ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
-            );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
-            }
-        },
-    });
+    const importNodes: ImportDeclaration[] = getImportNodes(code, options);
 
     return getSortedNodes(importNodes, {
         importOrder: [],

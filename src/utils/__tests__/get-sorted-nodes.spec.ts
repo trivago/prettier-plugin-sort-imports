@@ -1,13 +1,8 @@
-import { parse as babelParser, ParserOptions } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
-import {
-    ImportDeclaration,
-    ImportDefaultSpecifier,
-    ImportNamespaceSpecifier,
-    ImportSpecifier,
-    isTSModuleDeclaration,
-} from '@babel/types';
+import { ImportDeclaration } from '@babel/types';
+import { getImportNodes } from '../get-import-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
+import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names';
+import { getSortedNodesNames } from '../get-sorted-nodes-names';
 
 const code = `// first comment
 // second comment
@@ -23,49 +18,6 @@ import XY from 'XY';
 import Xa from 'Xa';
 `;
 
-const getImportNodes = (code: string, options?: ParserOptions) => {
-    const importNodes: ImportDeclaration[] = [];
-    const ast = babelParser(code, {
-        ...options,
-        sourceType: 'module',
-    });
-
-    traverse(ast, {
-        ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
-            );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
-            }
-        },
-    });
-
-    return importNodes;
-};
-
-const getSortedNodesNames = (imports: ImportDeclaration[]) =>
-    imports
-        .filter((i) => i.type === 'ImportDeclaration')
-        .map((i) => i.source.value); // TODO: get from specifier
-
-const getSortedNodesModulesNames = (
-    modules: (
-        | ImportSpecifier
-        | ImportDefaultSpecifier
-        | ImportNamespaceSpecifier
-    )[],
-) =>
-    modules
-        .filter((m) =>
-            [
-                'ImportSpecifier',
-                'ImportDefaultSpecifier',
-                'ImportNamespaceSpecifier',
-            ].includes(m.type),
-        )
-        .map((m) => m.local.name); // TODO: get from specifier
-
 test('it returns all sorted nodes', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(result, {
@@ -75,24 +27,11 @@ test('it returns all sorted nodes', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'BY',
-        'Ba',
-        'XY',
-        'Xa',
-        'a',
-        'c',
-        'g',
-        'k',
-        't',
-        'z',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['BY', 'Ba', 'XY', 'Xa', 'a', 'c', 'g', 'k', 't', 'z']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['BY'],
         ['Ba'],
@@ -116,24 +55,11 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'a',
-        'Ba',
-        'BY',
-        'c',
-        'g',
-        'k',
-        't',
-        'Xa',
-        'XY',
-        'z',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['a', 'Ba', 'BY', 'c', 'g', 'k', 't', 'Xa', 'XY', 'z']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['a'],
         ['Ba'],
@@ -157,24 +83,11 @@ test('it returns all sorted nodes with sort order', () => {
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'XY',
-        'Xa',
-        'c',
-        'g',
-        'z',
-        'a',
-        't',
-        'k',
-        'BY',
-        'Ba',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['XY', 'Xa', 'c', 'g', 'z', 'a', 't', 'k', 'BY', 'Ba']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['XY'],
         ['Xa'],
@@ -197,24 +110,11 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrderSeparation: false,
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'c',
-        'g',
-        'Xa',
-        'XY',
-        'z',
-        'a',
-        't',
-        'k',
-        'Ba',
-        'BY',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['c', 'g', 'Xa', 'XY', 'z', 'a', 't', 'k', 'Ba', 'BY']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['c', 'cD'],
         ['g'],
@@ -237,24 +137,11 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         importOrderSeparation: false,
         importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'XY',
-        'Xa',
-        'c',
-        'g',
-        'z',
-        'a',
-        't',
-        'k',
-        'BY',
-        'Ba',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['XY', 'Xa', 'c', 'g', 'z', 'a', 't', 'k', 'BY', 'Ba']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['XY'],
         ['Xa'],
@@ -277,24 +164,11 @@ test('it returns all sorted import nodes with sorted import specifiers with case
         importOrderSeparation: false,
         importOrderSortSpecifiers: true,
     }) as ImportDeclaration[];
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'c',
-        'g',
-        'Xa',
-        'XY',
-        'z',
-        'a',
-        't',
-        'k',
-        'Ba',
-        'BY',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['c', 'g', 'Xa', 'XY', 'z', 'a', 't', 'k', 'Ba', 'BY']);
     expect(
         sorted
             .filter((node) => node.type === 'ImportDeclaration')
-            .map((importDeclaration) =>
-                getSortedNodesModulesNames(importDeclaration.specifiers),
-            ),
+            .map((importDeclaration) => getSortedNodesModulesNames(importDeclaration.specifiers)),
     ).toEqual([
         ['c', 'cD'],
         ['g'],
@@ -317,16 +191,5 @@ test('it returns all sorted nodes with custom third party modules', () => {
         importOrderCaseInsensitive: true,
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
-    expect(getSortedNodesNames(sorted)).toEqual([
-        'a',
-        'Ba',
-        'BY',
-        'c',
-        'g',
-        'Xa',
-        'XY',
-        'z',
-        't',
-        'k',
-    ]);
+    expect(getSortedNodesNames(sorted)).toEqual(['a', 'Ba', 'BY', 'c', 'g', 'Xa', 'XY', 'z', 't', 'k']);
 });

@@ -1,3 +1,4 @@
+import { ExpressionStatement, ImportDeclaration } from '@babel/types';
 import { RequiredOptions } from 'prettier';
 
 export interface PrettierOptions extends RequiredOptions {
@@ -8,3 +9,17 @@ export interface PrettierOptions extends RequiredOptions {
     importOrderSeparation: boolean;
     importOrderSortSpecifiers: boolean;
 }
+
+export type ImportGroups = Record<string, ImportDeclaration[]>;
+export type ImportOrLine = ImportDeclaration | ExpressionStatement;
+
+export type GetSortedNodes = (
+    nodes: ImportDeclaration[],
+    options: Pick<
+        PrettierOptions,
+        | 'importOrder'
+        | 'importOrderCaseInsensitive'
+        | 'importOrderSeparation'
+        | 'importOrderSortSpecifiers'
+    >,
+) => ImportOrLine[];

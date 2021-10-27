@@ -2,30 +2,14 @@ import { naturalSort } from '../natural-sort';
 import { isEqual, clone } from 'lodash';
 
 import {
-    ImportDeclaration,
-    ExpressionStatement,
     addComments,
     removeComments,
 } from '@babel/types';
 
-import { PrettierOptions } from '../types';
+import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { newLineNode, THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
 import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
-
-type ImportGroups = Record<string, ImportDeclaration[]>;
-type ImportOrLine = ImportDeclaration | ExpressionStatement;
-
-type GetSortedNodes = (
-    nodes: ImportDeclaration[],
-    options: Pick<
-        PrettierOptions,
-        | 'importOrder'
-        | 'importOrderCaseInsensitive'
-        | 'importOrderSeparation'
-        | 'importOrderSortSpecifiers'
-    >,
-) => ImportOrLine[];
 
 /**
  * This function returns all the nodes which are in the importOrder array.
