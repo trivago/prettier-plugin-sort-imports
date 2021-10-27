@@ -61,7 +61,7 @@ A collection of Regular expressions in string format.
 ```
 
 _Default behavior:_ The plugin moves the third party imports to the top which are not part of the `importOrder` list. 
-To move the third party imports at desired place, You can use
+To move the third party imports at desired place, you can use `<THIRD_PARTY_MODULES>` to assign third party imports to the appropriate position:
 ```
 "importOrder": ["^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
 ```
@@ -76,7 +76,7 @@ A boolean value to enable or disable the new line separation
 between sorted import declarations group. The separation takes place according to the `importOrder`.
 
 ```
-"importOrderSeparation": false,
+"importOrderSeparation": true,
 ```
 
 #### `importOrderSortSpecifiers`
@@ -119,13 +119,13 @@ import ExampleView from './ExampleView';
 
 Previously known as `experimentalBabelParserPluginsList`.
 
-A collection of plugins for babel parser. The plugin passes this list to babel parser, so it can understand the syntax's 
+A collection of plugins for babel parser. The plugin passes this list to babel parser, so it can understand the syntaxes 
 used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails,
 you can use this field to enforce the usage of the plugins' babel parser needs.
 
 **To pass the plugins to babel parser**:
 ```
-  "importOrderParserPlugins" : ["angular", "decorators"]
+  "importOrderParserPlugins" : ["classProperties", "decorators-legacy"]
 ```
 
 **To pass the options to the babel parser plugins**: Since prettier options are limited to string, you can pass plugins 
@@ -133,7 +133,7 @@ with options as a JSON string of the plugin array:
 `"[\"plugin-name\", { \"pluginOption\": true }]"`.
 
 ```
-  "importOrderParserPlugins" : ["angular", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
+  "importOrderParserPlugins" : ["classProperties", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
 ```
 
 **To disable default plugins for babel parser, pass an empty array**:
