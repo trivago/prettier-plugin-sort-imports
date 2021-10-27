@@ -1,12 +1,17 @@
 # Prettier plugin sort imports
 
-A prettier plugin to sort import declarations by provided RegEx order.
+![npm](https://img.shields.io/npm/v/@trivago/prettier-plugin-sort-imports)
+![NPM Downloads](https://img.shields.io/npm/dw/@trivago/prettier-plugin-sort-imports)
+
+A prettier plugin to sort import declarations by provided Regular Expression order.
+
+**Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
 ### Input
-![input](./public/images/input.png)
+![input](./public/images/input-v3-1.png)
 
 ### Output
-![output](./public/images/output.png)
+![output](./public/images/output-v3-1.png)
 
 
 ### Install
@@ -23,6 +28,9 @@ or, using yarn
 yarn add --dev @trivago/prettier-plugin-sort-imports
 ```
 
+
+**Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
+
 ### Usage
 
 Add an order in prettier config file.
@@ -33,113 +41,121 @@ module.exports = {
   "tabWidth": 4,
   "trailingComma": "all",
   "singleQuote": true,
-  "jsxBracketSameLine": true,
   "semi": true,
   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
   "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
 }
 ```
 
 ### APIs
 
-#### `importOrder`
-A collection of regular expressions in string format. The plugin
-uses [`new RegExp`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
-to evaluate regular expression. E.g. `node.source.value.match(new RegExp(val))` Here, `val` 
-is the string provided in import order.
+#### **`importOrder`** 
 
-#### `importOrderSeparation`
-A boolean value to enable or disable the new line separation 
-between sorted import declarations. The separation takes place according to `importOrder`.
+**type**: `Array<string>`
 
-#### `experimentalBabelParserPluginsList`
-A collection of parser names for babel parser. The plugin passes this list to babel parser so it can understand the syntaxes used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails, you can use this field to enforce the usage of the plugins babel needs.
+A collection of Regular expressions in string format. 
 
-```ecmascript 6
-module.exports = {
-  "printWidth": 80,
-  "tabWidth": 4,
-  "trailingComma": "all",
-  "singleQuote": true,
-  "jsxBracketSameLine": true,
-  "semi": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
-  "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList" : ["jsx", "typescript"]
-}
+```
+"importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
 ```
 
+_Default behavior:_ The plugin moves the third party imports to the top which are not part of the `importOrder` list. 
+To move the third party imports at desired place, you can use `<THIRD_PARTY_MODULES>` to assign third party imports to the appropriate position:
+```
+"importOrder": ["^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+```
+
+#### `importOrderSeparation`
+
+**type**: `boolean`
+
+**default value**: `false`
+
+A boolean value to enable or disable the new line separation 
+between sorted import declarations group. The separation takes place according to the `importOrder`.
+
+```
+"importOrderSeparation": true,
+```
+
+#### `importOrderSortSpecifiers`
+
+**type**: `boolean`
+
+**default value:** `false`
+
+A boolean value to enable or disable sorting of the specifiers in an import declarations.
+
+
+#### `importOrderCaseInsensitive`
+
+**type**: `boolean`
+
+**default value**: `false`
+
+A boolean value to enable case-insensitivity in the sorting algorithm
+used to order imports within each match group.
+
+For example, when false (or not specified):
+
+```ecmascript 6
+import ExampleView from './ExampleView';
+import ExamplesList from './ExamplesList';
+```
+
+compared with `"importOrderCaseInsensitive": true`:
+
+```ecmascript 6
+import ExamplesList from './ExamplesList';
+import ExampleView from './ExampleView';
+```
+
+#### `importOrderParserPlugins`
+
+**type**: `Array<string>`
+
+**default value**: `["typescript", "jsx"]`
+
+Previously known as `experimentalBabelParserPluginsList`.
+
+A collection of plugins for babel parser. The plugin passes this list to babel parser, so it can understand the syntaxes 
+used in the file being formatted. The plugin uses prettier itself to figure out the parser it needs to use but if that fails,
+you can use this field to enforce the usage of the plugins' babel parser needs.
+
+**To pass the plugins to babel parser**:
+```
+  "importOrderParserPlugins" : ["classProperties", "decorators-legacy"]
+```
+
+**To pass the options to the babel parser plugins**: Since prettier options are limited to string, you can pass plugins 
+with options as a JSON string of the plugin array: 
+`"[\"plugin-name\", { \"pluginOption\": true }]"`.
+
+```
+  "importOrderParserPlugins" : ["classProperties", "[\"decorators\", { \"decoratorsBeforeExport\": true }]"]
+```
+
+**To disable default plugins for babel parser, pass an empty array**:
+```
+importOrderParserPlugins: []
+```
 
 ### How does import sort work ?
 
-The plugin extracts the imports which are defined in `importOrder`. 
-These imports are _local imports_. The imports which are not part of the 
-`importOrder` is considered as _3rd party imports_.
+The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_. 
+The imports which are not part of the `importOrder` is considered as _third party imports_.
 
-After, the plugin sorts the _local imports_ and _3rd party imports_ using
-[natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
-In the end, the plugin returns final imports with _3rd party imports_ on top and 
-_local imports_ at the end.
+After, the plugin sorts the _local imports_ and _third party imports_ using [natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+
+In the end, the plugin returns final imports with _third party imports_ on top and _local imports_ at the end.
+
+The _third party imports_ position (it's top by default) can be overridden using the `<THIRD_PARTY_MODULES>` special word in the `importOrder`.
 
 ### FAQ / Troubleshooting
 
-#### Q. How can I add the RegEx imports in the `importOrder` list ?
-You can define the RegEx in the `importOrder`. For
-example if you want to sort the following imports:
-```ecmascript 6
-import React from 'react';
-import classnames from 'classnames';
-import z from '@server/z';
-import a from '@server/a';
-import s from './';
-import p from '@ui/p';
-import q from '@ui/q';
-```
-then the `importOrder` would be `["^@ui/(.*)$","^@server/(.*)$", '^[./]']`. 
-Now, the final output would be as follows:
+Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](./docs/TROUBLESHOOTING.md).
 
-```ecmascript 6
-import classnames from 'classnames';
-import React from 'react';
-import p from '@ui/p';
-import q from '@ui/q';
-import a from '@server/a';
-import z from '@server/z';
-import s from './';
-```
-
-#### Q. How can I run examples in this project ?
-There is a _examples_ directory. The examples file can be formatted by using
-`npm run example` command.
-
-
-```shell script
-npm run example examples/example.tsx
-```
-
-#### Q. How to use the plugin with `*.d.ts` files ?
-The plugin automatically ignores the  `*.d.ts` files. We encourage you to declare the `*.d.ts` files in `.prettierignore`. [Read more here](https://prettier.io/docs/en/ignore.html#ignoring-files-prettierignore).
-
-#### Q. How does the plugin handle the first comment in the file. 
-The plugin keeps the first comment as it is in the file. The plugin also removes the new lines in between first comment and the first import.
-**input:**
-```js
-// comment
-
-import a from 'a'
-```
-**output:**
-```js
-// comment
-import a from 'a'
-```
-
-#### Q. I'm getting error about experimental syntax.
-If you are using some experimental syntax and the plugin has trouble parsing your files, you might getting errors similar to this:
-```shell script
-SyntaxError: This experimental syntax requires enabling one of the following parser plugin(s): ...
-```
-To solve this issue, you can use the new option `experimentalBabelParserPluginsList` in your `.prettierrc` and pass an array of plugin names to be used.
 
 ### Compatibility
 | Framework | Supported                                | Note                         |
@@ -147,15 +163,19 @@ To solve this issue, you can use the new option `experimentalBabelParserPluginsL
 | JS with ES Modules     | ✅ Everything                              | -                            |
 | NodeJS with ES Modules     | ✅ Everything                              | -                            |
 | React     | ✅ Everything                              | -                            |
-| Angular   | 🔜 Experimental features are not supported | To be supported in v3.x.x, coming soon 😉 |
-| Vue       | ❌ Not supported                           | Any contribution is welcome. |
-| Svelte    | ❌ Not supported                           | Any contribution is welcome. |
+| Angular   | ✅ Everything   | Supported through `importOrderParserPlugins` API  |
+| Vue       | ⚠️ Soon to be supported.                           | Any contribution is welcome. |
+| Svelte    | ⚠️ Soon to be supported.                             | Any contribution is welcome. |
+
+### Used by
+Want to highlight your project or company ? Adding your project / company name will help plugin to gain attraction and contribution.
+Feel free to make a Pull Request to add your project / company name.
+- [trivago](https://company.trivago.com)
+- ADD YOUR PROJECT / COMPANY NAME
 
 ### Contribution
-For more information regarding contribution, please check the [CONTRIBUTING](./CONTRIBUTING.md).
-
-### Disclaimer
-This plugin modifies the AST which is against the rules of prettier.
+For more information regarding contribution, please check the [Contributing Guidelines](./CONTRIBUTING.md). If you are trying to
+debug some code in the plugin, check [Debugging Guidelines](./docs/DEBUG.md)
 
 ### Maintainers
 
@@ -163,3 +183,6 @@ This plugin modifies the AST which is against the rules of prettier.
 |---|---|
 | ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4)
 | [@ayusharma_](https://twitter.com/ayusharma_) | [@behrang_y](https://twitter.com/behrang_y)
+
+### Disclaimer
+This plugin modifies the AST which is against the rules of prettier.

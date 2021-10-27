@@ -1,99 +1,105 @@
-// we do not have types for javascript-natural-sort
-//@ts-ignore
-import naturalSort from 'javascript-natural-sort';
-import { compact, isEqual, pull, clone } from 'lodash';
+import { naturalSort } from '../natural-sort';
+import { isEqual, clone } from 'lodash';
 
 import {
-    ImportDeclaration,
-    ExpressionStatement,
     addComments,
     removeComments,
 } from '@babel/types';
 
-import { isSimilarTextExistInArray } from './is-similar-text-in-array';
-import { PrettierOptions } from '../types';
-import { newLineNode } from '../constants';
+import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
+import { newLineNode, THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
+import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
+import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
 
 /**
  * This function returns all the nodes which are in the importOrder array.
  * The plugin considered these import nodes as local import declarations.
  * @param nodes all import nodes
- * @param order import order
- * @param importOrderSeparation boolean indicating if newline should be inserted after each import order
+ * @param options
  */
-export const getSortedNodes = (
-    nodes: ImportDeclaration[],
-    order: PrettierOptions['importOrder'],
-    importOrderSeparation: boolean,
-) => {
+export const getSortedNodes: GetSortedNodes = (nodes, options) => {
+    naturalSort.insensitive = options.importOrderCaseInsensitive;
+
+    let { importOrder } = options;
+    const { importOrderSeparation, importOrderSortSpecifiers } = options;
+
     const originalNodes = nodes.map(clone);
-    const newLine =
-        importOrderSeparation && nodes.length > 1 ? newLineNode : null;
-    const sortedNodesByImportOrder = order.reduce(
-        (
-            res: (ImportDeclaration | ExpressionStatement)[],
-            val,
-        ): (ImportDeclaration | ExpressionStatement)[] => {
-            const x = originalNodes.filter(
-                (node) => node.source.value.match(new RegExp(val)) !== null,
+    const finalNodes: ImportOrLine[] = [];
+
+    if (!importOrder.includes(THIRD_PARTY_MODULES_SPECIAL_WORD)) {
+        importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder];
+    }
+
+    const importOrderGroups = importOrder.reduce<ImportGroups>(
+        (groups, regexp) => ({
+            ...groups,
+            [regexp]: [],
+        }),
+        {},
+    );
+
+    const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
+        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+    );
+
+    for (const node of originalNodes) {
+        const matchedGroup = getImportNodesMatchedGroup(
+            node,
+            importOrderWithOutThirdPartyPlaceholder,
+        );
+        importOrderGroups[matchedGroup].push(node);
+    }
+
+    for (const group of importOrder) {
+        const groupNodes = importOrderGroups[group];
+
+        if (groupNodes.length === 0) continue;
+
+        const sortedInsideGroup = groupNodes.sort((a, b) =>
+            naturalSort(a.source.value, b.source.value),
+        );
+
+        // Sort the import specifiers
+        if (importOrderSortSpecifiers) {
+            sortedInsideGroup.forEach((node) =>
+                getSortedImportSpecifiers(node),
             );
+        }
 
-            // remove "found" imports from the list of nodes
-            pull(originalNodes, ...x);
+        finalNodes.push(...sortedInsideGroup);
 
-            if (x.length > 0) {
-                x.sort((a, b) => naturalSort(a.source.value, b.source.value));
+        if (importOrderSeparation) {
+            finalNodes.push(newLineNode);
+        }
+    }
 
-                if (res.length > 0) {
-                    return compact([...res, newLine, ...x]);
-                }
-                return x;
-            }
-            return res;
-        },
-        [],
-    );
-
-    const sortedNodesNotInImportOrder = originalNodes.filter(
-        (node) => !isSimilarTextExistInArray(order, node.source.value),
-    );
-
-    sortedNodesNotInImportOrder.sort((a, b) =>
-        naturalSort(a.source.value, b.source.value),
-    );
-
-    const shouldAddNewLineInBetween =
-        sortedNodesNotInImportOrder.length > 0 && importOrderSeparation;
-
-    const allSortedNodes = compact([
-        ...sortedNodesNotInImportOrder,
-        shouldAddNewLineInBetween ? newLineNode : null,
-        ...sortedNodesByImportOrder,
-        newLineNode, // insert a newline after all sorted imports
-    ]);
+    if (finalNodes.length > 0 && !importOrderSeparation) {
+        // a newline after all imports
+        finalNodes.push(newLineNode);
+    }
 
     // maintain a copy of the nodes to extract comments from
-    const sortedNodesClone = allSortedNodes.map(clone);
+    const finalNodesClone = finalNodes.map(clone);
 
     const firstNodesComments = nodes[0].leadingComments;
 
     // Remove all comments from sorted nodes
-    allSortedNodes.forEach(removeComments);
+    finalNodes.forEach(removeComments);
 
     // insert comments other than the first comments
-    allSortedNodes.forEach((node, index) => {
-        if (!isEqual(nodes[0].loc, node.loc)) {
-            addComments(
-                node,
-                'leading',
-                sortedNodesClone[index].leadingComments || [],
-            );
-        }
+    finalNodes.forEach((node, index) => {
+        if (isEqual(nodes[0].loc, node.loc)) return;
+
+        addComments(
+            node,
+            'leading',
+            finalNodesClone[index].leadingComments || [],
+        );
     });
 
     if (firstNodesComments) {
-        addComments(allSortedNodes[0], 'leading', firstNodesComments);
+        addComments(finalNodes[0], 'leading', firstNodesComments);
     }
 
-    return allSortedNodes;
+    return finalNodes;
 };
