@@ -16,13 +16,10 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
     } = options;
 
-    const parsedParserPlugins = getExperimentalParserPlugins(importOrderParserPlugins);
-
     const importNodes: ImportDeclaration[] = [];
-
     const parserOptions: ParserOptions = {
         sourceType: 'module',
-        plugins: parsedParserPlugins,
+        plugins: getExperimentalParserPlugins(importOrderParserPlugins),
     };
 
     const ast = babelParser(code, parserOptions);
