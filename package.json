@@ -34,7 +34,7 @@
   "dependencies": {
     "@babel/core": "7.13.10",
     "@babel/generator": "7.13.9",
-    "@babel/parser": "7.13.10",
+    "@babel/parser": "7.14.6",
     "@babel/traverse": "7.13.0",
     "@babel/types": "7.13.0",
     "@types/lodash": "4.14.168",
