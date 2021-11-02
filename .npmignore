@@ -1,12 +1,19 @@
+# Directories
+src/
+tests/
+test-setup/
+examples/
+docs/
+public/
+.github/
 .idea
+
+# Files
 .gitattributes
 .gitignore
 .prettierrc
-import-sort.gif
 jest.config.js
 yarn.lock
-.github/
-src/
-tests/
-examples/
 tsconfig.json
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
