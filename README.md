@@ -1,8 +1,5 @@
 # Prettier plugin sort imports
 
-![npm](https://img.shields.io/npm/v/@trivago/prettier-plugin-sort-imports)
-![NPM Downloads](https://img.shields.io/npm/dw/@trivago/prettier-plugin-sort-imports)
-
 A prettier plugin to sort import declarations by provided Regular Expression order.
 
 **Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
