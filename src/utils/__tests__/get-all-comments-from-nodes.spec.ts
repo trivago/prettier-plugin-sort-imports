@@ -1,11 +1,5 @@
-import { parse as babelParser, ParserOptions } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
-import {
-    ImportDeclaration,
-    isTSModuleDeclaration,
-    CommentBlock,
-    CommentLine,
-} from '@babel/types';
+import { ParserOptions } from '@babel/parser';
+import { ImportDeclaration, CommentBlock, CommentLine } from '@babel/types';
 import { getAllCommentsFromNodes } from '../get-all-comments-from-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
 import { getImportNodes } from '../get-import-nodes';
