@@ -2,6 +2,13 @@
 
 ---
 
+### v3.1.0
+
+#### Chores
+- Update Babel parser to `7.14.6` [#79](https://github.com/trivago/prettier-plugin-sort-imports/pull/79) by [juanrgm](https://github.com/juanrgm)
+- `.npmignore` cleanup [#96](https://github.com/trivago/prettier-plugin-sort-imports/issues/96) by [byara](https://github.com/byara)
+- Remove npm badges in the README  [#101](https://github.com/trivago/prettier-plugin-sort-imports/issues/101) by [byara](https://github.com/byara)
+
 ### v3.0.0
 
 #### New features
