@@ -36,7 +36,8 @@ const options = {
         type: 'boolean',
         category: 'Global',
         default: false,
-        description: 'Should namespace specifies be grouped at the top?',
+        description:
+            'Should namespace specifiers be grouped at the top of their group?',
     },
     importOrderSortSpecifiers: {
         type: 'boolean',
