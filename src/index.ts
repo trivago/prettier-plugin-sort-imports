@@ -32,6 +32,12 @@ const options = {
         default: false,
         description: 'Should imports be separated by new line?',
     },
+    importOrderGroupNamespaceSpecifiers: {
+        type: 'boolean',
+        category: 'Global',
+        default: false,
+        description: 'Should namespace specifies be grouped at the top?',
+    },
     importOrderSortSpecifiers: {
         type: 'boolean',
         category: 'Global',
