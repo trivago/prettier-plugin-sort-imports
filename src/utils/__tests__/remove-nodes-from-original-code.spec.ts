@@ -1,8 +1,9 @@
 import { format } from 'prettier';
+
 import { getAllCommentsFromNodes } from '../get-all-comments-from-nodes';
+import { getImportNodes } from '../get-import-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
 import { removeNodesFromOriginalCode } from '../remove-nodes-from-original-code';
-import { getImportNodes } from '../get-import-nodes';
 
 const code = `// first comment
 // second comment

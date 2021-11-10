@@ -1,4 +1,5 @@
 import { ImportDeclaration } from '@babel/types';
+
 import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
 
 /**
@@ -6,7 +7,10 @@ import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
  * @param node
  * @param importOrder
  */
-export const getImportNodesMatchedGroup = (node: ImportDeclaration, importOrder: string[]) => {
+export const getImportNodesMatchedGroup = (
+    node: ImportDeclaration,
+    importOrder: string[],
+) => {
     const groupWithRegExp = importOrder.map((group) => ({
         group,
         regExp: new RegExp(group),

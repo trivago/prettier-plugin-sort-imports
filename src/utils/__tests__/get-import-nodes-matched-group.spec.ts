@@ -16,14 +16,31 @@ import a from '@core/a';
 `;
 test('should return correct matched groups', () => {
     const importNodes = getImportNodes(code);
-    const importOrder = ['^@server/(.*)$', '^@core/(.*)$', '^@ui/(.*)$', '^[./]'];
+    const importOrder = [
+        '^@server/(.*)$',
+        '^@core/(.*)$',
+        '^@ui/(.*)$',
+        '^[./]',
+    ];
 
     let matchedGroups: string[] = [];
     for (const importNode of importNodes) {
-        const matchedGroup = getImportNodesMatchedGroup(importNode, importOrder);
+        const matchedGroup = getImportNodesMatchedGroup(
+            importNode,
+            importOrder,
+        );
         matchedGroups.push(matchedGroup);
     }
-    expect(matchedGroups).toEqual(["^@server/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^[./]", "^[./]", "^@core/(.*)$"]);
+    expect(matchedGroups).toEqual([
+        '^@server/(.*)$',
+        '^@server/(.*)$',
+        '^@ui/(.*)$',
+        '^@core/(.*)$',
+        '<THIRD_PARTY_MODULES>',
+        '^[./]',
+        '^[./]',
+        '^@core/(.*)$',
+    ]);
 });
 
 test('should return THIRD_PARTY_MODULES as matched group with empty order list', () => {
@@ -31,7 +48,10 @@ test('should return THIRD_PARTY_MODULES as matched group with empty order list',
     const importOrder: string[] = [];
 
     for (const importNode of importNodes) {
-        const matchedGroup = getImportNodesMatchedGroup(importNode, importOrder);
-        expect(matchedGroup).toEqual("<THIRD_PARTY_MODULES>");
+        const matchedGroup = getImportNodesMatchedGroup(
+            importNode,
+            importOrder,
+        );
+        expect(matchedGroup).toEqual('<THIRD_PARTY_MODULES>');
     }
 });

@@ -1,5 +1,6 @@
-import { naturalSort } from '../natural-sort';
 import { ImportDeclaration } from '@babel/types';
+
+import { naturalSort } from '../natural-sort';
 
 /**
  * This function returns import nodes with alphabetically sorted module

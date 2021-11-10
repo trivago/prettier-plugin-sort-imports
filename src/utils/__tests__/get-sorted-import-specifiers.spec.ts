@@ -6,16 +6,25 @@ test('should return correct sorted nodes', () => {
     const code = `import { filter, reduce, eventHandler } from '@server/z';`;
     const [importNode] = getImportNodes(code);
     const sortedImportSpecifiers = getSortedImportSpecifiers(importNode);
-    const specifiersList = getSortedNodesModulesNames(sortedImportSpecifiers.specifiers);
+    const specifiersList = getSortedNodesModulesNames(
+        sortedImportSpecifiers.specifiers,
+    );
 
-    expect(specifiersList).toEqual(["eventHandler", "filter", "reduce"]);
+    expect(specifiersList).toEqual(['eventHandler', 'filter', 'reduce']);
 });
 
 test('should return correct sorted nodes with default import', () => {
     const code = `import Component, { filter, reduce, eventHandler } from '@server/z';`;
     const [importNode] = getImportNodes(code);
     const sortedImportSpecifiers = getSortedImportSpecifiers(importNode);
-    const specifiersList = getSortedNodesModulesNames(sortedImportSpecifiers.specifiers);
+    const specifiersList = getSortedNodesModulesNames(
+        sortedImportSpecifiers.specifiers,
+    );
 
-    expect(specifiersList).toEqual(["Component", "eventHandler", "filter", "reduce"]);
+    expect(specifiersList).toEqual([
+        'Component',
+        'eventHandler',
+        'filter',
+        'reduce',
+    ]);
 });
