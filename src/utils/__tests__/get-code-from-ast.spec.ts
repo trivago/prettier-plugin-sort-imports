@@ -19,6 +19,7 @@ import a from 'a';
         importOrder: [],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
     });
     const formatted = getCodeFromAst(sortedNodes, code, null);
