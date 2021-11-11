@@ -1,6 +1,6 @@
 {
   "name": "@trivago/prettier-plugin-sort-imports",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "A prettier plugins to sort imports in provided RegEx order",
   "main": "lib/src/index.js",
   "repository": {
@@ -12,7 +12,7 @@
     "prepare": "yarn run compile",
     "compile": "tsc",
     "preexample": "yarn run compile",
-    "example": "prettier --config .prettierrc --plugin lib/src/index.js",
+    "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
     "test": "jest -i",
     "type-check": "tsc --noEmit",
     "prepublishOnly": "npm run compile && npm run test"

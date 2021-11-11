@@ -1,12 +1,11 @@
-import { naturalSort } from '../natural-sort';
-import { isEqual, clone } from 'lodash';
-
 import { addComments, removeComments } from '@babel/types';
+import { clone, isEqual } from 'lodash';
 
+import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode } from '../constants';
+import { naturalSort } from '../natural-sort';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
-import { newLineNode, THIRD_PARTY_MODULES_SPECIAL_WORD } from '../constants';
-import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
+import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
 import { getSortedNodesGroup } from './get-sorted-nodes-group';
 
 /**

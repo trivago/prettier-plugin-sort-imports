@@ -1,9 +1,9 @@
 import generate from '@babel/generator';
-import { file, Statement, InterpreterDirective } from '@babel/types';
+import { InterpreterDirective, Statement, file } from '@babel/types';
 
+import { newLineCharacters } from '../constants';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
 import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
-import { newLineCharacters } from '../constants';
 
 /**
  * This function generate a code string from the passed nodes.

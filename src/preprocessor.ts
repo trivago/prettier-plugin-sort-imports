@@ -1,11 +1,11 @@
-import { parse as babelParser, ParserOptions } from '@babel/parser';
+import { ParserOptions, parse as babelParser } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
-import { getCodeFromAst } from './utils/get-code-from-ast';
-import { getSortedNodes } from './utils/get-sorted-nodes';
 import { PrettierOptions } from './types';
+import { getCodeFromAst } from './utils/get-code-from-ast';
 import { getExperimentalParserPlugins } from './utils/get-experimental-parser-plugins';
+import { getSortedNodes } from './utils/get-sorted-nodes';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {

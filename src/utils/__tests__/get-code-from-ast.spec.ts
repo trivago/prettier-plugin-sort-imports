@@ -1,7 +1,8 @@
 import { format } from 'prettier';
+
 import { getCodeFromAst } from '../get-code-from-ast';
-import { getSortedNodes } from '../get-sorted-nodes';
 import { getImportNodes } from '../get-import-nodes';
+import { getSortedNodes } from '../get-sorted-nodes';
 
 test('it sorts imports correctly', () => {
     const code = `// first comment

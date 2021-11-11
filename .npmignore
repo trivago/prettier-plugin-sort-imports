@@ -11,7 +11,8 @@ public/
 # Files
 .gitattributes
 .gitignore
-.prettierrc
+.prettierignore
+prettier.config.js
 jest.config.js
 yarn.lock
 tsconfig.json
