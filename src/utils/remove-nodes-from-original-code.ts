@@ -1,9 +1,9 @@
 import {
-    ImportDeclaration,
-    Statement,
     CommentBlock,
     CommentLine,
+    ImportDeclaration,
     InterpreterDirective,
+    Statement,
 } from '@babel/types';
 
 /** Escapes a string literal to be passed to new RegExp. See: https://stackoverflow.com/a/6969486/480608.
