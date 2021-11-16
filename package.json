@@ -43,8 +43,8 @@
   "devDependencies": {
     "@types/chai": "4.2.15",
     "@types/jest": "26.0.20",
-    "@types/node": "14.14.34",
     "@types/lodash": "4.14.168",
+    "@types/node": "14.14.34",
     "jest": "26.6.3",
     "prettier": "2.3.1",
     "ts-jest": "26.5.3",

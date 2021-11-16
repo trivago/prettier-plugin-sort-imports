@@ -143,7 +143,35 @@ importOrderParserPlugins: []
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_. 
 The imports which are not part of the `importOrder` is considered as _third party imports_.
 
-After, the plugin sorts the _local imports_ and _third party imports_ using [natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
+First, the plugin checks for
+[side effect imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_a_module_for_its_side_effects_only),
+such as `import 'mock-fs'`. These imports often modify the global scope or apply some patches to the current
+environment, which may affect other imports. To preserve potential side effects, these kind of side effect imports are
+not sorted. They also behave as a barrier that other imports may not cross during the sort. So for example, let's say
+you've got these imports:
+
+```javascript
+import E from 'e';
+import F from 'f';
+import D from 'd';
+import 'c';
+import B from 'b';
+import A from 'a';
+```
+
+Then the first three imports are sorted and the last two imports are sorted, but all imports above `c` stay above `c`
+and all imports below `c` stay below `c`, resulting in:
+
+```javascript
+import D from 'd';
+import E from 'e';
+import F from 'f';
+import 'c';
+import A from 'a';
+import B from 'b';
+```
+
+Next, the plugin sorts the _local imports_ and _third party imports_ using [natural sort algorithm](https://en.wikipedia.org/wiki/Natural_sort_order).
 
 In the end, the plugin returns final imports with _third party imports_ on top and _local imports_ at the end.
 

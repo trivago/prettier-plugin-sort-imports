@@ -7,6 +7,9 @@ export const jsx: ParserPlugin = 'jsx';
 
 export const newLineCharacters = '\n\n';
 
+export const ChunkSideEffectNode = 'side-effect-node';
+export const ChunkSideOtherNode = 'other-node';
+
 /*
  * Used to mark the position between RegExps,
  * where the not matched imports should be placed

@@ -1,6 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`import-export-in-between.ts - typescript-verify: import-export-in-between.ts 1`] = `
+import "side-effect";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
@@ -22,6 +23,8 @@ function add(a:number,b:number) {
   return a + b;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import "side-effect";
+
 import a from "a";
 import c from "c";
 import thirdParty from "third-party";
@@ -100,9 +103,9 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
-import React from "react";
-
 import "./commands";
+
+import React from "react";
 
 // Comment
 // Comment
