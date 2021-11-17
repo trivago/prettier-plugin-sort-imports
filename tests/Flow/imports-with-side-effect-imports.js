@@ -21,7 +21,9 @@ import thirdParty1 from "third-party1";
 import oneLevelRelativePath1 from "../oneLevelRelativePath1";
 import anotherOneLevelRelativePath1 from "../anotherOneLevelRelativePath1";
 
-import "side-effect-y";
+import "side-effect-y3";
+import "side-effect-y1";
+import "side-effect-y2";
 
 import oneLevelRelativePath2 from "../oneLevelRelativePath2";
 import anotherOneLevelRelativePath2 from "../anotherOneLevelRelativePath2";
