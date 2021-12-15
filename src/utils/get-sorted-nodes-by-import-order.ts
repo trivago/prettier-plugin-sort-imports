@@ -49,7 +49,6 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     for (let i = 0; i < importOrder.length; i += 1) {
         const group = importOrder[i];
         const groupNodes = importOrderGroups[group];
-        const last = group === importOrder[importOrder.length - 1];
 
         if (groupNodes.length === 0) continue;
 
@@ -66,7 +65,8 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
 
         finalNodes.push(...sortedInsideGroup);
 
-        if (importOrderSeparation && !last) {
+        // Do not add a new line after the last group of nodes
+        if (importOrderSeparation && i < importOrder.length - 1) {
             finalNodes.push(newLineNode);
         }
     }
