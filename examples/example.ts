@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { logger } from '@core/logger';
 import { reduce, debounce } from 'lodash';
-import { Message } from '../Mesage';
+import { Message } from '../Message';
 import { createServer } from '@server/node';
 import { Alert } from '@ui/Alert';
 import { repeat, filter, add } from './utils';
