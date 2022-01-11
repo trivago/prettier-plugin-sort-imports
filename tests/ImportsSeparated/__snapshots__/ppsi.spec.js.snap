@@ -1,6 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`import-export-in-between.ts - typescript-verify: import-export-in-between.ts 1`] = `
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+export { random } from './random';
+import c from 'c';
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import a from 'a';
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+export default {
+    title: 'hello',
+};
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import x from 'x';
+
+function add(a:number,b:number) {
+  return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import a from "a";
+import c from "c";
+import thirdParty from "third-party";
+import x from "x";
+
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+export { random } from "./random";
+
+export default {
+    title: "hello",
+};
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
+exports[`import-export-in-between-side-effect.ts - typescript-verify: import-export-in-between-side-effect.ts 1`] = `
 import "side-effect";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";

@@ -1,3 +1,4 @@
+import "side-effect";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";

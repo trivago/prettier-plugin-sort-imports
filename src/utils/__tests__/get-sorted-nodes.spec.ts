@@ -33,20 +33,20 @@ test('it returns all sorted nodes, preserving the order side effect nodes', () =
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
-        "se3",
+        'se3',
         'c',
         'g',
         'k',
         't',
         'z',
-        "se4",
-        "se1",
+        'se4',
+        'se1',
         'BY',
         'Ba',
         'XY',
         'Xa',
         'a',
-        "se2",
+        'se2',
     ]);
     expect(
         sorted
@@ -71,4 +71,3 @@ test('it returns all sorted nodes, preserving the order side effect nodes', () =
         [],
     ]);
 });
-

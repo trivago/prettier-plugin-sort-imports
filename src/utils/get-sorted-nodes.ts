@@ -1,13 +1,17 @@
-import { ChunkSideEffectNode, ChunkSideOtherNode, newLineNode } from "../constants";
-import { GetSortedNodes, ImportChunk, ImportOrLine } from "../types";
-import { adjustCommentsOnSortedNodes } from "./adjust-comments-on-sorted-nodes";
-import { getSortedNodesByImportOrder } from "./get-sorted-nodes-by-import-order";
+import {
+    ChunkSideEffectNode,
+    ChunkSideOtherNode,
+    newLineNode,
+} from '../constants';
+import { GetSortedNodes, ImportChunk, ImportOrLine } from '../types';
+import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes';
+import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order';
 
 /**
  * This function returns the given nodes, sorted in the order as indicated by
  * the importOrder array. The plugin considers these import nodes as local
  * import declarations
- * 
+ *
  * In addition, this method preserves the relative order of side effect imports
  * and non side effect imports. A side effect import is an ImportDeclaration
  * without any import specifiers. It does this by splitting the import nodes at
@@ -21,20 +25,22 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
 
     // Split nodes at each boundary between a side-effect node and a
     // non-side-effect node, keeping both types of nodes together.
-    const splitBySideEffectNodes =
-        nodes.reduce<ImportChunk[]>((chunks, node) => {
-            const type = node.specifiers.length === 0
-                ? ChunkSideEffectNode
-                : ChunkSideOtherNode;
+    const splitBySideEffectNodes = nodes.reduce<ImportChunk[]>(
+        (chunks, node) => {
+            const type =
+                node.specifiers.length === 0
+                    ? ChunkSideEffectNode
+                    : ChunkSideOtherNode;
             const last = chunks[chunks.length - 1];
             if (last === undefined || last.type !== type) {
                 chunks.push({ type, nodes: [node] });
-            }
-            else {
+            } else {
                 last.nodes.push(node);
             }
             return chunks;
-        }, []);
+        },
+        [],
+    );
 
     const finalNodes: ImportOrLine[] = [];
 
@@ -44,8 +50,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
         if (chunk.type === ChunkSideEffectNode) {
             // do not sort side effect nodes
             finalNodes.push(...chunk.nodes);
-        }
-        else {
+        } else {
             // sort non-side effect nodes
             const sorted = getSortedNodesByImportOrder(chunk.nodes, options);
             finalNodes.push(...sorted);
@@ -63,4 +68,4 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     adjustCommentsOnSortedNodes(nodes, finalNodes);
 
     return finalNodes;
-}
+};
