@@ -5,6 +5,7 @@ import { naturalSort } from '../natural-sort';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
 import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
+import { getSortedNodesGroup } from './get-sorted-nodes-group';
 
 /**
  * This function returns the given nodes, sorted in the order as indicated by
@@ -17,7 +18,11 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     naturalSort.insensitive = options.importOrderCaseInsensitive;
 
     let { importOrder } = options;
-    const { importOrderSeparation, importOrderSortSpecifiers } = options;
+    const {
+        importOrderSeparation,
+        importOrderSortSpecifiers,
+        importOrderGroupNamespaceSpecifiers,
+    } = options;
 
     const originalNodes = nodes.map(clone);
     const finalNodes: ImportOrLine[] = [];
@@ -46,15 +51,14 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         importOrderGroups[matchedGroup].push(node);
     }
 
-    for (let i = 0; i < importOrder.length; i += 1) {
-        const group = importOrder[i];
+    for (const group of importOrder) {
         const groupNodes = importOrderGroups[group];
 
         if (groupNodes.length === 0) continue;
 
-        const sortedInsideGroup = groupNodes.sort((a, b) =>
-            naturalSort(a.source.value, b.source.value),
-        );
+        const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
+            importOrderGroupNamespaceSpecifiers,
+        });
 
         // Sort the import specifiers
         if (importOrderSortSpecifiers) {
@@ -65,8 +69,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
 
         finalNodes.push(...sortedInsideGroup);
 
-        // Do not add a new line after the last group of nodes
-        if (importOrderSeparation && i < importOrder.length - 1) {
+        if (importOrderSeparation) {
             finalNodes.push(newLineNode);
         }
     }

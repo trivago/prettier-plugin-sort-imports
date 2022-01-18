@@ -16,6 +16,7 @@ import k, { kE, kB } from 'k';
 import "se4";
 import "se1";
 import * as a from 'a';
+import * as x from 'x';
 import BY from 'BY';
 import Ba from 'Ba';
 import XY from 'XY';
@@ -29,6 +30,7 @@ test('it returns all sorted nodes, preserving the order side effect nodes', () =
         importOrder: [],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
     }) as ImportDeclaration[];
 
@@ -46,6 +48,7 @@ test('it returns all sorted nodes, preserving the order side effect nodes', () =
         'XY',
         'Xa',
         'a',
+        'x',
         'se2',
     ]);
     expect(
@@ -68,6 +71,7 @@ test('it returns all sorted nodes, preserving the order side effect nodes', () =
         ['XY'],
         ['Xa'],
         ['a'],
+        ['x'],
         [],
     ]);
 });

@@ -1,6 +1,18 @@
 ## Changelog
 
+
 ---
+### v3.2.0
+#### New features
+- Group Namespace specifiers [#105](https://github.com/trivago/prettier-plugin-sort-imports/pull/105) by [Mattinton](https://github.com/Mattinton)
+
+#### Chores
+- Clean up unit test and snapshot test
+- Add contribution guidelines for bug fixes and new features
+
+### v3.1.1
+
+- Fixes package management [#100](https://github.com/trivago/prettier-plugin-sort-imports/issues/100)
 
 ### v3.1.0
 
