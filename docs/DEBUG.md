@@ -4,13 +4,13 @@
 
 ### How to run example in the repository ?
 ```shell
-yarn run example examples/example.ts --config .prettierrc
+yarn run example examples/example.ts --config examples/.prettierrc
 ```
 
 ### How to debug the plugin using node `debugger` ?
 You can set a `debugger` anywhere in the code and then use following command:
 ```shell
-yarn run compile && node --inspect-brk ./node_modules/.bin/prettier --config .prettierrc --plugin lib/src/index.js examples/example.ts
+yarn run compile && node --inspect-brk ./node_modules/.bin/prettier --config examples/.prettierrc --plugin lib/src/index.js examples/example.ts
 ```
 
 ### How to debug the unit test using `debugger` ?
