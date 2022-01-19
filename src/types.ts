@@ -11,11 +11,6 @@ export interface PrettierOptions extends RequiredOptions {
     importOrderSortSpecifiers: boolean;
 }
 
-export interface ImportChunk {
-    nodes: ImportDeclaration[];
-    type: string;
-}
-
 export type ImportGroups = Record<string, ImportDeclaration[]>;
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;
 
