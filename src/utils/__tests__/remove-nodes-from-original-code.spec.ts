@@ -23,6 +23,7 @@ test('it should remove nodes from the original code', () => {
         importOrder: [],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
