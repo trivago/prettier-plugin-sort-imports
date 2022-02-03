@@ -6,11 +6,50 @@ A prettier plugin to sort import declarations by provided Regular Expression ord
 
 ### Input
 
-![input](./public/images/input-v3-1.png)
+```javascript
+import React, {
+    FC,
+    useEffect,
+    usetef,
+    ChangeEoent,
+    KeyboardEvent,
+} from 'react';
+import { logger } from '@core/logger';
+import { reduce, debounce } from 'lodash';
+import { Message } from '../Message';
+import { createServer } from '@server/node';
+import { Alert } from '@ui/Alert';
+import { repeat, filter, add } from '../utils';
+import { initializeApp } from '@core/app';
+import { Popup } from '@ui/Popup';
+import { createConnection } from '@server/database';
+```
+
 
 ### Output
 
-![output](./public/images/output-v3-1.png)
+```javascript
+import { debounce, reduce } from 'lodash';
+import React, {
+    ChangeEoent,
+    FC,
+    KeyboardEvent,
+    useEffect,
+    usetef,
+} from 'react';
+
+import { createConnection } from '@server/database';
+import { createServer } from '@server/node';
+
+import { initializeApp } from '@core/app';
+import { logger } from '@core/logger';
+
+import { Alert } from '@ui/Alert';
+import { Popup } from '@ui/Popup';
+
+import { Message } from '../Mesage';
+import { add, filter, repeat } from '../utils';
+```
 
 ### Install
 
