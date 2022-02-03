@@ -10,8 +10,8 @@ A prettier plugin to sort import declarations by provided Regular Expression ord
 import React, {
     FC,
     useEffect,
-    usetef,
-    ChangeEoent,
+    useRef,
+    ChangeEvent,
     KeyboardEvent,
 } from 'react';
 import { logger } from '@core/logger';
@@ -31,11 +31,11 @@ import { createConnection } from '@server/database';
 ```javascript
 import { debounce, reduce } from 'lodash';
 import React, {
-    ChangeEoent,
+    ChangeEvent,
     FC,
     KeyboardEvent,
     useEffect,
-    usetef,
+    useRef,
 } from 'react';
 
 import { createConnection } from '@server/database';
@@ -47,7 +47,7 @@ import { logger } from '@core/logger';
 import { Alert } from '@ui/Alert';
 import { Popup } from '@ui/Popup';
 
-import { Message } from '../Mesage';
+import { Message } from '../Message';
 import { add, filter, repeat } from '../utils';
 ```
 
