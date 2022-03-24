@@ -32,11 +32,11 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/core": "7.13.10",
-    "@babel/generator": "7.13.9",
-    "@babel/parser": "7.14.6",
-    "@babel/traverse": "7.13.0",
-    "@babel/types": "7.13.0",
+    "@babel/core": "7.17.8",
+    "@babel/generator": "7.17.7",
+    "@babel/parser": "7.17.8",
+    "@babel/traverse": "7.17.3",
+    "@babel/types": "7.17.0",
     "javascript-natural-sort": "0.7.1",
     "lodash": "4.17.21"
   },
