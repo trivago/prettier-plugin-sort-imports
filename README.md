@@ -187,6 +187,16 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+
+#### `importOrderBuiltinModulesToTop`
+
+**type**: `boolean`
+
+**default value:** `false`
+
+A boolean value to enable sorting of builtins to the top of all import groups.
+
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.

@@ -1,5 +1,3 @@
-import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../../constants';
-import { ImportGroups } from '../../types';
 import { getImportNodes } from '../get-import-nodes';
 import { getImportNodesMatchedGroup } from '../get-import-nodes-matched-group';
 

@@ -14,6 +14,7 @@ import { tC, tA, tB } from 't';
 import k, { kE, kB } from 'k';
 import * as a from 'a';
 import * as x from 'x';
+import path from 'path';
 import BY from 'BY';
 import Ba from 'Ba';
 import XY from 'XY';
@@ -28,6 +29,7 @@ test('it returns all sorted nodes', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -39,6 +41,7 @@ test('it returns all sorted nodes', () => {
         'c',
         'g',
         'k',
+        'path',
         't',
         'x',
         'z',
@@ -58,6 +61,7 @@ test('it returns all sorted nodes', () => {
         ['c', 'cD'],
         ['g'],
         ['k', 'kE', 'kB'],
+        ['path'],
         ['tC', 'tA', 'tB'],
         ['x'],
         ['z'],
@@ -72,6 +76,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -81,6 +86,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         'c',
         'g',
         'k',
+        'path',
         't',
         'x',
         'Xa',
@@ -100,6 +106,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         ['c', 'cD'],
         ['g'],
         ['k', 'kE', 'kB'],
+        ['path'],
         ['tC', 'tA', 'tB'],
         ['x'],
         ['Xa'],
@@ -116,6 +123,7 @@ test('it returns all sorted nodes with sort order', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -123,6 +131,7 @@ test('it returns all sorted nodes with sort order', () => {
         'Xa',
         'c',
         'g',
+        'path',
         'x',
         'z',
         'a',
@@ -142,6 +151,7 @@ test('it returns all sorted nodes with sort order', () => {
         ['Xa'],
         ['c', 'cD'],
         ['g'],
+        ['path'],
         ['x'],
         ['z'],
         ['a'],
@@ -160,10 +170,12 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
         'g',
+        'path',
         'x',
         'Xa',
         'XY',
@@ -183,6 +195,7 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
     ).toEqual([
         ['c', 'cD'],
         ['g'],
+        ['path'],
         ['x'],
         ['Xa'],
         ['XY'],
@@ -203,12 +216,14 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'XY',
         'Xa',
         'c',
         'g',
+        'path',
         'x',
         'z',
         'a',
@@ -228,6 +243,7 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         ['Xa'],
         ['c', 'cD'],
         ['g'],
+        ['path'],
         ['x'],
         ['z'],
         ['a'],
@@ -246,10 +262,12 @@ test('it returns all sorted import nodes with sorted import specifiers with case
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
         'g',
+        'path',
         'x',
         'Xa',
         'XY',
@@ -269,6 +287,7 @@ test('it returns all sorted import nodes with sorted import specifiers with case
     ).toEqual([
         ['c', 'cD'],
         ['g'],
+        ['path'],
         ['x'],
         ['Xa'],
         ['XY'],
@@ -289,6 +308,7 @@ test('it returns all sorted nodes with custom third party modules', () => {
         importOrderCaseInsensitive: true,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'a',
@@ -296,6 +316,7 @@ test('it returns all sorted nodes with custom third party modules', () => {
         'BY',
         'c',
         'g',
+        'path',
         'x',
         'Xa',
         'XY',
@@ -313,6 +334,7 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: true,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -325,7 +347,35 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         'c',
         'g',
         'k',
+        'path',
         't',
+        'z',
+    ]);
+});
+
+test('it returns all sorted nodes with builtin specifiers at the top, ', () => {
+    const result = getImportNodes(code);
+    const sorted = getSortedNodes(result, {
+        importOrder: [],
+        importOrderCaseInsensitive: false,
+        importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
+        importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: true,
+    }) as ImportDeclaration[];
+
+    expect(getSortedNodesNames(sorted)).toEqual([
+        'path',
+        'BY',
+        'Ba',
+        'XY',
+        'Xa',
+        'a',
+        'c',
+        'g',
+        'k',
+        't',
+        'x',
         'z',
     ]);
 });
