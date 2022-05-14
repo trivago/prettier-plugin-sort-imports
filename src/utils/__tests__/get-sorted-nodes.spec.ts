@@ -20,6 +20,24 @@ import XY from 'XY';
 import Xa from 'Xa';
 `;
 
+const typeCode = `// first comment
+// second comment
+import type sm from 'sm';
+import type xl from './xl';
+import l from './l';
+import z from 'z';
+import c, { cD } from 'c';
+import g from 'g';
+import { tC, tA, tB } from 't';
+import k, { kE, kB } from 'k';
+import * as a from 'a';
+import * as x from 'x';
+import BY from 'BY';
+import Ba from 'Ba';
+import XY from 'XY';
+import Xa from 'Xa';
+`;
+
 test('it returns all sorted nodes', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(result, {
@@ -327,5 +345,57 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         'k',
         't',
         'z',
+    ]);
+});
+
+test('it returns all sorted nodes with types', () => {
+    const result = getImportNodes(typeCode, {
+        plugins: ['typescript'],
+    });
+    const sorted = getSortedNodes(result, {
+        importOrder: ["<THIRD_PARTY_TYPES>", "^[./]", "<TYPES>^[./]"],
+        importOrderCaseInsensitive: false,
+        importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
+        importOrderSortSpecifiers: false,
+    }) as ImportDeclaration[];
+
+    expect(getSortedNodesNames(sorted)).toEqual([
+        'BY',
+        'Ba',
+        'XY',
+        'Xa',
+        'a',
+        'c',
+        'g',
+        'k',
+        't',
+        'x',
+        'z',
+        'sm',
+        './l',
+        './xl',
+    ]);
+    expect(
+        sorted
+            .filter((node) => node.type === 'ImportDeclaration')
+            .map((importDeclaration) =>
+                getSortedNodesModulesNames(importDeclaration.specifiers),
+            ),
+    ).toEqual([
+        ['BY'],
+        ['Ba'],
+        ['XY'],
+        ['Xa'],
+        ['a'],
+        ['c', 'cD'],
+        ['g'],
+        ['k', 'kE', 'kB'],
+        ['tC', 'tA', 'tB'],
+        ['x'],
+        ['z'],
+        ['sm'],
+        ['l'],
+        ['xl'],
     ]);
 });
