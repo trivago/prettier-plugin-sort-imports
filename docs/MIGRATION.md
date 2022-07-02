@@ -7,7 +7,7 @@ _____
 - Replace `experimentalBabelParserPluginsList` with the new `importOrderParserPlugins` in your prettier config.
 - Use the `importOrderSortSpecifiers` to sort import specifiers.
 - Use `<THIRD_PARTY_MODULES>` special word in `importOrder` to place your third party imports at any location.
-- Disable case sensitivity in the soring via `importOrderCaseInsensitive` option.
+- Disable case sensitivity in the sorting via `importOrderCaseInsensitive` option.
 - Use `importOrderSeparation` to separate the import groups.
 
 
