@@ -2,6 +2,11 @@
 
 
 ---
+### v3.3.0
+#### Chores
+- Update babel version [#134](https://github.com/trivago/prettier-plugin-sort-imports/pull/147) by [marvinroger](https://github.com/marvinroger)
+- Fix typo in Migration docs [#158](https://github.com/trivago/prettier-plugin-sort-imports/pull/158) by [raineorshine](https://github.com/raineorshine)
+
 ### v3.2.0
 #### New features
 - Group Namespace specifiers [#105](https://github.com/trivago/prettier-plugin-sort-imports/pull/105) by [Mattinton](https://github.com/Mattinton)
