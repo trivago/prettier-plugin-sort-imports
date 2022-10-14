@@ -1,7 +1,11 @@
 import { addComments, removeComments } from '@babel/types';
 import { clone, isEqual } from 'lodash';
 
-import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode } from '../constants';
+import {
+    BUILTIN_MODULES,
+    THIRD_PARTY_MODULES_SPECIAL_WORD,
+    newLineNode,
+} from '../constants';
 import { naturalSort } from '../natural-sort';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
@@ -22,6 +26,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
         importOrderSeparation,
         importOrderSortSpecifiers,
         importOrderGroupNamespaceSpecifiers,
+        importOrderBuiltinModulesToTop,
     } = options;
 
     const originalNodes = nodes.map(clone);
@@ -29,6 +34,10 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
 
     if (!importOrder.includes(THIRD_PARTY_MODULES_SPECIAL_WORD)) {
         importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder];
+    }
+
+    if (importOrderBuiltinModulesToTop) {
+        importOrder = [BUILTIN_MODULES, ...importOrder];
     }
 
     const importOrderGroups = importOrder.reduce<ImportGroups>(

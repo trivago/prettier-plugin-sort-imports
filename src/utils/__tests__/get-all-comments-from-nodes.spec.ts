@@ -14,6 +14,7 @@ const getSortedImportNodes = (code: string, options?: ParserOptions) => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderBuiltinModulesToTop: false,
     });
 };
 
