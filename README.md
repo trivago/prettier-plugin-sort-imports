@@ -236,3 +236,5 @@ debug some code in the plugin, check [Debugging Guidelines](./docs/DEBUG.md)
 ### Disclaimer
 
 This plugin modifies the AST which is against the rules of prettier.
+
+intended typo
