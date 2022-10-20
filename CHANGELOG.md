@@ -2,6 +2,11 @@
 
 
 ---
+### v3.4.0
+#### New features
+- Vue JS support [#174](https://github.com/trivago/prettier-plugin-sort-imports/pull/174) by [blake-newman](https://github.com/blake-newman)
+- Export config type [#173](https://github.com/trivago/prettier-plugin-sort-imports/pull/173) by [Leomotors](https://github.com/Leomotors)
+
 ### v3.3.1
 #### Chores
 - Update @babel/parser (to support TypeScript 4.7) [#161](https://github.com/trivago/prettier-plugin-sort-imports/pull/161) by [odiak](https://github.com/odiak)
