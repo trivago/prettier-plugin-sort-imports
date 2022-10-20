@@ -2,6 +2,10 @@
 
 
 ---
+### v3.3.1
+#### Chores
+- Update @babel/parser (to support TypeScript 4.7) [#161](https://github.com/trivago/prettier-plugin-sort-imports/pull/161) by [odiak](https://github.com/odiak)
+
 ### v3.3.0
 #### Chores
 - Update babel version [#134](https://github.com/trivago/prettier-plugin-sort-imports/pull/147) by [marvinroger](https://github.com/marvinroger)
