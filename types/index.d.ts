@@ -1,4 +1,7 @@
+import { ParserPlugin as BaseParserPlugin } from '@babel/parser';
 import { Config } from 'prettier';
+
+type ParserPlugin = Extract<BaseParserPlugin, string> | `[${string},${string}]`;
 
 export interface PluginConfig {
     /**
@@ -86,7 +89,7 @@ used to order imports within each match group.
      *
      * @default ["typescript", "jsx"]
      */
-    importOrderParserPlugins?: string[];
+    importOrderParserPlugins?: ParserPlugin[];
 }
 
 export type PrettierConfig = PluginConfig & Config;
