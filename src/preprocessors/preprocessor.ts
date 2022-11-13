@@ -32,7 +32,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
             directives.push(node);
 
             // Trailing comments probably shouldn't be attached to the directive
-            delete node.trailingComments;
+            node.trailingComments = null;
         },
     });
 
