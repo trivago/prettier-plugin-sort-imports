@@ -1,6 +1,6 @@
 import { ParserOptions, parse as babelParser } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
-import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
+import { Directive, ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
 import { getCodeFromAst } from '../utils/get-code-from-ast';
@@ -26,6 +26,16 @@ export function preprocessor(code: string, options: PrettierOptions) {
     const ast = babelParser(code, parserOptions);
     const interpreter = ast.program.interpreter;
 
+    const directives: Directive[] = [];
+    traverse(ast, {
+        Directive({ node }) {
+            directives.push(node);
+
+            // Trailing comments probably shouldn't be attached to the directive
+            delete node.trailingComments;
+        },
+    });
+
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
@@ -48,5 +58,5 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
     });
 
-    return getCodeFromAst(allImports, code, interpreter);
+    return getCodeFromAst(allImports, directives, code, interpreter);
 }

@@ -255,6 +255,19 @@ function add(a: number, b: number) {
 
 `;
 
+exports[`imports-with-use-directive.ts - typescript-verify: imports-with-use-directive.ts 1`] = `
+'use strict';
+'use client';
+
+// comments after directives
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"use strict";
+"use client";
+
+// comments after directives
+
+`;
+
 exports[`imports-without-third-party.ts - typescript-verify: imports-without-third-party.ts 1`] = `
 // I am top level comment
 import otherthing from "@core/otherthing";
