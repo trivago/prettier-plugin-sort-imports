@@ -22,7 +22,7 @@ import a from 'a';
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
     });
-    const formatted = getCodeFromAst(sortedNodes, code, null);
+    const formatted = getCodeFromAst(sortedNodes, [], code, null);
     expect(format(formatted, { parser: 'babel' })).toEqual(
         `// first comment
 // second comment
