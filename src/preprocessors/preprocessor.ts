@@ -1,4 +1,4 @@
-import { ParserOptions, parse as babelParser } from '@babel/parser';
+import { parse as babelParser, ParserOptions } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
 import { Directive, ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
 
@@ -34,9 +34,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
             // Trailing comments probably shouldn't be attached to the directive
             node.trailingComments = null;
         },
-    });
 
-    traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
                 isTSModuleDeclaration(p),
