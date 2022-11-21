@@ -1,13 +1,8 @@
 import { parse as babelParser } from '@babel/core';
 import { ParserOptions } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
-import {
-    Directive,
-    ImportDeclaration,
-    isTSModuleDeclaration,
-} from '@babel/types';
 import { format } from 'prettier';
 
+import { extractASTNodes } from '../extract-ast-nodes';
 import { getCodeFromAst } from '../get-code-from-ast';
 import { getExperimentalParserPlugins } from '../get-experimental-parser-plugins';
 import { getImportNodes } from '../get-import-nodes';
@@ -57,26 +52,8 @@ import a from 'a';`;
         plugins: getExperimentalParserPlugins([]),
     };
     const ast = babelParser(code, parserOptions);
-    const directives: Directive[] = [];
-    const importNodes: ImportDeclaration[] = [];
-
-    traverse(ast, {
-        Directive({ node }) {
-            directives.push(node);
-
-            // Trailing comments probably shouldn't be attached to the directive
-            node.trailingComments = null;
-        },
-
-        ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
-            );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
-            }
-        },
-    });
+    if (!ast) throw new Error('ast is null');
+    const { directives, importNodes } = extractASTNodes(ast);
 
     const formatted = getCodeFromAst(importNodes, directives, code, null);
     expect(format(formatted, { parser: 'babel' })).toEqual(

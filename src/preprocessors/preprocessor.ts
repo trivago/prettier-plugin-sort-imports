@@ -1,8 +1,8 @@
-import { parse as babelParser, ParserOptions } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
-import { Directive, ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
+import { ParserOptions, parse as babelParser } from '@babel/parser';
+import { Directive, ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
+import { extractASTNodes } from '../utils/extract-ast-nodes';
 import { getCodeFromAst } from '../utils/get-code-from-ast';
 import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins';
 import { getSortedNodes } from '../utils/get-sorted-nodes';
@@ -17,7 +17,6 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
     } = options;
 
-    const importNodes: ImportDeclaration[] = [];
     const parserOptions: ParserOptions = {
         sourceType: 'module',
         plugins: getExperimentalParserPlugins(importOrderParserPlugins),
@@ -26,24 +25,11 @@ export function preprocessor(code: string, options: PrettierOptions) {
     const ast = babelParser(code, parserOptions);
     const interpreter = ast.program.interpreter;
 
-    const directives: Directive[] = [];
-    traverse(ast, {
-        Directive({ node }) {
-            directives.push(node);
-
-            // Trailing comments probably shouldn't be attached to the directive
-            node.trailingComments = null;
-        },
-
-        ImportDeclaration(path: NodePath<ImportDeclaration>) {
-            const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
-            );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
-            }
-        },
-    });
+    const {
+        importNodes,
+        directives,
+    }: { importNodes: ImportDeclaration[]; directives: Directive[] } =
+        extractASTNodes(ast);
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
