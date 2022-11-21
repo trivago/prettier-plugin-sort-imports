@@ -1,6 +1,15 @@
+import { parse as babelParser } from '@babel/core';
+import { ParserOptions } from '@babel/parser';
+import traverse, { NodePath } from '@babel/traverse';
+import {
+    Directive,
+    ImportDeclaration,
+    isTSModuleDeclaration,
+} from '@babel/types';
 import { format } from 'prettier';
 
 import { getCodeFromAst } from '../get-code-from-ast';
+import { getExperimentalParserPlugins } from '../get-experimental-parser-plugins';
 import { getImportNodes } from '../get-import-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
 
@@ -32,6 +41,50 @@ import g from "g";
 import k from "k";
 import t from "t";
 import z from "z";
+`,
+    );
+});
+
+test('it renders directives correctly', () => {
+    const code = `
+    "use client";
+// first comment
+import b from 'b';
+import a from 'a';`;
+
+    const parserOptions: ParserOptions = {
+        sourceType: 'module',
+        plugins: getExperimentalParserPlugins([]),
+    };
+    const ast = babelParser(code, parserOptions);
+    const directives: Directive[] = [];
+    const importNodes: ImportDeclaration[] = [];
+
+    traverse(ast, {
+        Directive({ node }) {
+            directives.push(node);
+
+            // Trailing comments probably shouldn't be attached to the directive
+            node.trailingComments = null;
+        },
+
+        ImportDeclaration(path: NodePath<ImportDeclaration>) {
+            const tsModuleParent = path.findParent((p) =>
+                isTSModuleDeclaration(p),
+            );
+            if (!tsModuleParent) {
+                importNodes.push(path.node);
+            }
+        },
+    });
+
+    const formatted = getCodeFromAst(importNodes, directives, code, null);
+    expect(format(formatted, { parser: 'babel' })).toEqual(
+        `"use client";
+
+// first comment
+import b from "b";
+import a from "a";
 `,
     );
 });
