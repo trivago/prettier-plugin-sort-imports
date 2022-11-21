@@ -154,17 +154,23 @@ function add(a: number, b: number) {
 exports[`imports-with-directives.ts - typescript-verify: imports-with-directives.ts 1`] = `
 'use strict';
 'use client';
-
-// comments after directives
 import otherthing from "@core/otherthing";
 import abc from "@core/abc";
+// Comment
+function add(a:number,b:number) {
+    return a + b;
+}
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "use strict";
 "use client";
 
-// comments after directives
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
+
+// Comment
+function add(a: number, b: number) {
+    return a + b;
+}
 
 `;
 
