@@ -219,7 +219,7 @@ Want to highlight your project or company ? Adding your project / company name w
 Feel free to make a Pull Request to add your project / company name.
 
 -   [trivago](https://company.trivago.com)
--   ADD YOUR PROJECT / COMPANY NAME
+-   [AuresKonnect](https://aures.com)
 
 ### Contribution
 
