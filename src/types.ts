@@ -3,7 +3,9 @@ import { RequiredOptions } from 'prettier';
 
 import { PluginConfig } from '../types';
 
-export interface PrettierOptions extends PluginConfig, RequiredOptions {}
+export interface PrettierOptions
+    extends Required<PluginConfig>,
+        RequiredOptions {}
 
 export type ImportGroups = Record<string, ImportDeclaration[]>;
 export type ImportOrLine = ImportDeclaration | ExpressionStatement;

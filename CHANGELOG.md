@@ -2,6 +2,11 @@
 
 
 ---
+### v4.0.0
+#### New features
+- Make @vue/compiler-sfc peer dependency [#183](https://github.com/trivago/prettier-plugin-sort-imports/pull/183) by [blake-newman](https://github.com/blake-newman)
+- Keep script directives at top of file [#186](https://github.com/trivago/prettier-plugin-sort-imports/pull/186) by [broofa](https://github.com/broofa)
+
 ### v3.4.0
 #### New features
 - Vue JS support [#174](https://github.com/trivago/prettier-plugin-sort-imports/pull/174) by [blake-newman](https://github.com/blake-newman)
