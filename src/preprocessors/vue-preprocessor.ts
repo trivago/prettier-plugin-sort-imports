@@ -1,9 +1,8 @@
-import { parse } from '@vue/compiler-sfc';
-
 import { PrettierOptions } from '../types';
 import { preprocessor } from './preprocessor';
 
 export function vuePreprocessor(code: string, options: PrettierOptions) {
+    const { parse } = require('@vue/compiler-sfc')
     const { descriptor } = parse(code);
     const content =
         (descriptor.script ?? descriptor.scriptSetup)?.content ?? code;

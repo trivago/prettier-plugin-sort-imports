@@ -67,6 +67,8 @@ yarn add --dev @trivago/prettier-plugin-sort-imports
 
 **Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
 
+**Note: If formatting `.vue` sfc files please install `@vue/compiler-sfc` if not in your dependency tree - this normally is within Vue projects.**
+
 ### Usage
 
 Add an order in prettier config file.
@@ -210,8 +212,8 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
 | React                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | -                                                |
-| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
+| Vue                    | ✅ Everything            | Peer dependency `@vue/compiler-sfc` is required  |
+| Svelte                 | ⚠️ Soon to be supported. | Any contribution is welcome.                     |
 
 ### Used by
 
