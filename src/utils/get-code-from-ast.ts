@@ -1,5 +1,5 @@
 import generate from '@babel/generator';
-import { InterpreterDirective, Statement, file } from '@babel/types';
+import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 
 import { newLineCharacters } from '../constants';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
@@ -12,12 +12,14 @@ import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
  */
 export const getCodeFromAst = (
     nodes: Statement[],
+    directives: Directive[],
     originalCode: string,
     interpreter?: InterpreterDirective | null,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
     const nodesToRemoveFromCode = [
+        ...directives,
         ...nodes,
         ...allCommentsFromImports,
         ...(interpreter ? [interpreter] : []),
@@ -31,7 +33,7 @@ export const getCodeFromAst = (
     const newAST = file({
         type: 'Program',
         body: nodes,
-        directives: [],
+        directives,
         sourceType: 'module',
         interpreter: interpreter,
         sourceFile: '',

@@ -160,6 +160,35 @@ function add(a: number, b: number) {
 
 `;
 
+exports[`imports-with-directives.ts - typescript-verify: imports-with-directives.ts 1`] = `
+'use strict';
+'use client';
+
+// comment after directives
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+
+// Comment
+
+function add(a:number,b:number) {
+  return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"use strict";
+"use client";
+
+// comment after directives
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+// Comment
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
+
 exports[`imports-with-file-level-comments.ts - typescript-verify: imports-with-file-level-comments.ts 1`] = `
 //@ts-ignore
 // I am file top level comments
