@@ -112,6 +112,31 @@ export default defineComponent({});
 
 `;
 
+exports[`sfcNoScript.vue - vue-verify: sfcNoScript.vue 1`] = `
+<template>
+	<div>
+		<span>hello world
+		</span></div>
+</template>
+
+<style>
+div { color: red; }
+</style>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+    <div>
+        <span>hello world </span>
+    </div>
+</template>
+
+<style>
+div {
+    color: red;
+}
+</style>
+
+`;
+
 exports[`ts.vue - vue-verify: ts.vue 1`] = `
 <script lang="ts">
 // I am top level comment in this file.
