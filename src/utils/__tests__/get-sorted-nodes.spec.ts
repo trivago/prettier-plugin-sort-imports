@@ -353,7 +353,7 @@ test('it returns all sorted nodes with types', () => {
         plugins: ['typescript'],
     });
     const sorted = getSortedNodes(result, {
-        importOrder: ["<THIRD_PARTY_TYPES>", "^[./]", "<TYPES>^[./]"],
+        importOrder: ["<THIRD_PARTY_TS_TYPES>", "^[./]", "<TS_TYPES>^[./]"],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
