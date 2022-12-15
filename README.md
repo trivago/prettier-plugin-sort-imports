@@ -212,8 +212,8 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
 | React                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | Peer dependency `@vue/compiler-sfc` is required  |
-| Svelte                 | ⚠️ Soon to be supported. | Any contribution is welcome.                     |
+| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
+| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
 
 ### Used by
 
