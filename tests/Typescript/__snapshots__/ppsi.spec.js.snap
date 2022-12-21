@@ -64,6 +64,54 @@ export class AppComponent extends BaseComponent {
 
 `;
 
+exports[`imports-with-satisfies.ts - typescript-verify: imports-with-satisfies.ts 1`] = `
+import z from 'z';
+import { isEmpty } from "lodash-es";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+
+import { Component } from "@angular/core";
+
+const somestring = "something"       satisfies   string
+
+const someobj = { hello :   "world", world:"hello"} satisfies Record<string,string>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Component } from "@angular/core";
+import { isEmpty } from "lodash-es";
+import thirdParty from "third-party";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+const somestring = "something" satisfies string;
+
+const someobj = { hello: "world", world: "hello" } satisfies Record<
+    string,
+    string
+>;
+
+`;
+
 exports[`imports-with-unsorted-modules.ts - typescript-verify: imports-with-unsorted-modules.ts 1`] = `
 import z from 'z';
 import { isEmpty, concat, flatten } from "lodash-es";
