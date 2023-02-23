@@ -33,7 +33,6 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/core": "7.17.8",
     "@babel/generator": "7.17.7",
     "@babel/parser": "^7.20.5",
     "@babel/traverse": "7.17.3",
@@ -42,6 +41,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.7",
     "@types/chai": "4.2.15",
     "@types/jest": "26.0.20",
     "@types/lodash": "4.14.168",
@@ -53,8 +53,8 @@
     "typescript": "4.9.4"
   },
   "peerDependencies": {
-    "prettier": "2.x",
-    "@vue/compiler-sfc": "3.x"
+    "@vue/compiler-sfc": "3.x",
+    "prettier": "2.x"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
