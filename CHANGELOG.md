@@ -2,6 +2,16 @@
 
 
 ---
+### v4.1.0
+### New features
+- Move @babel/core to devDependencies  [#200](https://github.com/trivago/prettier-plugin-sort-imports/pull/200) by [yykamei](https://github.com/yykamei)
+- Only preserve directives already at the start of the program [#198](https://github.com/trivago/prettier-plugin-sort-imports/pull/198) by [c-dante](https://github.com/c-dante) 
+- Bump babel to support satisfies keyword [#196](https://github.com/trivago/prettier-plugin-sort-imports/pull/196) by [Leomotors](https://github.com/Leomotors)
+- Update prettier for TS 4.9 [#194](https://github.com/trivago/prettier-plugin-sort-imports/pull/194) by [taiwabisabi](https://github.com/taiwabisabi) 
+- Fixed empty/no script tag in vue component error [#192](https://github.com/trivago/prettier-plugin-sort-imports/pull/192) by [adamDilger](https://github.com/adamDilger)
+- Change @vue/compiler-sfc to an optional dependency[#189](https://github.com/trivago/prettier-plugin-sort-imports/pull/189) by [transitive-bullshit](https://github.com/transitive-bullshit)
+- Keep script directives at top of file [#186](https://github.com/trivago/prettier-plugin-sort-imports/pull/186) by [broofa](https://github.com/broofa)
+
 ### v4.0.0
 #### New features
 - Make @vue/compiler-sfc peer dependency [#183](https://github.com/trivago/prettier-plugin-sort-imports/pull/183) by [blake-newman](https://github.com/blake-newman)
