@@ -1,5 +1,8 @@
 ## Changelog
 
+### v4.1.2
+#### New features
+- Fix dollars being interpolated in vue SFC [#217](https://github.com/trivago/prettier-plugin-sort-imports/pull/217) by [mefyl](https://github.com/mefyl)
 
 ---
 ### v4.1.1
