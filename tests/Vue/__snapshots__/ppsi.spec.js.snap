@@ -1,5 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`dollar-escaping.vue - vue-verify: dollar-escaping.vue 1`] = `
+<template>
+  <div></div>
+</template>
+
+<script lang="ts">
+const x = new RegExp(\`\${x}$\`);
+</script>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<template>
+    <div></div>
+</template>
+
+<script lang="ts">
+const x = new RegExp(\`\${x}$\`);
+</script>
+
+`;
+
 exports[`setup.vue - vue-verify: setup.vue 1`] = `
 <script setup>
 // I am top level comment in this file.
