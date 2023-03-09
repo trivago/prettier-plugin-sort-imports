@@ -27,8 +27,8 @@ export function vuePreprocessor(code: string, options: PrettierOptions) {
         // The node's range. The `start` is inclusive and `end` is exclusive.
         // [start, end)
         const { start, end } = block.loc;
-        const trasnformed = `\n${preprocessor(block.content, options)}\n`;
-        result += code.slice(offset, start.offset) + trasnformed;
+        const transformed = `\n${preprocessor(block.content, options)}\n`;
+        result += code.slice(offset, start.offset) + transformed;
         offset = end.offset;
     }
 
