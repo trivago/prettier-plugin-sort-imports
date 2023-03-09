@@ -16,7 +16,7 @@ export function vuePreprocessor(code: string, options: PrettierOptions) {
     }
 
     // 2. sort blocks by start position
-    blocks.sort((a, b) => a!.loc.start.offset - b!.loc.start.offset);
+    blocks.sort((a, b) => a.loc.start.offset - b.loc.start.offset);
 
     // 3. replace blocks
     // Using offsets to avoid string replace catching the wrong place and improve efficiency
