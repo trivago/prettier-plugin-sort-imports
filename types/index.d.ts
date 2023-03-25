@@ -47,21 +47,21 @@ export interface PluginConfig {
     /**
      * A boolean value to enable case-insensitivity in the sorting algorithm
 used to order imports within each match group.
-     * 
+     *
      * For example, when false (or not specified):
-     * 
+     *
      * ```js
      * import ExampleView from './ExampleView';
      * import ExamplesList from './ExamplesList';
      * ```
-     * 
+     *
      * compared with `"importOrderCaseInsensitive": true`:
-     * 
+     *
      * ```js
      * import ExamplesList from './ExamplesList';
      * import ExampleView from './ExampleView';
      * ```
-     * 
+     *
      * @default false
      */
     importOrderCaseInsensitive?: boolean;
@@ -92,6 +92,14 @@ used to order imports within each match group.
      * @default ["typescript", "jsx"]
      */
     importOrderParserPlugins?: ImportOrderParserPlugin[];
+
+    /**
+     * A choice value to enable sorting imports within their groups based on their string lengths, the two options being ascending and descending.
+     * Leaving the value blank or setting it to null will result in length being ignored
+     *
+     * @default undefined
+     */
+    importOrderSortByLength?: 'asc' | 'desc' | null
 }
 
 export type PrettierConfig = PluginConfig & Config;

@@ -21,7 +21,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     const {
         importOrderSeparation,
         importOrderSortSpecifiers,
-        importOrderGroupNamespaceSpecifiers,
+        importOrderGroupNamespaceSpecifiers,importOrderSortByLength
     } = options;
 
     const originalNodes = nodes.map(clone);
@@ -58,6 +58,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
 
         const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
             importOrderGroupNamespaceSpecifiers,
+            importOrderSortByLength
         });
 
         // Sort the import specifiers
