@@ -33,6 +33,7 @@ export function givesAFoo3Obj(): AliasFoo3 {
 /**
  * @flow
  */
+
 // I am top level comment in this file.
 import thirdParty from "third-party";
 
