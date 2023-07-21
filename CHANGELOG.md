@@ -2,6 +2,10 @@
 
 
 ---
+### v4.2.0
+#### Chore
+- update prettier peer dependency semVer to include 3.x [#239](https://github.com/trivago/prettier-plugin-sort-imports/pull/239) by [basselworkforce](https://github.com/basselworkforce)
+
 ### v4.1.1
 #### Revert
 - Type imports[#153](https://github.com/trivago/prettier-plugin-sort-imports/pull/153) by [Xenfo](https://github.com/broofa)
