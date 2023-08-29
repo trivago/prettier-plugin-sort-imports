@@ -1,6 +1,6 @@
 {
   "name": "@trivago/prettier-plugin-sort-imports",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "A prettier plugins to sort imports in provided RegEx order",
   "main": "lib/src/index.js",
   "types": "types/index.d.ts",
@@ -54,7 +54,7 @@
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "3.x",
-    "prettier": "2.x"
+    "prettier": "2.x - 3.x"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
