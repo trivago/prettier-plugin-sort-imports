@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/trivago/prettier-plugin-sort-imports#readme",
   "scripts": {
-    "prepare": "yarn run compile",
+    "prepare": "tsc",
     "compile": "tsc",
     "preexample": "yarn run compile",
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
