@@ -220,6 +220,7 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | JS with ES Modules     | ✅ Everything            | -                                                |
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
 | React                  | ✅ Everything            | -                                                |
+| Solid                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
 | Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
 | Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
