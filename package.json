@@ -33,7 +33,7 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/generator": "^7.17.7",
+    "@babel/generator": "7.17.7",
     "@babel/parser": "^7.20.5",
     "@babel/traverse": "^7.23.2",
     "@babel/types": "^7.17.0",
