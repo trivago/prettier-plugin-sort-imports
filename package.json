@@ -35,7 +35,7 @@
   "dependencies": {
     "@babel/generator": "7.17.7",
     "@babel/parser": "^7.20.5",
-    "@babel/traverse": "7.17.3",
+    "@babel/traverse": "7.23.2",
     "@babel/types": "7.17.0",
     "javascript-natural-sort": "0.7.1",
     "lodash": "^4.17.21"
