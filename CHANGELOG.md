@@ -2,6 +2,10 @@
 
 
 ---
+### v4.2.1
+#### Chore
+- Resolves Issue 262 - CVE-2023-45133 - upgrade to latest babel traverse [#266](https://github.com/trivago/prettier-plugin-sort-imports/pull/266) by [c-h-russell-walker](https://github.com/c-h-russell-walker)
+
 ### v4.2.0
 #### Chore
 - update prettier peer dependency semVer to include 3.x [#239](https://github.com/trivago/prettier-plugin-sort-imports/pull/239) by [basselworkforce](https://github.com/basselworkforce)
