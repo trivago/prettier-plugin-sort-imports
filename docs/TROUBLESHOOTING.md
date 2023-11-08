@@ -90,3 +90,7 @@ via prettier config.
     plugins: [require('@trivago/prettier-plugin-sort-imports')],
   }
 ```
+
+#### Q. How can I prevent the plugin from reordering specific import statements?
+
+Due to the complexity of maintaining the position of certain imports while reordering others, you can prevent the plugin from rearranging your file by adding the following comment at the top of your file: `// sort-imports-ignore`.

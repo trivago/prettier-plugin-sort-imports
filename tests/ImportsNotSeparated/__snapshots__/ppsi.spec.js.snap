@@ -390,3 +390,30 @@ import "./commands";
 // require('./commands')
 
 `;
+
+exports[`sort-imports-ignored.ts - typescript-verify: sort-imports-ignored.ts 1`] = `
+// sort-imports-ignore
+
+import './commands';
+import b from 'b';
+import a from 'a';
+
+// Comment
+
+function add(a:number,b:number) {
+    return a + b;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// sort-imports-ignore
+
+import "./commands";
+import b from "b";
+import a from "a";
+
+// Comment
+
+function add(a: number, b: number) {
+    return a + b;
+}
+
+`;
