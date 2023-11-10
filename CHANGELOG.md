@@ -2,6 +2,10 @@
 
 
 ---
+### v4.3.0
+#### New features
+- added support for sort-imports-ignore [#237](https://github.com/trivago/prettier-plugin-sort-imports/pull/237) by [stephdotnet](https://github.com/stephdotnet)
+
 ### v4.2.1
 #### Chore
 - Resolves Issue 262 - CVE-2023-45133 - upgrade to latest babel traverse [#266](https://github.com/trivago/prettier-plugin-sort-imports/pull/266) by [c-h-russell-walker](https://github.com/c-h-russell-walker)
