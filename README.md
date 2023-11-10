@@ -86,7 +86,7 @@ module.exports = {
 }
 ```
 
-**Note: There may be an issue with some package managers, such as `pnpm`. You can solve it by providing additional configuration option in prettier config file.
+**Note: There may be an issue with some package managers, such as `pnpm` or when using `prettier` v3.x. You can solve it by providing additional configuration option in prettier config file.
 
 ```js
 module.exports = {
