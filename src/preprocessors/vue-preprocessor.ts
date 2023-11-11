@@ -9,6 +9,6 @@ export function vuePreprocessor(code: string, options: PrettierOptions) {
     if (!content) {
         return code;
     }
-
-    return code.replace(content, `\n${preprocessor(content, options)}\n`);
+    const replacement = preprocessor(content, options).replace(/\$/g, '$$$$');
+    return code.replace(content, `\n${replacement}\n`);
 }
