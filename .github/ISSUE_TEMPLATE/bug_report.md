@@ -19,7 +19,7 @@ assignees: ''
 
 **Your Environment**
  * **Prettier version**: 2.x.x
- * **node version** [12.x.x, 14.x.x]:
+ * **node version**: [12.x.x, 14.x.x]
  * **package manager**: [npm@7, pnpm@6, yarn@2]
  * **IDE**: [VScode, Webstorm, CLI]
 
