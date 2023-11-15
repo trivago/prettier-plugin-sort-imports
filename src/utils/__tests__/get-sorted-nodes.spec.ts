@@ -28,6 +28,7 @@ test('it returns all sorted nodes', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -72,6 +73,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -116,6 +118,7 @@ test('it returns all sorted nodes with sort order', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -160,6 +163,7 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
@@ -203,6 +207,7 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'XY',
@@ -246,6 +251,7 @@ test('it returns all sorted import nodes with sorted import specifiers with case
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'c',
@@ -289,6 +295,7 @@ test('it returns all sorted nodes with custom third party modules', () => {
         importOrderCaseInsensitive: true,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
         'a',
@@ -313,6 +320,7 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: true,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -329,3 +337,53 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         'z',
     ]);
 });
+
+test('it returns all sorted nodes, sorted shortest to longest', () => {
+    const result = getImportNodes(code)
+    const sorted = getSortedNodes(result, {
+        importOrder: [],
+        importOrderCaseInsensitive: false,
+        importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
+        importOrderSortSpecifiers: false,
+        importOrderSortByLength: 'asc'
+    }) as ImportDeclaration[];
+    expect(getSortedNodesNames(sorted)).toEqual([
+        'g',
+        'z',
+        'Ba',
+        'BY',
+        'Xa',
+        'XY',
+        'a',
+        'x',
+        'c',
+        'k',
+        't',
+    ]);
+})
+
+test('it returns all sorted nodes, sorted longest to shortest', () => {
+    const result = getImportNodes(code)
+    const sorted = getSortedNodes(result, {
+        importOrder: [],
+        importOrderCaseInsensitive: false,
+        importOrderSeparation: false,
+        importOrderGroupNamespaceSpecifiers: false,
+        importOrderSortSpecifiers: false,
+        importOrderSortByLength: 'desc'
+    }) as ImportDeclaration[];
+    expect(getSortedNodesNames(sorted)).toEqual([
+        't',
+        'k',
+        'c',
+        'a',
+        'x',
+        'Ba',
+        'BY',
+        'Xa',
+        'XY',
+        'g',
+        'z'
+    ]);
+})
