@@ -97,7 +97,7 @@ used to order imports within each match group.
      * A choice value to enable sorting imports within their groups based on their string lengths, the two options being ascending and descending.
      * Leaving the value blank or setting it to null will result in length being ignored
      *
-     * @default undefined
+     * @default null
      */
     importOrderSortByLength?: 'asc' | 'desc' | null
 }
