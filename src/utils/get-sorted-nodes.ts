@@ -83,6 +83,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     const finalNodesClone = finalNodes.map(clone);
 
     const firstNodesComments = nodes[0].leadingComments;
+    const firstNodeStartLine = nodes[0].loc?.start.line;
 
     // Remove all comments from sorted nodes
     finalNodes.forEach(removeComments);
@@ -99,6 +100,11 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     });
 
     if (firstNodesComments) {
+        const loc = finalNodes[0].loc;
+        if (loc && firstNodeStartLine !== undefined) {
+            // in order to maintain number of new lines after comments
+            loc.start.line = firstNodeStartLine;
+        }
         addComments(finalNodes[0], 'leading', firstNodesComments);
     }
 
