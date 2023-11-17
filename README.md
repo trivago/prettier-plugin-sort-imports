@@ -86,6 +86,15 @@ module.exports = {
 }
 ```
 
+**Note: There may be an issue with some package managers, such as `pnpm`. You can solve it by providing additional configuration option in prettier config file.
+
+```js
+module.exports = {
+    ...
+    "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}
+```
+
 ### APIs
 
 #### **`importOrder`**
@@ -222,6 +231,7 @@ Feel free to make a Pull Request to add your project / company name.
 
 -   [trivago](https://company.trivago.com)
 -   [AuresKonnect](https://aures.com)
+-   [FactorialHR](https://factorialhr.com)
 
 ### Contribution
 

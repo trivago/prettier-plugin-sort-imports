@@ -2,6 +2,19 @@
 
 
 ---
+### v4.3.0
+#### New features
+- added support for sort-imports-ignore [#237](https://github.com/trivago/prettier-plugin-sort-imports/pull/237) by [stephdotnet](https://github.com/stephdotnet)
+- Upgrade node in CI to current and lts versions [#264](https://github.com/trivago/prettier-plugin-sort-imports/pull/264) by [harryzcy](https://github.com/harryzcy)
+
+### v4.2.1
+#### Chore
+- Resolves Issue 262 - CVE-2023-45133 - upgrade to latest babel traverse [#266](https://github.com/trivago/prettier-plugin-sort-imports/pull/266) by [c-h-russell-walker](https://github.com/c-h-russell-walker)
+
+### v4.2.0
+#### Chore
+- update prettier peer dependency semVer to include 3.x [#239](https://github.com/trivago/prettier-plugin-sort-imports/pull/239) by [basselworkforce](https://github.com/basselworkforce)
+
 ### v4.1.1
 #### Revert
 - Type imports[#153](https://github.com/trivago/prettier-plugin-sort-imports/pull/153) by [Xenfo](https://github.com/broofa)
