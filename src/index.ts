@@ -57,6 +57,12 @@ const options = {
         default: true,
         description: 'Should side effects be sorted?',
     },
+    importOrderImportAttributesKeyword: {
+        type: 'string',
+        category: 'Global',
+        default: 'with',
+        description: 'Provide a keyword for import attributes',
+    }
 };
 
 module.exports = {
