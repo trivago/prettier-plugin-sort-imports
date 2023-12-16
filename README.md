@@ -198,6 +198,20 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+#### `importOrderImportAttributesKeyword`
+
+**type**: `'assert' | 'with' | 'with-legacy'`
+
+The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" }, 
+"assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
+
+```
+  "importOrderImportAttributesKeyword": 'with'
+```
+
+_Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.
