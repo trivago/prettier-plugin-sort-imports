@@ -30,6 +30,7 @@ import a from 'a';
     expect(format(formatted, { parser: 'babel' })).toEqual(
         `// first comment
 // second comment
+
 import a from "a";
 import c from "c";
 import g from "g";

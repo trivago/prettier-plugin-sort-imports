@@ -96,6 +96,7 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
+
 import React from "react";
 import "./commands";
 
@@ -131,6 +132,7 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
+
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
 import qwerty from "@server/qwerty";
@@ -188,6 +190,7 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //@ts-ignore
 // I am file top level comments
+
 import otherthing from "@core/otherthing";
 import something from "@server/something";
 import component from "@ui/hello";
@@ -266,6 +269,7 @@ import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import something from "@server/something";
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // I am top level comment
+
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
 import something from "@server/something";
@@ -321,6 +325,7 @@ import './commands';
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
+
 // Import commands.js using ES2015 syntax:
 import "./commands";
 
