@@ -10,5 +10,9 @@ export function vuePreprocessor(code: string, options: PrettierOptions) {
         return code;
     }
 
-    return code.replace(content, `\n${preprocessor(content, options)}\n`);
+    // 'replacer' is a function so it returns the preprocessed code as-is.
+    // If it were passed as just a string and the string contained special groups (like $&, $`, $', $n, $<n>, etc.) this would produce invalid results
+    const replacer =  () => `\n${preprocessor(content, options)}\n`;
+
+    return code.replace(content, replacer);
 }

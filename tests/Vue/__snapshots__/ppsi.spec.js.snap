@@ -137,6 +137,25 @@ div {
 
 `;
 
+exports[`sfcWithSpecialReplacerGroups.vue - vue-verify: sfcWithSpecialReplacerGroups.vue 1`] = `
+<script setup>
+let a = '$';
+let b = '$';
+let c = '$$';
+</script>
+<template><div>{{ a + b + c }}</div></template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script setup>
+let a = "$";
+let b = "$";
+let c = "$$";
+</script>
+<template>
+    <div>{{ a + b + c }}</div>
+</template>
+
+`;
+
 exports[`ts.vue - vue-verify: ts.vue 1`] = `
 <script lang="ts">
 // I am top level comment in this file.
