@@ -1,0 +1,13 @@
+diff --git a/node_modules/prettier-plugin-svelte/plugin.js b/node_modules/prettier-plugin-svelte/plugin.js
+index bcb248e..9d4ad94 100644
+--- a/node_modules/prettier-plugin-svelte/plugin.js
++++ b/node_modules/prettier-plugin-svelte/plugin.js
+@@ -2120,7 +2120,7 @@ const parsers = {
+         hasPragma,
+         parse: (text) => {
+             try {
+-                return Object.assign(Object.assign({}, require(`svelte/compiler`).parse(text)), { __isRoot: true });
++                return Object.assign(Object.assign({}, require(`svelte/compiler.cjs`).parse(text)), { __isRoot: true });
+             }
+             catch (err) {
+                 if (err.start != null && err.end != null) {
