@@ -215,14 +215,14 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 
 ### Compatibility
 
-| Framework              | Supported                | Note                                             |
-| ---------------------- | ------------------------ | ------------------------------------------------ |
-| JS with ES Modules     | ✅ Everything            | -                                                |
-| NodeJS with ES Modules | ✅ Everything            | -                                                |
-| React                  | ✅ Everything            | -                                                |
-| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
-| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
+| Framework              | Supported     | Note                                             |
+| ---------------------- | ------------- | ------------------------------------------------ |
+| JS with ES Modules     | ✅ Everything | -                                                |
+| NodeJS with ES Modules | ✅ Everything | -                                                |
+| React                  | ✅ Everything | -                                                |
+| Angular                | ✅ Everything | Supported through `importOrderParserPlugins` API |
+| Vue                    | ✅ Everything | `@vue/compiler-sfc` is required                  |
+| Svelte                 | ✅ Everything | `prettier-plugin-svelte` is required             |
 
 ### Used by
 
