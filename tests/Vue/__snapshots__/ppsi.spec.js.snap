@@ -57,6 +57,109 @@ function add(a, b) {
 
 `;
 
+exports[`setupAndScript.vue - vue-verify: setupAndScript.vue 1`] = `
+<script>
+// I am top level comment in this file.
+import z from 'z';
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+import { defineComponent } from 'vue'
+
+function firstAdd(a,b) {
+  return a + b;
+}
+</script>
+
+<script setup>
+// I am top level comment in this file.
+import z from 'z';
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+import { defineComponent } from 'vue'
+
+function add(a,b) {
+  return a + b;
+}
+</script>
+
+<template>
+  <div></div>
+</template>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script>
+// I am top level comment in this file.
+import thirdParty from "third-party";
+import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+function firstAdd(a, b) {
+    return a + b;
+}
+</script>
+
+<script setup>
+// I am top level comment in this file.
+import thirdParty from "third-party";
+import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+function add(a, b) {
+    return a + b;
+}
+</script>
+
+<template>
+    <div></div>
+</template>
+
+`;
+
 exports[`sfc.vue - vue-verify: sfc.vue 1`] = `
 <script>
 // I am top level comment in this file.

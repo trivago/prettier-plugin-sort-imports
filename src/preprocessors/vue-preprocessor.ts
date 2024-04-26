@@ -5,14 +5,31 @@ export function vuePreprocessor(code: string, options: PrettierOptions) {
     const { parse } = require('@vue/compiler-sfc');
     const { descriptor } = parse(code);
 
-    const content = (descriptor.script ?? descriptor.scriptSetup)?.content;
-    if (!content) {
+    const scriptContent = descriptor.script?.content;
+    const scriptSetupContent = descriptor.scriptSetup?.content;
+
+    if (!scriptContent && !scriptSetupContent) {
         return code;
     }
 
-    // 'replacer' is a function so it returns the preprocessed code as-is.
-    // If it were passed as just a string and the string contained special groups (like $&, $`, $', $n, $<n>, etc.) this would produce invalid results
-    const replacer =  () => `\n${preprocessor(content, options)}\n`;
+    let transformedCode = code;
 
-    return code.replace(content, replacer);
+    const replacer = (content: string) => {
+        // we pass the second argument as a function to avoid issues with the replacement string
+        // if string contained special groups (like $&, $`, $', $n, $<n>, etc.) this would produce invalid results
+        return transformedCode.replace(
+            content,
+            () => `\n${preprocessor(content, options)}\n`,
+        );
+    };
+
+    if (scriptContent) {
+        transformedCode = replacer(scriptContent);
+    }
+
+    if (scriptSetupContent) {
+        transformedCode = replacer(scriptSetupContent);
+    }
+
+    return transformedCode;
 }
