@@ -29,7 +29,7 @@ export function extractASTNodes(ast: ParseResult<File>) {
 
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
+                isTSModuleDeclaration(p.node),
             );
             if (!tsModuleParent) {
                 importNodes.push(path.node);

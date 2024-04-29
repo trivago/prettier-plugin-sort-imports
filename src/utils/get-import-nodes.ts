@@ -12,7 +12,7 @@ export const getImportNodes = (code: string, options?: ParserOptions) => {
     traverse(ast, {
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
+                isTSModuleDeclaration(p.node),
             );
             if (!tsModuleParent) {
                 importNodes.push(path.node);
