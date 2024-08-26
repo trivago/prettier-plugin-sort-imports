@@ -49,18 +49,28 @@
     "@vue/compiler-sfc": "^3.5.12",
     "jest": "29.7.0",
     "prettier": "3.3.3",
+    "prettier-plugin-svelte": "^3.2.8",
+    "svelte": "^5.2.5",
     "ts-jest": "29.2.5",
     "typescript": "5.6.3"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "3.x",
-    "prettier": "2.x - 3.x"
+    "prettier": "2.x - 3.x",
+    "prettier-plugin-svelte": "3.x",
+    "svelte": "5.x"
   },
   "engines": {
     "node": ">18.12"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
+      "optional": true
+    },
+    "prettier-plugin-svelte": {
+      "optional": true
+    },
+    "svelte": {
       "optional": true
     }
   }
