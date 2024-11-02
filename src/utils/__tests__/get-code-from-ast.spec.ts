@@ -8,7 +8,7 @@ import { getExperimentalParserPlugins } from '../get-experimental-parser-plugins
 import { getImportNodes } from '../get-import-nodes';
 import { getSortedNodes } from '../get-sorted-nodes';
 
-test('it sorts imports correctly', () => {
+test('it sorts imports correctly', async () => {
     const code = `// first comment
 // second comment
 import z from 'z';
@@ -27,7 +27,7 @@ import a from 'a';
         importOrderSortSpecifiers: false,
     });
     const formatted = getCodeFromAst(sortedNodes, [], code, null);
-    expect(format(formatted, { parser: 'babel' })).toEqual(
+    expect(await format(formatted, { parser: 'babel' })).toEqual(
         `// first comment
 // second comment
 import a from "a";
@@ -40,7 +40,7 @@ import z from "z";
     );
 });
 
-test('it renders directives correctly', () => {
+test('it renders directives correctly', async () => {
     const code = `
     "use client";
 // first comment
@@ -56,7 +56,7 @@ import a from 'a';`;
     const { directives, importNodes } = extractASTNodes(ast);
 
     const formatted = getCodeFromAst(importNodes, directives, code, null);
-    expect(format(formatted, { parser: 'babel' })).toEqual(
+    expect(await format(formatted, { parser: 'babel' })).toEqual(
         `"use client";
 
 // first comment

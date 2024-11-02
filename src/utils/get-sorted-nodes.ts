@@ -99,6 +99,10 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     });
 
     if (firstNodesComments) {
+        // remove comments location to not confuse printe
+        firstNodesComments.forEach((comment) => {
+            delete comment.loc;
+        });
         addComments(finalNodes[0], 'leading', firstNodesComments);
     }
 

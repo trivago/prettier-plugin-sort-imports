@@ -17,7 +17,7 @@ import k from 'k';
 import a from 'a';
 `;
 
-test('it should remove nodes from the original code', () => {
+test('it should remove nodes from the original code', async () => {
     const importNodes = getImportNodes(code);
     const sortedNodes = getSortedNodes(importNodes, {
         importOrder: [],
@@ -36,6 +36,6 @@ test('it should remove nodes from the original code', () => {
         code,
         commentAndImportsToRemoveFromCode,
     );
-    const result = format(codeWithoutImportDeclarations, { parser: 'babel' });
+    const result = await format(codeWithoutImportDeclarations, { parser: 'babel' });
     expect(result).toEqual('');
 });
