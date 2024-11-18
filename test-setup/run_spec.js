@@ -32,10 +32,10 @@ function run_spec(dirname, parsers, options) {
                 parser: parsers[0],
             });
             const output = prettyprint(source, path, mergedOptions);
-            test(`${filename} - ${mergedOptions.parser}-verify`, () => {
+            test(`${filename} - ${mergedOptions.parser}-verify`, async () => {
                 try {
                     expect(
-                        raw(source + '~'.repeat(80) + '\n' + output),
+                        raw(source + '~'.repeat(80) + '\n' + await output),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
                     console.error(e, path);
@@ -43,11 +43,11 @@ function run_spec(dirname, parsers, options) {
             });
 
             parsers.slice(1).forEach((parserName) => {
-                test(`${filename} - ${parserName}-verify`, () => {
+                test(`${filename} - ${parserName}-verify`, async () => {
                     const verifyOptions = Object.assign(mergedOptions, {
                         parser: parserName,
                     });
-                    const verifyOutput = prettyprint(
+                    const verifyOutput = await prettyprint(
                         source,
                         path,
                         verifyOptions,
