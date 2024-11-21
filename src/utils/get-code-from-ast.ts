@@ -36,15 +36,16 @@ export const getCodeFromAst = (
         directives,
         sourceType: 'module',
         interpreter: interpreter,
-        sourceFile: '',
         leadingComments: [],
         innerComments: [],
         trailingComments: [],
         start: 0,
         end: 0,
         loc: {
-            start: { line: 0, column: 0 },
-            end: { line: 0, column: 0 },
+            filename: '',
+            identifierName: '',
+            start: { line: 0, column: 0, index: 0 },
+            end: { line: 0, column: 0, index: 0 },
         },
     });
 
