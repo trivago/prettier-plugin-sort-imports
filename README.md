@@ -222,7 +222,7 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | React                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
 | Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
-| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
+| Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
 
 ### Used by
 
