@@ -4,7 +4,7 @@ import { preprocessor } from './preprocessor';
 const booleanGuard = <T>(value: T | undefined): value is T => Boolean(value);
 
 const sortImports = (code: string, options: PrettierOptions) => {
-    const { parse } = require('svelte/compiler.cjs');
+    const { parse } = require('svelte/compiler');
     const { instance, module } = parse(code);
     const sources = [instance, module].filter(booleanGuard);
     if (!sources.length) return code;
