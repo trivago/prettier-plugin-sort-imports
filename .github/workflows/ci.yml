@@ -11,7 +11,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-      - run: npm i -g yarn
-      - run: yarn set version stable
       - run: yarn --immutable
       - run: yarn test

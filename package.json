@@ -16,7 +16,8 @@
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run compile && npm run test"
+    "prepublishOnly": "npm run compile && npm run test",
+    "postinstall": "patch-package"
   },
   "keywords": [
     "prettier",
@@ -41,26 +42,38 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@babel/core": "7.26.0",
+    "@babel/core": "^7.26.0",
     "@types/chai": "5.0.1",
     "@types/jest": "29.5.14",
     "@types/lodash": "4.17.13",
-    "@types/node": "22.9.0",
-    "@vue/compiler-sfc": "^3.5.12",
+    "@types/node": "22.9.1",
+    "@vue/compiler-sfc": "^3.5.13",
     "jest": "29.7.0",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "3.3.3",
+    "prettier-plugin-svelte": "3.3.1",
+    "svelte": "^4.2.19",
     "ts-jest": "29.2.5",
     "typescript": "5.6.3"
   },
   "peerDependencies": {
     "@vue/compiler-sfc": "3.x",
-    "prettier": "2.x - 3.x"
+    "prettier": "2.x - 3.x",
+    "prettier-plugin-svelte": "3.x",
+    "svelte": "4.x"
   },
   "engines": {
     "node": ">18.12"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
+      "optional": true
+    },
+    "prettier-plugin-svelte": {
+      "optional": true
+    },
+    "svelte": {
       "optional": true
     }
   }
