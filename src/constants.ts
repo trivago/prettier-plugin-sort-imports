@@ -9,6 +9,9 @@ export const newLineCharacters = '\n\n';
 
 export const sortImportsIgnoredComment = 'sort-imports-ignore';
 
+export const chunkSideEffectNode = 'side-effect-node';
+export const chunkSideOtherNode = 'other-node';
+
 /*
  * Used to mark the position between RegExps,
  * where the not matched imports should be placed

@@ -35,7 +35,7 @@ function run_spec(dirname, parsers, options) {
             test(`${filename} - ${mergedOptions.parser}-verify`, async () => {
                 try {
                     expect(
-                        raw(source + '~'.repeat(80) + '\n' + await output),
+                        raw(source + '~'.repeat(80) + '\n' + (await output)),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
                     console.error(e, path);
