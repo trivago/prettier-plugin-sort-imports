@@ -25,6 +25,7 @@ test('it should remove nodes from the original code', async () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSideEffects: true,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
 
@@ -36,6 +37,8 @@ test('it should remove nodes from the original code', async () => {
         code,
         commentAndImportsToRemoveFromCode,
     );
-    const result = await format(codeWithoutImportDeclarations, { parser: 'babel' });
+    const result = await format(codeWithoutImportDeclarations, {
+        parser: 'babel',
+    });
     expect(result).toEqual('');
 });

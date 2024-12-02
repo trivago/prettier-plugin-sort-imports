@@ -198,6 +198,37 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### `importOrderSideEffects`
+**type**: `boolean`
+**default value**: `true`
+
+By default, the plugin sorts [side effect imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_a_module_for_its_side_effects_only) like any other imports in the file. If you need to keep side effect imports in the same place but sort all other imports around them, set this option to false.
+
+Example:
+
+Initial file:
+
+```js
+import z from 'z'
+import a from 'a'
+
+import 'side-effect-lib'
+
+import c from 'c'
+import b from 'b'
+```
+When sorted:
+
+```js
+import a from 'a'
+import z from 'z'
+
+import 'side-effect-lib'
+
+import b from 'b'
+import c from 'c'
+```
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.

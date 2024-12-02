@@ -8,7 +8,6 @@ import otherthing from '@core/otherthing';
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 import component from '@ui/hello';
 
-
 const HelloWorld = ({ name }) => {
     return <div>Hello, {name}</div>;
 };
