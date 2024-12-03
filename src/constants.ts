@@ -7,6 +7,8 @@ export const jsx: ParserPlugin = 'jsx';
 
 export const newLineCharacters = '\n\n';
 
+export const sortImportsIgnoredComment = 'sort-imports-ignore';
+
 /*
  * Used to mark the position between RegExps,
  * where the not matched imports should be placed
