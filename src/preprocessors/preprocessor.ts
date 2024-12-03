@@ -6,6 +6,7 @@ import { extractASTNodes } from '../utils/extract-ast-nodes';
 import { getCodeFromAst } from '../utils/get-code-from-ast';
 import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins';
 import { getSortedNodes } from '../utils/get-sorted-nodes';
+import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
@@ -33,6 +34,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
+    if (isSortImportsIgnored(importNodes)) return code;
 
     const allImports = getSortedNodes(importNodes, {
         importOrder,

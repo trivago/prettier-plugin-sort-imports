@@ -86,6 +86,15 @@ module.exports = {
 }
 ```
 
+**Note: There may be an issue with some package managers, such as `pnpm` or when using `prettier` v3.x. You can solve it by providing additional configuration option in prettier config file.
+
+```js
+module.exports = {
+    ...
+    "plugins": ["@trivago/prettier-plugin-sort-imports"]
+}
+```
+
 ### APIs
 
 #### **`importOrder`**
@@ -189,6 +198,17 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### Ignoring import ordering
+
+In some cases it's desired to ignore import ordering, specifically if you require to instantiate a common service or polyfill in your application logic before all the other imports. The plugin supports the `// sort-imports-ignore` comment, which will exclude the file from ordering the imports.
+
+```javascript
+// sort-imports-ignore
+import './polyfills';
+
+import foo from 'foo'
+```
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.
@@ -222,6 +242,7 @@ Feel free to make a Pull Request to add your project / company name.
 
 -   [trivago](https://company.trivago.com)
 -   [AuresKonnect](https://aures.com)
+-   [FactorialHR](https://factorialhr.com)
 
 ### Contribution
 
