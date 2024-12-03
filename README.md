@@ -240,6 +240,22 @@ import './polyfills';
 import foo from 'foo'
 ```
 
+#### `importOrderImportAttributesKeyword`
+
+**type**: `'assert' | 'with' | 'with-legacy'`
+
+The import attributes/assertions syntax: 
+- `with`: `import "..." with { type: "json" }`
+- `assert`: `import "..." assert { type: "json" }`
+- `with-legacy`: `import "..." with type: "json"`.
+
+```json
+  "importOrderImportAttributesKeyword": 'with'
+```
+
+_Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.
