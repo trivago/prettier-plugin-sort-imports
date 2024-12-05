@@ -2,6 +2,9 @@
 
 
 ---
+### v5.0.1
+- Clean up unwanted packages and unpin dependencies [#322](https://github.com/trivago/prettier-plugin-sort-imports/pull/322)
+
 ### v5.0.0
 #### New features
 - Type imports [#153](https://github.com/trivago/prettier-plugin-sort-imports/pull/153) by [Xenfo](https://github.com/broofa)
