@@ -16,8 +16,7 @@
     "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
     "test": "yarn node --experimental-vm-modules $(yarn bin jest)",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run compile && npm run test",
-    "postinstall": "patch-package"
+    "prepublishOnly": "npm run compile && npm run test"
   },
   "keywords": [
     "prettier",
@@ -49,8 +48,6 @@
     "@types/node": "22.9.1",
     "@vue/compiler-sfc": "^3.5.13",
     "jest": "29.7.0",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
     "prettier": "3.3.3",
     "prettier-plugin-svelte": "3.3.1",
     "svelte": "^4.2.19",
