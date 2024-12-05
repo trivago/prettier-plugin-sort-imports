@@ -198,6 +198,37 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### `importOrderSideEffects`
+**type**: `boolean`
+**default value**: `true`
+
+By default, the plugin sorts [side effect imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_a_module_for_its_side_effects_only) like any other imports in the file. If you need to keep side effect imports in the same place but sort all other imports around them, set this option to false.
+
+Example:
+
+Initial file:
+
+```js
+import z from 'z'
+import a from 'a'
+
+import 'side-effect-lib'
+
+import c from 'c'
+import b from 'b'
+```
+When sorted:
+
+```js
+import a from 'a'
+import z from 'z'
+
+import 'side-effect-lib'
+
+import b from 'b'
+import c from 'c'
+```
+
 ### Ignoring import ordering
 
 In some cases it's desired to ignore import ordering, specifically if you require to instantiate a common service or polyfill in your application logic before all the other imports. The plugin supports the `// sort-imports-ignore` comment, which will exclude the file from ordering the imports.
@@ -208,6 +239,22 @@ import './polyfills';
 
 import foo from 'foo'
 ```
+
+#### `importOrderImportAttributesKeyword`
+
+**type**: `'assert' | 'with' | 'with-legacy'`
+
+The import attributes/assertions syntax: 
+- `with`: `import "..." with { type: "json" }`
+- `assert`: `import "..." assert { type: "json" }`
+- `with-legacy`: `import "..." with type: "json"`.
+
+```json
+  "importOrderImportAttributesKeyword": 'with'
+```
+
+_Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+
 
 ### How does import sort work ?
 
@@ -234,7 +281,7 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | Solid                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
 | Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
-| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
+| Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
 
 ### Used by
 

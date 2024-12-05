@@ -1,106 +1,74 @@
-import { addComments, removeComments } from '@babel/types';
-import { clone, isEqual } from 'lodash';
-
-import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode } from '../constants';
-import { naturalSort } from '../natural-sort';
-import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
-import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
-import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
-import { getSortedNodesGroup } from './get-sorted-nodes-group';
+import {
+    chunkSideEffectNode,
+    chunkSideOtherNode,
+    newLineNode,
+} from '../constants';
+import { GetSortedNodes, ImportChunk, ImportOrLine } from '../types';
+import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes';
+import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order';
 
 /**
- * This function returns all the nodes which are in the importOrder array.
- * The plugin considered these import nodes as local import declarations.
- * @param nodes all import nodes
- * @param options
+ * This function returns the given nodes, sorted in the order as indicated by
+ * the importOrder array. The plugin considers these import nodes as local
+ * import declarations
+ *
+ * In addition, this method preserves the relative order of side effect imports
+ * and non side effect imports. A side effect import is an ImportDeclaration
+ * without any import specifiers. It does this by splitting the import nodes at
+ * each side effect node, then sorting only the non side effect import nodes
+ * between the side effect nodes according to the given options.
+ * @param nodes All import nodes that should be sorted.
+ * @param options Options to influence the behavior of the sorting algorithm.
  */
 export const getSortedNodes: GetSortedNodes = (nodes, options) => {
-    naturalSort.insensitive = options.importOrderCaseInsensitive;
+    const { importOrderSeparation, importOrderSideEffects } =
+        options;
 
-    let { importOrder } = options;
-    const {
-        importOrderSeparation,
-        importOrderSortSpecifiers,
-        importOrderGroupNamespaceSpecifiers,
-    } = options;
+    // Split nodes at each boundary between a side-effect node and a
+    // non-side-effect node, keeping both types of nodes together.
+    const splitBySideEffectNodes = nodes.reduce<ImportChunk[]>(
+        (chunks, node) => {
+            const isChunkEffectNode =
+                node.specifiers.length === 0 &&
+                importOrderSideEffects === false;
+            const type = isChunkEffectNode
+                ? chunkSideEffectNode
+                : chunkSideOtherNode;
+            const last = chunks[chunks.length - 1];
+            if (last === undefined || last.type !== type) {
+                chunks.push({ type, nodes: [node] });
+            } else {
+                last.nodes.push(node);
+            }
+            return chunks;
+        },
+        [],
+    );
 
-    const originalNodes = nodes.map(clone);
     const finalNodes: ImportOrLine[] = [];
 
-    if (!importOrder.includes(THIRD_PARTY_MODULES_SPECIAL_WORD)) {
-        importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder];
-    }
-
-    const importOrderGroups = importOrder.reduce<ImportGroups>(
-        (groups, regexp) => ({
-            ...groups,
-            [regexp]: [],
-        }),
-        {},
-    );
-
-    const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
-        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
-    );
-
-    for (const node of originalNodes) {
-        const matchedGroup = getImportNodesMatchedGroup(
-            node,
-            importOrderWithOutThirdPartyPlaceholder,
-        );
-        importOrderGroups[matchedGroup].push(node);
-    }
-
-    for (const group of importOrder) {
-        const groupNodes = importOrderGroups[group];
-
-        if (groupNodes.length === 0) continue;
-
-        const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
-            importOrderGroupNamespaceSpecifiers,
-        });
-
-        // Sort the import specifiers
-        if (importOrderSortSpecifiers) {
-            sortedInsideGroup.forEach((node) =>
-                getSortedImportSpecifiers(node),
-            );
+    // Sort each chunk of side-effect and non-side-effect nodes, and insert new
+    // lines according the importOrderSeparation option.
+    for (const chunk of splitBySideEffectNodes) {
+        if (chunk.type === chunkSideEffectNode) {
+            // do not sort side effect nodes
+            finalNodes.push(...chunk.nodes);
+        } else {
+            // sort non-side effect nodes
+            const sorted = getSortedNodesByImportOrder(chunk.nodes, options);
+            finalNodes.push(...sorted);
         }
-
-        finalNodes.push(...sortedInsideGroup);
-
         if (importOrderSeparation) {
             finalNodes.push(newLineNode);
         }
     }
 
     if (finalNodes.length > 0 && !importOrderSeparation) {
-        // a newline after all imports
         finalNodes.push(newLineNode);
     }
 
-    // maintain a copy of the nodes to extract comments from
-    const finalNodesClone = finalNodes.map(clone);
-
-    const firstNodesComments = nodes[0].leadingComments;
-
-    // Remove all comments from sorted nodes
-    finalNodes.forEach(removeComments);
-
-    // insert comments other than the first comments
-    finalNodes.forEach((node, index) => {
-        if (isEqual(nodes[0].loc, node.loc)) return;
-
-        addComments(
-            node,
-            'leading',
-            finalNodesClone[index].leadingComments || [],
-        );
-    });
-
-    if (firstNodesComments) {
-        addComments(finalNodes[0], 'leading', firstNodesComments);
-    }
+    // Adjust the comments on the sorted nodes to match the original comments
+    adjustCommentsOnSortedNodes(nodes, finalNodes);
 
     return finalNodes;
 };

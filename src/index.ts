@@ -1,10 +1,13 @@
-import { parsers as babelParsers } from 'prettier/parser-babel';
-import { parsers as flowParsers } from 'prettier/parser-flow';
-import { parsers as htmlParsers } from 'prettier/parser-html';
-import { parsers as typescriptParsers } from 'prettier/parser-typescript';
+import { parsers as babelParsers } from 'prettier/plugins/babel';
+import { parsers as flowParsers } from 'prettier/plugins/flow';
+import { parsers as htmlParsers } from 'prettier/plugins/html';
+import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 
 import { defaultPreprocessor } from './preprocessors/default-processor';
+import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
+
+const { parsers: svelteParsers } = require('prettier-plugin-svelte');
 
 const options = {
     importOrder: {
@@ -48,6 +51,18 @@ const options = {
         default: false,
         description: 'Should specifiers be sorted?',
     },
+    importOrderSideEffects: {
+        type: 'boolean',
+        category: 'Global',
+        default: true,
+        description: 'Should side effects be sorted?',
+    },
+    importOrderImportAttributesKeyword: {
+        type: 'string',
+        category: 'Global',
+        default: 'with',
+        description: 'Provide a keyword for import attributes',
+    }
 };
 
 module.exports = {
@@ -67,6 +82,10 @@ module.exports = {
         vue: {
             ...htmlParsers.vue,
             preprocess: vuePreprocessor,
+        },
+        svelte: {
+            ...svelteParsers.svelte,
+            preprocess: sveltePreprocessor,
         },
     },
     options,

@@ -4,6 +4,7 @@ import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 import { newLineCharacters } from '../constants';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
 import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
+import { PrettierOptions } from '../types';
 
 /**
  * This function generate a code string from the passed nodes.
@@ -15,6 +16,7 @@ export const getCodeFromAst = (
     directives: Directive[],
     originalCode: string,
     interpreter?: InterpreterDirective | null,
+    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
@@ -36,19 +38,20 @@ export const getCodeFromAst = (
         directives,
         sourceType: 'module',
         interpreter: interpreter,
-        sourceFile: '',
         leadingComments: [],
         innerComments: [],
         trailingComments: [],
         start: 0,
         end: 0,
         loc: {
-            start: { line: 0, column: 0 },
-            end: { line: 0, column: 0 },
+            filename: '',
+            identifierName: '',
+            start: { line: 0, column: 0, index: 0 },
+            end: { line: 0, column: 0, index: 0 },
         },
     });
 
-    const { code } = generate(newAST);
+    const { code } = generate(newAST, { importAttributesKeyword: options?.importOrderImportAttributesKeyword });
 
     return (
         code.replace(

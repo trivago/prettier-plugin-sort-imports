@@ -2,6 +2,8 @@ import { PrettierOptions } from '../types';
 import { preprocessor } from './preprocessor';
 
 export function defaultPreprocessor(code: string, options: PrettierOptions) {
-    if (options.filepath?.endsWith('.vue')) return code;
+    for (const extension of ['svelte', 'vue']) {
+        if (options.filepath?.endsWith(`.${extension}`)) return code;
+    }
     return preprocessor(code, options);
 }
