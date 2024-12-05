@@ -2,6 +2,15 @@
 
 
 ---
+### v5.0.0
+#### New features
+- Type imports [#153](https://github.com/trivago/prettier-plugin-sort-imports/pull/153) by [Xenfo](https://github.com/broofa)
+- Svelte support [#310](https://github.com/trivago/prettier-plugin-sort-imports/pull/310) by [canarddemagret](https://github.com/canarddemagret)
+- Side effect import support [#320](https://github.com/trivago/prettier-plugin-sort-imports/pull/320) by [blutorange](https://github.com/blutorange) and [vladislavarsenev](https://github.com/vladislavarsenev)
+- Fixed dollar sign group replace in Vue [#283](https://github.com/trivago/prettier-plugin-sort-imports/pull/283) by [adamDilger](https://github.com/adamDilger)
+- Support `importOrderImportAttributesKeyword` [#273](https://github.com/trivago/prettier-plugin-sort-imports/pull/273) by [chentsulin](https://github.com/chentsulin)
+
+
 ### v4.3.0
 #### New features
 - added support for sort-imports-ignore [#237](https://github.com/trivago/prettier-plugin-sort-imports/pull/237) by [stephdotnet](https://github.com/stephdotnet)
