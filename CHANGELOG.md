@@ -2,8 +2,11 @@
 
 
 ---
+### v5.1.0
+- Fix svelte packages being required all the time [#327](https://github.com/trivago/prettier-plugin-sort-imports/pull/327) by [@byara](https://github.com/byara)
+
 ### v5.0.1
-- Clean up unwanted packages and unpin dependencies [#322](https://github.com/trivago/prettier-plugin-sort-imports/pull/322)
+- Clean up unwanted packages and unpin dependencies [#322](https://github.com/trivago/prettier-plugin-sort-imports/pull/322) by [@byara](https://github.com/byara)
 
 ### v5.0.0
 #### New features
