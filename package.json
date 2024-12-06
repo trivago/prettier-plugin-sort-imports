@@ -38,6 +38,7 @@
     "@babel/traverse": "^7.25.9",
     "@babel/types": "^7.26.0",
     "javascript-natural-sort": "^0.7.1",
+    "prettier-plugin-svelte": "3.x",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
@@ -49,7 +50,6 @@
     "@vue/compiler-sfc": "^3.5.13",
     "jest": "^29.7.0",
     "prettier": "^3.3.3",
-    "prettier-plugin-svelte": "^3.3.1",
     "svelte": "^4.2.19",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.3"
@@ -57,7 +57,6 @@
   "peerDependencies": {
     "@vue/compiler-sfc": "3.x",
     "prettier": "2.x - 3.x",
-    "prettier-plugin-svelte": "3.x",
     "svelte": "4.x"
   },
   "engines": {
@@ -65,9 +64,6 @@
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
-      "optional": true
-    },
-    "prettier-plugin-svelte": {
       "optional": true
     },
     "svelte": {
