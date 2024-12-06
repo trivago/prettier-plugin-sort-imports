@@ -6,10 +6,12 @@ import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 import { defaultPreprocessor } from './preprocessors/default-processor';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
+import type { Options } from 'prettier';
+import { createSvelteParsers } from './utils/create-svelte-parsers';
 
-const { parsers: svelteParsers } = require('prettier-plugin-svelte');
+const svelteParsers = createSvelteParsers();
 
-const options = {
+const options: Options = {
     importOrder: {
         type: 'path',
         category: 'Global',
@@ -62,7 +64,7 @@ const options = {
         category: 'Global',
         default: 'with',
         description: 'Provide a keyword for import attributes',
-    }
+    },
 };
 
 module.exports = {
@@ -84,7 +86,7 @@ module.exports = {
             preprocess: vuePreprocessor,
         },
         svelte: {
-            ...svelteParsers.svelte,
+            ...svelteParsers.parsers.svelte,
             preprocess: sveltePreprocessor,
         },
     },
