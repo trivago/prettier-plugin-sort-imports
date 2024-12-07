@@ -85,10 +85,14 @@ module.exports = {
             ...htmlParsers.vue,
             preprocess: vuePreprocessor,
         },
-        svelte: {
-            ...svelteParsers.parsers.svelte,
-            preprocess: sveltePreprocessor,
-        },
+        ...(!!svelteParsers.parsers
+            ? {
+                  svelte: {
+                      ...svelteParsers.parsers.svelte,
+                      preprocess: sveltePreprocessor,
+                  },
+              }
+            : {}),
     },
     options,
 };
