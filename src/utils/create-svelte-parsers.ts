@@ -1,8 +1,8 @@
 export function createSvelteParsers() {
     try {
-        var { parsers } = require('prettier-plugin-svelte');
+        const { parsers } = require('prettier-plugin-svelte');
+        return { parsers }
     } catch {
-        return {};
+        return { parsers: {} };
     }
-    return { parsers };
 }
