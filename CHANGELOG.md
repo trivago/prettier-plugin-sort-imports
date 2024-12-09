@@ -2,6 +2,10 @@
 
 
 ---
+### 5.2.0
+- fix type import ordering [#331](https://github.com/trivago/prettier-plugin-sort-imports/pull/331) by [@rsslldnphy](https://github.com/rsslldnphy) 
+- Fix conditional import of prettier-plugin-svelte [#332](https://github.com/trivago/prettier-plugin-sort-imports/pull/332) by [@rsslldnphy](https://github.com/rsslldnphy)
+
 ### v5.1.0
 - Fix svelte packages being required all the time [#327](https://github.com/trivago/prettier-plugin-sort-imports/pull/327) by [@byara](https://github.com/byara)
 
