@@ -51,7 +51,7 @@ import a from 'a';`;
         sourceType: 'module',
         plugins: getExperimentalParserPlugins([]),
     };
-    const ast = babelParser(code, parserOptions);
+    const ast: any = babelParser(code, parserOptions);
     if (!ast) throw new Error('ast is null');
     const { directives, importNodes } = extractASTNodes(ast);
 

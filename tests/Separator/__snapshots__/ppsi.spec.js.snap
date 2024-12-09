@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imports-with-comments.ts - typescript-verify: imports-with-comments.ts 1`] = `
+import z from 'z';
+import { isEmpty } from "lodash-es";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent extends BaseComponent {
+  title = "ng-prettier";
+
+  override get text(): string {
+    return isEmpty(this.title) ? "" : this.title;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Component } from "@angular/core";
+import { isEmpty } from "lodash-es";
+import thirdParty from "third-party";
+import z from "z";
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+import something from "@server/something";
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+@Component({
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"],
+})
+export class AppComponent extends BaseComponent {
+    title = "ng-prettier";
+
+    override get text(): string {
+        return isEmpty(this.title) ? "" : this.title;
+    }
+}
+
+`;
+
+exports[`imports-with-satisfies.ts - typescript-verify: imports-with-satisfies.ts 1`] = `
+import z from 'z';
+import { isEmpty } from "lodash-es";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+
+import { Component } from "@angular/core";
+
+const somestring = "something"       satisfies   string
+
+const someobj = { hello :   "world", world:"hello"} satisfies Record<string,string>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Component } from "@angular/core";
+import { isEmpty } from "lodash-es";
+import thirdParty from "third-party";
+import z from "z";
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+import something from "@server/something";
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+const somestring = "something" satisfies string;
+
+const someobj = { hello: "world", world: "hello" } satisfies Record<
+    string,
+    string
+>;
+
+`;
+
+exports[`imports-with-unsorted-modules.ts - typescript-verify: imports-with-unsorted-modules.ts 1`] = `
+import z from 'z';
+import { isEmpty, concat, flatten } from "lodash-es";
+import threeLevelRelativePathA, { nonDefaultModuleC, nonDefaultModuleA, nonDefaultModuleB } from "../../../threeLevelRelativePathA";
+import * as allThreeLevelRelativePathBModules from "../../../threeLevelRelativePathB";
+import threeLevelRelativePathC, {
+  nonDefaultModuleC as nonConflictingModuleNameC,
+  nonDefaultModuleA as nonConflictingModuleNameA,
+  nonDefaultModuleB as nonConflictingModuleNameB,
+  nonDefaultModuleE,
+  nonDefaultModuleD
+} from "../../../threeLevelRelativePathC";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.css"]
+})
+export class AppComponent {
+  title = "ng-prettier";
+
+  get text(): string {
+    return isEmpty(this.title) ? "" : this.title;
+  }
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { Component } from "@angular/core";
+import { isEmpty, concat, flatten } from "lodash-es";
+import thirdParty from "third-party";
+import z from "z";
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+import something from "@server/something";
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePathA, {
+    nonDefaultModuleC,
+    nonDefaultModuleA,
+    nonDefaultModuleB,
+} from "../../../threeLevelRelativePathA";
+import * as allThreeLevelRelativePathBModules from "../../../threeLevelRelativePathB";
+import threeLevelRelativePathC, {
+    nonDefaultModuleC as nonConflictingModuleNameC,
+    nonDefaultModuleA as nonConflictingModuleNameA,
+    nonDefaultModuleB as nonConflictingModuleNameB,
+    nonDefaultModuleE,
+    nonDefaultModuleD,
+} from "../../../threeLevelRelativePathC";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+@Component({
+    selector: "app-root",
+    templateUrl: "./app.component.html",
+    styleUrls: ["./app.component.css"],
+})
+export class AppComponent {
+    title = "ng-prettier";
+
+    get text(): string {
+        return isEmpty(this.title) ? "" : this.title;
+    }
+}
+
+`;
