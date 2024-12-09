@@ -85,7 +85,7 @@ module.exports = {
             ...htmlParsers.vue,
             preprocess: vuePreprocessor,
         },
-        ...(!!svelteParsers.parsers
+        ...(svelteParsers.parsers
             ? {
                   svelte: {
                       ...svelteParsers.parsers.svelte,
