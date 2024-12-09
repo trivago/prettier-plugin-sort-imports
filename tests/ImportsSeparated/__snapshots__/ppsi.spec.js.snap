@@ -61,6 +61,25 @@ export const a = 1;
 
 `;
 
+exports[`import-with-type-imports-together.ts - typescript-verify: import-with-type-imports-together.ts 1`] = `
+import { foo } from "@server/foo"
+import type { Quux } from "./quux"
+import { Link } from "@ui/Link"
+import type { Bar } from "@server/bar"
+import type { LinkProps } from "@ui/Link/LinkProps"
+import { baz } from "./baz"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import type { Bar } from "@server/bar";
+import { foo } from "@server/foo";
+
+import { Link } from "@ui/Link";
+import type { LinkProps } from "@ui/Link/LinkProps";
+
+import { baz } from "./baz";
+import type { Quux } from "./quux";
+
+`;
+
 exports[`imports-with-comments.ts - typescript-verify: imports-with-comments.ts 1`] = `
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
