@@ -54,8 +54,12 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
 
     for (const group of importOrder) {
         if (group === SEPARATOR_SPECIAL_WORD) {
-            if (!importOrderSeparation)
+            if (
+                finalNodes.length !== 0 &&
+                finalNodes[finalNodes.length - 1] !== newLineNode
+            ) {
                 finalNodes.push(newLineNode);
+            }
             continue;
         }
 
