@@ -1,6 +1,6 @@
 import { clone } from 'lodash';
 
-import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode } from '../constants';
+import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode, SEPARATOR_SPECIAL_WORD } from '../constants';
 import { naturalSort } from '../natural-sort';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
@@ -40,7 +40,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     );
 
     const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
-        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD && group !== SEPARATOR_SPECIAL_WORD,
     );
 
     for (const node of originalNodes) {
@@ -52,6 +52,16 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     }
 
     for (const group of importOrder) {
+        if (group === SEPARATOR_SPECIAL_WORD) {
+            if (
+              finalNodes.length !== 0 &&
+              finalNodes[finalNodes.length - 1] !== newLineNode
+            ) {
+                finalNodes.push(newLineNode);
+            }
+            continue;
+        }
+
         const groupNodes = importOrderGroups[group];
 
         if (groupNodes.length === 0) continue;
