@@ -58,7 +58,7 @@
     "@vue/compiler-sfc": "3.x",
     "prettier": "2.x - 3.x",
     "prettier-plugin-svelte": "3.x",
-    "svelte": "4.x"
+    "svelte": "4.x || 5.x"
   },
   "engines": {
     "node": ">18.12"
