@@ -3,9 +3,10 @@
     "tabWidth": 4,
     "trailingComma": "all",
     "singleQuote": true,
-    "jsxBracketSameLine": true,
+    "bracketSameLine": true,
     "semi": true,
     "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true
+    "importOrderSortSpecifiers": true,
+    "plugins": ["../lib/src/index.js"]
 }

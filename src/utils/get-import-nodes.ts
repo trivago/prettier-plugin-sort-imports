@@ -1,6 +1,6 @@
 import { ParserOptions, parse as babelParser } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
-import { ImportDeclaration, isTSModuleDeclaration } from '@babel/types';
+import traverse from '@babel/traverse';
+import { ImportDeclaration } from '@babel/types';
 
 export const getImportNodes = (code: string, options?: ParserOptions) => {
     const importNodes: ImportDeclaration[] = [];
@@ -10,9 +10,9 @@ export const getImportNodes = (code: string, options?: ParserOptions) => {
     });
 
     traverse(ast, {
-        ImportDeclaration(path: NodePath<ImportDeclaration>) {
+        ImportDeclaration(path) {
             const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
+                p.isTSModuleDeclaration(),
             );
             if (!tsModuleParent) {
                 importNodes.push(path.node);
