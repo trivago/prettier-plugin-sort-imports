@@ -26,13 +26,10 @@ import a from "a";
 import c from "c";
 import thirdParty from "third-party";
 import x from "x";
-
 import otherthing from "@core/otherthing";
-
 import something from "@server/something";
 
 import component from "@ui/hello";
-
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -74,7 +71,6 @@ import { foo } from "@server/foo";
 
 import { Link } from "@ui/Link";
 import type { LinkProps } from "@ui/Link/LinkProps";
-
 import { baz } from "./baz";
 import type { Quux } from "./quux";
 
@@ -157,16 +153,13 @@ function add(a:number,b:number) {
 // I am second line of top level comment in this file.
 import thirdParty from "third-party";
 import z from "z";
-
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
-
 import qwerty from "@server/qwerty";
 import something from "@server/something";
 
 import component from "@ui/hello";
 import xyz from "@ui/xyz";
-
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -286,13 +279,10 @@ import c from "c";
 // I am stick to third party comment
 import thirdParty from "third-party";
 import x from "x";
-
 import otherthing from "@core/otherthing";
-
 import something from "@server/something";
 
 import component from "@ui/hello";
-
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -339,13 +329,11 @@ function add(a:number,b:number) {
 #!/usr/bin/env node
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
-
 import qwerty from "@server/qwerty";
 import something from "@server/something";
 
 import component from "@ui/hello";
 import xyz from "@ui/xyz";
-
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
 
@@ -368,11 +356,9 @@ import something from "@server/something";
 // I am top level comment
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
-
 import something from "@server/something";
 
 import component from "@ui/hello";
-
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 // I am comment
 import twoLevelRelativePath from "../../twoLevelRelativePath";
