@@ -127,6 +127,9 @@ between sorted import declarations group. The separation takes place according t
 "importOrderSeparation": true,
 ```
 
+If this option is enabled and `<SEPARATOR>` is used in the `importOrder` array, the plugin 
+will ONLY add newlines at those locations and at the end of the imports.
+
 #### `importOrderSortSpecifiers`
 
 **type**: `boolean`
