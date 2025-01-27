@@ -4,7 +4,6 @@ import {
     Directive,
     File,
     ImportDeclaration,
-    isTSModuleDeclaration,
 } from '@babel/types';
 
 export function extractASTNodes(ast: ParseResult<File>) {
