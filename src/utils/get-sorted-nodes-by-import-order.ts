@@ -40,7 +40,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     );
 
     const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
-        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD && group !== SEPARATOR_SPECIAL_WORD,
     );
 
     for (const node of originalNodes) {
@@ -54,6 +54,16 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     const hasUserProvidedSeparators = options.importOrder.includes(SEPARATOR_SPECIAL_WORD);
     let safeToAddNewLine = false;
     for (const group of importOrder) {
+        if (group === SEPARATOR_SPECIAL_WORD) {
+            if (
+              finalNodes.length !== 0 &&
+              finalNodes[finalNodes.length - 1] !== newLineNode
+            ) {
+                finalNodes.push(newLineNode);
+            }
+            continue;
+        }
+
         const groupNodes = importOrderGroups[group];
 
         if (importOrderSeparation && group === SEPARATOR_SPECIAL_WORD && safeToAddNewLine) {
