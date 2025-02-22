@@ -110,3 +110,6 @@ lib/
 .idea
 
 package-lock.json
+
+# macOS utility files
+.DS_Store
