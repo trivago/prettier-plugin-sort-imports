@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`top-level-comments.ts - typescript-verify: top-level-comments.ts 1`] = `
+// This is a top level comment that should not be duplicated
+// This is another comment that should stay at the top
+
+"use server";
+
+import z from 'z';
+import c from 'c';
+import b from 'b';
+import a from 'a';
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// This is a top level comment that should not be duplicated
+// This is another comment that should stay at the top
+
+"use server";
+
+import a from "a";
+import b from "b";
+import c from "c";
+import z from "z";
+`;
