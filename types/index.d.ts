@@ -102,6 +102,19 @@ used to order imports within each match group.
     importOrderSortByLength?: 'asc' | 'desc' | null
 
     /**
+     * By default, the plugin sorts side effect imports like any other imports in the file. 
+     * If you need to keep side effect imports in the same place but sort all other imports around them, 
+     * set this option to false.
+     *
+     * ```
+     * "importOrderImportAttributesKeyword": 'with',
+     * ```
+     *
+     * @default true
+     */
+    importOrderSideEffects?: boolean;
+
+    /**
      * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" }, 
      * "assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
      *

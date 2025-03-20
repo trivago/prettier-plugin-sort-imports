@@ -21,7 +21,7 @@ import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order'
  * @param options Options to influence the behavior of the sorting algorithm.
  */
 export const getSortedNodes: GetSortedNodes = (nodes, options) => {
-    const { importOrderSeparation, importOrderSideEffects, importOrderSortByLength } =
+    const { importOrderSeparation, importOrderSideEffects } =
         options;
 
     // Split nodes at each boundary between a side-effect node and a

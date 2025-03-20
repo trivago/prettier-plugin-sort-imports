@@ -372,6 +372,7 @@ test('it returns all sorted nodes, sorted shortest to longest', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSideEffects: true,
         importOrderSortByLength: 'asc'
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -397,6 +398,7 @@ test('it returns all sorted nodes, sorted longest to shortest', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSideEffects: false,
         importOrderSortByLength: 'desc'
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -425,6 +427,7 @@ test('it returns all sorted nodes with types', () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     }) as ImportDeclaration[];
 
     expect(getSortedNodesNames(sorted)).toEqual([
