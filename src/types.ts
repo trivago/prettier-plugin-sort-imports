@@ -20,5 +20,11 @@ export type GetSortedNodes = (
         | 'importOrderGroupNamespaceSpecifiers'
         | 'importOrderSortSpecifiers'
         | 'importOrderSortByLength'
+        | 'importOrderSideEffects'
     >,
 ) => ImportOrLine[];
+
+export interface ImportChunk {
+    nodes: ImportDeclaration[];
+    type: string;
+}

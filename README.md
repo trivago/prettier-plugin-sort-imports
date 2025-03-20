@@ -86,7 +86,7 @@ module.exports = {
 }
 ```
 
-**Note: There may be an issue with some package managers, such as `pnpm`. You can solve it by providing additional configuration option in prettier config file.
+**Note: There may be an issue with some package managers, such as `pnpm` or when using `prettier` v3.x. You can solve it by providing additional configuration option in prettier config file.
 
 ```js
 module.exports = {
@@ -198,6 +198,64 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### `importOrderSideEffects`
+**type**: `boolean`
+**default value**: `true`
+
+By default, the plugin sorts [side effect imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import#import_a_module_for_its_side_effects_only) like any other imports in the file. If you need to keep side effect imports in the same place but sort all other imports around them, set this option to false.
+
+Example:
+
+Initial file:
+
+```js
+import z from 'z'
+import a from 'a'
+
+import 'side-effect-lib'
+
+import c from 'c'
+import b from 'b'
+```
+When sorted:
+
+```js
+import a from 'a'
+import z from 'z'
+
+import 'side-effect-lib'
+
+import b from 'b'
+import c from 'c'
+```
+
+### Ignoring import ordering
+
+In some cases it's desired to ignore import ordering, specifically if you require to instantiate a common service or polyfill in your application logic before all the other imports. The plugin supports the `// sort-imports-ignore` comment, which will exclude the file from ordering the imports.
+
+```javascript
+// sort-imports-ignore
+import './polyfills';
+
+import foo from 'foo'
+```
+
+#### `importOrderImportAttributesKeyword`
+
+**type**: `'assert' | 'with' | 'with-legacy'`
+
+The import attributes/assertions syntax: 
+- `with`: `import "..." with { type: "json" }`
+- `assert`: `import "..." assert { type: "json" }`
+- `with-legacy`: `import "..." with type: "json"`.
+
+```json
+  "importOrderImportAttributesKeyword": 'with'
+```
+
+_Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+
+
 ### How does import sort work ?
 
 The plugin extracts the imports which are defined in `importOrder`. These imports are considered as _local imports_.
@@ -220,9 +278,10 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | JS with ES Modules     | ✅ Everything            | -                                                |
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
 | React                  | ✅ Everything            | -                                                |
+| Solid                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
 | Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
-| Svelte                 | ⚠️ Soon to be supported.  | Any contribution is welcome.                     |
+| Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
 
 ### Used by
 

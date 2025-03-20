@@ -4,7 +4,6 @@ import {
     Directive,
     File,
     ImportDeclaration,
-    isTSModuleDeclaration,
 } from '@babel/types';
 
 export function extractASTNodes(ast: ParseResult<File>) {
@@ -29,7 +28,7 @@ export function extractASTNodes(ast: ParseResult<File>) {
 
         ImportDeclaration(path: NodePath<ImportDeclaration>) {
             const tsModuleParent = path.findParent((p) =>
-                isTSModuleDeclaration(p),
+                p.isTSModuleDeclaration(),
             );
             if (!tsModuleParent) {
                 importNodes.push(path.node);

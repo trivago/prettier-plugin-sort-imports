@@ -100,6 +100,18 @@ used to order imports within each match group.
      * @default null
      */
     importOrderSortByLength?: 'asc' | 'desc' | null
+
+    /**
+     * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" }, 
+     * "assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
+     *
+     * ```
+     * "importOrderImportAttributesKeyword": 'with',
+     * ```
+     *
+     * _Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
+     */
+    importOrderImportAttributesKeyword?: 'assert' | 'with' | 'with-legacy';
 }
 
 export type PrettierConfig = PluginConfig & Config;

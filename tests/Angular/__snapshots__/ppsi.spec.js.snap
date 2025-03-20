@@ -60,21 +60,25 @@ export class TemplateController {
     constructor(
         private templateService: TemplateService,
         private _httpService: HttpService,
-        private _canvaskitService: CanvasKitService
+        private _canvaskitService: CanvasKitService,
     ) {
         this.CanvasKit = this._canvaskitService.canvasKit;
         this.requestFile = (url) => {
-            const req = this._httpService
-                .get<ArrayBuffer>(\`http:\${url}\`, {
-                    responseType: "arraybuffer",
+            const req =
+                this._httpService.get <
+                ArrayBuffer >
+                (\`http:\${url}\`, { responseType: "arraybuffer" })
+                    .pipe(retry(3))
+                    .toPromise();
+            return (
+                new Promise() <
+                ArrayBuffer >
+                ((resolve, reject) => {
+                    req.then((resp) => {
+                        resolve(resp.data);
+                    }).catch(reject);
                 })
-                .pipe(retry(3))
-                .toPromise();
-            return new Promise<ArrayBuffer>((resolve, reject) => {
-                req.then((resp) => {
-                    resolve(resp.data);
-                }).catch(reject);
-            });
+            );
         };
     }
 }

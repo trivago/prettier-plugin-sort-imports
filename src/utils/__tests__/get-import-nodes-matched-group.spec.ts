@@ -43,6 +43,69 @@ test('should return correct matched groups', () => {
     ]);
 });
 
+test('should return type imports as part of a matching group if no type-specific group is present', () => {
+    const code = `
+import type { ExternalType } from 'external-type-module';
+import type { InternalType } from './internal-type-module';
+import { externalFn } from 'external-fn-module';
+import { internalFn } from './internal-fn-module';
+    `
+    const importNodes = getImportNodes(code,{
+        plugins: ['typescript'],
+    });
+    const importOrder = [
+        '^[^.].*',
+        '^[.].*',
+    ];
+
+    let matchedGroups: string[] = [];
+    for (const importNode of importNodes) {
+        const matchedGroup = getImportNodesMatchedGroup(
+            importNode,
+            importOrder,
+        );
+        matchedGroups.push(matchedGroup);
+    }
+    expect(matchedGroups).toEqual([
+        '^[^.].*',
+        '^[.].*',
+        '^[^.].*',
+        '^[.].*',
+    ]);
+});
+
+test('should return type imports as part of a type-specific group even if a matching non-type specific group precedes it', () => {
+    const code = `
+import type { ExternalType } from 'external-type-module';
+import type { InternalType } from './internal-type-module';
+import { externalFn } from 'external-fn-module';
+import { internalFn } from './internal-fn-module';
+    `
+    const importNodes = getImportNodes(code, {
+        plugins: ['typescript'],
+    });
+    const importOrder = [
+        '^[^.].*',
+        '^[.].*',
+        '<TS_TYPES>^[.].*',
+    ];
+
+    let matchedGroups: string[] = [];
+    for (const importNode of importNodes) {
+        const matchedGroup = getImportNodesMatchedGroup(
+            importNode,
+            importOrder,
+        );
+        matchedGroups.push(matchedGroup);
+    }
+    expect(matchedGroups).toEqual([
+        '^[^.].*',
+        '<TS_TYPES>^[.].*',
+        '^[^.].*',
+        '^[.].*',
+    ]);
+});
+
 test('should return THIRD_PARTY_MODULES as matched group with empty order list', () => {
     const importNodes = getImportNodes(code);
     const importOrder: string[] = [];
