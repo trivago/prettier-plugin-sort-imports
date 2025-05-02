@@ -19,6 +19,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
+        importOrderIgnoreHeaderComments,
     } = options;
 
     const parserOptions: ParserOptions = {
@@ -35,20 +36,26 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importNodes,
         injectIdx,
     }: { importNodes: ImportDeclaration[]; injectIdx: number } =
-        extractASTNodes(ast);
+        extractASTNodes(ast, options);
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
     if (isSortImportsIgnored(getAllCommentsFromNodes(importNodes))) return code;
 
-    const allImports = getSortedNodes(importNodes, {
-        importOrder,
-        importOrderCaseInsensitive,
-        importOrderSeparation,
-        importOrderGroupNamespaceSpecifiers,
-        importOrderSortSpecifiers,
-        importOrderSideEffects,
-    });
+    const maintainFirstNodeComments = importOrderIgnoreHeaderComments < 0;
+
+    const allImports = getSortedNodes(
+        importNodes,
+        {
+            importOrder,
+            importOrderCaseInsensitive,
+            importOrderSeparation,
+            importOrderGroupNamespaceSpecifiers,
+            importOrderSortSpecifiers,
+            importOrderSideEffects,
+        },
+        maintainFirstNodeComments,
+    );
 
     return getCodeFromAst(allImports, code, injectIdx, {
         importOrderImportAttributesKeyword,
