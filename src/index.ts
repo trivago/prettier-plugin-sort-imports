@@ -1,3 +1,4 @@
+import type { Options } from 'prettier';
 import { parsers as babelParsers } from 'prettier/plugins/babel';
 import { parsers as flowParsers } from 'prettier/plugins/flow';
 import { parsers as htmlParsers } from 'prettier/plugins/html';
@@ -6,7 +7,6 @@ import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 import { defaultPreprocessor } from './preprocessors/default-processor';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
-import type { Options } from 'prettier';
 import { createSvelteParsers } from './utils/create-svelte-parsers';
 
 const svelteParsers = createSvelteParsers();
