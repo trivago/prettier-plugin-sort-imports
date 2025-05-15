@@ -20,6 +20,7 @@ export type GetSortedNodes = (
         | 'importOrderGroupNamespaceSpecifiers'
         | 'importOrderSortSpecifiers'
         | 'importOrderSideEffects'
+        | 'importOrderSkipFiles'
     >,
 ) => ImportOrLine[];
 

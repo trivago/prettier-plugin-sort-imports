@@ -105,6 +105,18 @@ used to order imports within each match group.
      * _Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
      */
     importOrderImportAttributesKeyword?: 'assert' | 'with' | 'with-legacy';
+
+    /**
+     * An array of glob patterns for files that should be skipped by the import sorting.
+     * Files matching these patterns will not have their imports sorted.
+     * 
+     * ```
+     * "importOrderSkipFiles": ["*.test.ts", "src/generated/**"]
+     * ```
+     * 
+     * @default []
+     */
+    importOrderSkipFiles?: string[];
 }
 
 export type PrettierConfig = PluginConfig & Config;
