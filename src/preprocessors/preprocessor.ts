@@ -53,7 +53,6 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
         importOrderSideEffects,
-        importOrderSkipFiles,
     });
 
     return getCodeFromAst(allImports, directives, code, interpreter, {
