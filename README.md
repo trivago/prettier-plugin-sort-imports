@@ -53,16 +53,22 @@ import { add, filter, repeat } from '../utils';
 
 ### Install
 
-npm
+using npm
 
 ```shell script
 npm install --save-dev @trivago/prettier-plugin-sort-imports
 ```
 
-or, using yarn
+using yarn
 
 ```shell script
 yarn add --dev @trivago/prettier-plugin-sort-imports
+```
+
+using pnpm
+
+```shell script
+pnpm add -D @trivago/prettier-plugin-sort-imports
 ```
 
 **Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
