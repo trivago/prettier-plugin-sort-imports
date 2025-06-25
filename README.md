@@ -289,6 +289,7 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | React                  | ✅ Everything            | -                                                |
 | Solid                  | ✅ Everything            | -                                                |
 | Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
+| Ember                  | ✅ Everything            | Supported through `importOrderParserPlugins` API |
 | Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
 | Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
 
