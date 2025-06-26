@@ -62,7 +62,7 @@
     "svelte": "4.x || 5.x"
   },
   "engines": {
-    "node": ">18.12"
+    "node": ">= 20"
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
