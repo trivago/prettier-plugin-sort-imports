@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imports-with-attributes-keyword.ts - typescript-verify: imports-with-attributes-keyword.ts 1`] = `
+// I am top level comment in this file.
+import thirdParty0 from "third-party0";
+import something3 from "@core/something3";
+import thirdDisco0 from "third-disco0";
+import otherthing3 from "@core/otherthing3";
+import { a } from "b" with { type: "json" };
+
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+import something0 from "@core/something0";
+
+import { b } from "r" with { type: "json" };
+
+
+function add(a,b) {
+  return a + b;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// I am top level comment in this file.
+import thirdParty0 from "third-party0";
+import something3 from "@core/something3";
+import thirdDisco0 from "third-disco0";
+import otherthing3 from "@core/otherthing3";
+import { a } from "b" with { type: "json" };
+
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+import something0 from "@core/something0";
+
+import { b } from "r" with { type: "json" };
+
+function add(a, b) {
+    return a + b;
+}
+
+`;

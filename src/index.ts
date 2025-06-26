@@ -7,7 +7,7 @@ import { defaultPreprocessor } from './preprocessors/default-processor';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
 import type { Options } from 'prettier';
-import { createSvelteParsers } from './utils/create-svelte-parsers.cjs';
+import { createSvelteParsers } from './utils/create-svelte-parsers';
 
 const svelteParsers = createSvelteParsers();
 

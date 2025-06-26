@@ -24,7 +24,7 @@ function run_spec(dirname, parsers, options) {
             extname(filename) !== '.snap' &&
             fs.lstatSync(path).isFile() &&
             filename[0] !== '.' &&
-            filename !== 'ppsi.spec.js'
+            filename !== 'ppsi.spec.cjs'
         ) {
             const source = read(path).replace(/\r\n/g, '\n');
 

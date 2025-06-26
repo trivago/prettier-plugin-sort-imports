@@ -1,0 +1,545 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`module.svelte - svelte-verify: module.svelte 1`] = `
+<script context="module">
+    // I am top level comment in this file.
+    import z from 'z';
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from 'vue';
+	import Header from './Header.svelte';
+	import './styles.css';
+</script>
+
+<div class="app">
+	<Header />
+
+	<main>
+		<slot />
+	</main>
+
+	<footer>
+		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	</footer>
+</div>
+
+<style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
+	footer a {
+		font-weight: bold;
+	}
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
+</style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script context="module">
+    // I am top level comment in this file.
+    import z from "z";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from "vue";
+    import Header from "./Header.svelte";
+    import "./styles.css";
+</script>
+
+<div class="app">
+    <Header />
+
+    <main>
+        <slot />
+    </main>
+
+    <footer>
+        <p>
+            visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit
+        </p>
+    </footer>
+</div>
+
+<style>
+    .app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        width: 100%;
+        max-width: 64rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+    footer a {
+        font-weight: bold;
+    }
+    @media (min-width: 480px) {
+        footer {
+            padding: 12px 0;
+        }
+    }
+</style>
+
+`;
+
+exports[`questionale.svelte - svelte-verify: questionale.svelte 1`] = `
+<script>
+    // Who?
+    const once = 'twice';
+    // I am top level comment in this file.
+    import z from 'z';
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    // 😺
+    $: cat = '😺';
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    onMount(() => {
+        console.log('hello');
+    })
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from 'vue';
+	import Header from './Header.svelte';
+	import './styles.css';
+    import { onMount } from 'svelte';
+</script>
+
+<div class="app">
+	<Header />
+
+	<main>
+		<slot />
+	</main>
+
+	<footer>
+		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	</footer>
+</div>
+
+<style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
+	footer a {
+		font-weight: bold;
+	}
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
+</style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script>
+    // Who?
+    const once = "twice";
+    // I am top level comment in this file.
+    import z from "z";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    // 😺
+    $: cat = "😺";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    onMount(() => {
+        console.log("hello");
+    });
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from "vue";
+    import Header from "./Header.svelte";
+    import "./styles.css";
+    import { onMount } from "svelte";
+</script>
+
+<div class="app">
+    <Header />
+
+    <main>
+        <slot />
+    </main>
+
+    <footer>
+        <p>
+            visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit
+        </p>
+    </footer>
+</div>
+
+<style>
+    .app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        width: 100%;
+        max-width: 64rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+    footer a {
+        font-weight: bold;
+    }
+    @media (min-width: 480px) {
+        footer {
+            padding: 12px 0;
+        }
+    }
+</style>
+
+`;
+
+exports[`simple.svelte - svelte-verify: simple.svelte 1`] = `
+<script>
+    // I am top level comment in this file.
+    import z from 'z';
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from 'vue';
+	import Header from './Header.svelte';
+	import './styles.css';
+</script>
+
+<div class="app">
+	<Header />
+
+	<main>
+		<slot />
+	</main>
+
+	<footer>
+		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	</footer>
+</div>
+
+<style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
+	footer a {
+		font-weight: bold;
+	}
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
+</style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script>
+    // I am top level comment in this file.
+    import z from "z";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from "vue";
+    import Header from "./Header.svelte";
+    import "./styles.css";
+</script>
+
+<div class="app">
+    <Header />
+
+    <main>
+        <slot />
+    </main>
+
+    <footer>
+        <p>
+            visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit
+        </p>
+    </footer>
+</div>
+
+<style>
+    .app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        width: 100%;
+        max-width: 64rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+    footer a {
+        font-weight: bold;
+    }
+    @media (min-width: 480px) {
+        footer {
+            padding: 12px 0;
+        }
+    }
+</style>
+
+`;
+
+exports[`ts.svelte - svelte-verify: ts.svelte 1`] = `
+<script lang="ts">
+    // I am top level comment in this file.
+    import z from 'z';
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from 'vue';
+	import Header from './Header.svelte';
+	import './styles.css';
+</script>
+
+<div class="app">
+	<Header />
+
+	<main>
+		<slot />
+	</main>
+
+	<footer>
+		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+	</footer>
+</div>
+
+<style>
+	.app {
+		display: flex;
+		flex-direction: column;
+		min-height: 100vh;
+	}
+	main {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		padding: 1rem;
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto;
+		box-sizing: border-box;
+	}
+	footer {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 12px;
+	}
+	footer a {
+		font-weight: bold;
+	}
+	@media (min-width: 480px) {
+		footer {
+			padding: 12px 0;
+		}
+	}
+</style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script lang="ts">
+    // I am top level comment in this file.
+    import z from "z";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import thirdParty from "third-party";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import otherthing from "@core/otherthing";
+    import abc from "@core/abc";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import component from "@ui/hello";
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import something from "@server/something";
+    import xyz from "@ui/xyz";
+    import { defineComponent } from "vue";
+    import Header from "./Header.svelte";
+    import "./styles.css";
+</script>
+
+<div class="app">
+    <Header />
+
+    <main>
+        <slot />
+    </main>
+
+    <footer>
+        <p>
+            visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit
+        </p>
+    </footer>
+</div>
+
+<style>
+    .app {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        width: 100%;
+        max-width: 64rem;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+    footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+    }
+    footer a {
+        font-weight: bold;
+    }
+    @media (min-width: 480px) {
+        footer {
+            padding: 12px 0;
+        }
+    }
+</style>
+
+`;
