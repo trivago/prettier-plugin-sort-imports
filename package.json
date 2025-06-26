@@ -3,6 +3,7 @@
   "version": "5.2.2",
   "description": "A prettier plugins to sort imports in provided RegEx order",
   "main": "lib/src/index.js",
+  "type": "module",
   "types": "types/index.d.ts",
   "repository": {
     "url": "https://github.com/trivago/prettier-plugin-sort-imports",
