@@ -40,16 +40,17 @@ export class TemplateController {
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { Body, Controller, HttpService, Logger, Post } from "@core/common";
-import { retry } from "@server/operators";
-
-import { DesignTemplate, DesignTextElement } from "@server/design/interfaces";
 
 import { RuntimeException } from "@server/core/errors/exceptions/runtime.exception";
+import { DesignTemplate, DesignTextElement } from "@server/design/interfaces";
+import { retry } from "@server/operators";
+
+import { CanvasKit } from "@ui/canvaskit-wasm";
+import { TextRender } from "@ui/design/render";
+
+import { CanvasKitService } from "../../../thrid-party/canvas-kit/canvas-kit.service";
 import { TemplateService } from "../service/template.service";
 import { UpdateTextDao } from "./update-text.dao";
-import { TextRender } from "@ui/design/render";
-import { CanvasKitService } from "../../../thrid-party/canvas-kit/canvas-kit.service";
-import { CanvasKit } from "@ui/canvaskit-wasm";
 
 @Controller("/design/template")
 export class TemplateController {

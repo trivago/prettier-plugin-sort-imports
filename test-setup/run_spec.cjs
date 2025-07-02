@@ -3,11 +3,12 @@
 const fs = require('fs');
 const extname = require('path').extname;
 const prettier = require('prettier');
+const plugin = require('../src');
 
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
         {
-            plugins: ['./src'],
+            plugins: [plugin.default],
             tabWidth: 4,
         },
         options,

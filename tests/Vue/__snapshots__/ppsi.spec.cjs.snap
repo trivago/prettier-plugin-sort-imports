@@ -28,19 +28,23 @@ function add(a,b) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script setup>
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function add(a, b) {
     return a + b;
@@ -102,19 +106,23 @@ function add(a,b) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function firstAdd(a, b) {
     return a + b;
@@ -123,19 +131,23 @@ function firstAdd(a, b) {
 
 <script setup>
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function add(a, b) {
     return a + b;
@@ -176,19 +188,23 @@ export default defineComponent({
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function add(a, b) {
     return a + b;
@@ -271,19 +287,23 @@ export default defineComponent({
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script lang="ts">
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function add(a, b) {
     return a + b;
@@ -324,19 +344,23 @@ export default defineComponent({
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script lang="tsx">
 // I am top level comment in this file.
-import z from "z";
-import threeLevelRelativePath from "../../../threeLevelRelativePath";
-import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
-import oneLevelRelativePath from "../oneLevelRelativePath";
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-import twoLevelRelativePath from "../../twoLevelRelativePath";
-import component from "@ui/hello";
-import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-import something from "@server/something";
-import xyz from "@ui/xyz";
 import { defineComponent } from "vue";
+import z from "z";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
 
 function add(a, b) {
     return a + b;
