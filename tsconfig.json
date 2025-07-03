@@ -60,5 +60,5 @@
   "exclude": [
     "node_modules"
   ],
-  "include": ["./src/**/*.ts", "src/utils/create-svelte-parsers.ts"]
+  "include": ["./src/**/*.ts"]
 }
