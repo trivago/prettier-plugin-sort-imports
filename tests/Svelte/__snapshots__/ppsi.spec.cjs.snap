@@ -66,20 +66,24 @@ exports[`module.svelte - svelte-verify: module.svelte 1`] = `
 </style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script context="module">
     // I am top level comment in this file.
-    import z from "z";
-    import threeLevelRelativePath from "../../../threeLevelRelativePath";
-    import sameLevelRelativePath from "./sameLevelRelativePath";
     import thirdParty from "third-party";
-    import oneLevelRelativePath from "../oneLevelRelativePath";
-    import otherthing from "@core/otherthing";
-    import abc from "@core/abc";
-    import twoLevelRelativePath from "../../twoLevelRelativePath";
-    import component from "@ui/hello";
-    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-    import something from "@server/something";
-    import xyz from "@ui/xyz";
     import { defineComponent } from "vue";
+    import z from "z";
+
+    import abc from "@core/abc";
+    import otherthing from "@core/otherthing";
+
+    import something from "@server/something";
+
+    import component from "@ui/hello";
+    import xyz from "@ui/xyz";
+
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
     import Header from "./Header.svelte";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
     import "./styles.css";
 </script>
 
@@ -205,30 +209,37 @@ exports[`questionale.svelte - svelte-verify: questionale.svelte 1`] = `
 	}
 </style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
+    // I am top level comment in this file.
+    import { onMount } from "svelte";
+    import thirdParty from "third-party";
+    import { defineComponent } from "vue";
+    import z from "z";
+
+    import abc from "@core/abc";
+    import otherthing from "@core/otherthing";
+
+    import something from "@server/something";
+
+    import component from "@ui/hello";
+    import xyz from "@ui/xyz";
+
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
+    import Header from "./Header.svelte";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
+    import "./styles.css";
+
     // Who?
     const once = "twice";
-    // I am top level comment in this file.
-    import z from "z";
-    import threeLevelRelativePath from "../../../threeLevelRelativePath";
-    import sameLevelRelativePath from "./sameLevelRelativePath";
-    import thirdParty from "third-party";
+
     // 😺
     $: cat = "😺";
-    import oneLevelRelativePath from "../oneLevelRelativePath";
-    import otherthing from "@core/otherthing";
-    import abc from "@core/abc";
-    import twoLevelRelativePath from "../../twoLevelRelativePath";
-    import component from "@ui/hello";
+
     onMount(() => {
         console.log("hello");
     });
-    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-    import something from "@server/something";
-    import xyz from "@ui/xyz";
-    import { defineComponent } from "vue";
-    import Header from "./Header.svelte";
-    import "./styles.css";
-    import { onMount } from "svelte";
 </script>
 
 <div class="app">
@@ -346,20 +357,24 @@ exports[`simple.svelte - svelte-verify: simple.svelte 1`] = `
 </style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script>
     // I am top level comment in this file.
-    import z from "z";
-    import threeLevelRelativePath from "../../../threeLevelRelativePath";
-    import sameLevelRelativePath from "./sameLevelRelativePath";
     import thirdParty from "third-party";
-    import oneLevelRelativePath from "../oneLevelRelativePath";
-    import otherthing from "@core/otherthing";
-    import abc from "@core/abc";
-    import twoLevelRelativePath from "../../twoLevelRelativePath";
-    import component from "@ui/hello";
-    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-    import something from "@server/something";
-    import xyz from "@ui/xyz";
     import { defineComponent } from "vue";
+    import z from "z";
+
+    import abc from "@core/abc";
+    import otherthing from "@core/otherthing";
+
+    import something from "@server/something";
+
+    import component from "@ui/hello";
+    import xyz from "@ui/xyz";
+
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
     import Header from "./Header.svelte";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
     import "./styles.css";
 </script>
 
@@ -478,20 +493,24 @@ exports[`ts.svelte - svelte-verify: ts.svelte 1`] = `
 </style>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 <script lang="ts">
     // I am top level comment in this file.
-    import z from "z";
-    import threeLevelRelativePath from "../../../threeLevelRelativePath";
-    import sameLevelRelativePath from "./sameLevelRelativePath";
     import thirdParty from "third-party";
-    import oneLevelRelativePath from "../oneLevelRelativePath";
-    import otherthing from "@core/otherthing";
-    import abc from "@core/abc";
-    import twoLevelRelativePath from "../../twoLevelRelativePath";
-    import component from "@ui/hello";
-    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
-    import something from "@server/something";
-    import xyz from "@ui/xyz";
     import { defineComponent } from "vue";
+    import z from "z";
+
+    import abc from "@core/abc";
+    import otherthing from "@core/otherthing";
+
+    import something from "@server/something";
+
+    import component from "@ui/hello";
+    import xyz from "@ui/xyz";
+
+    import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+    import threeLevelRelativePath from "../../../threeLevelRelativePath";
+    import twoLevelRelativePath from "../../twoLevelRelativePath";
+    import oneLevelRelativePath from "../oneLevelRelativePath";
     import Header from "./Header.svelte";
+    import sameLevelRelativePath from "./sameLevelRelativePath";
     import "./styles.css";
 </script>
 
