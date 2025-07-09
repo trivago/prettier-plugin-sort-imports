@@ -55,7 +55,7 @@ import a from 'a';`;
     };
     const ast = babelParser(code, parserOptions);
     if (!ast) throw new Error('ast is null');
-    const { directives, importNodes } = extractASTNodes(ast);
+    const { directives, importNodes } = extractASTNodes(ast as any);
 
     const formatted = getCodeFromAst(importNodes, directives, code, null);
     expect(await format(formatted, { parser: 'babel' })).toEqual(
