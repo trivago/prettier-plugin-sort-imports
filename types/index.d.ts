@@ -93,9 +93,8 @@ used to order imports within each match group.
      */
     importOrderParserPlugins?: ImportOrderParserPlugin[];
 
-
     /**
-     * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" }, 
+     * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" },
      * "assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
      *
      * ```
