@@ -33,13 +33,9 @@ function run_spec(dirname, parsers, options) {
             });
             const output = prettyprint(source, path, mergedOptions);
             test(`${filename} - ${mergedOptions.parser}-verify`, async () => {
-                try {
-                    expect(
-                        raw(source + '~'.repeat(80) + '\n' + (await output)),
-                    ).toMatchSnapshot(filename);
-                } catch (e) {
-                    console.error(e, path);
-                }
+                expect(
+                    raw(source + '~'.repeat(80) + '\n' + (await output)),
+                ).toMatchSnapshot(filename);
             });
 
             parsers.slice(1).forEach((parserName) => {
