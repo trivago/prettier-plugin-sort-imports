@@ -20,9 +20,12 @@ import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order'
  * @param nodes All import nodes that should be sorted.
  * @param options Options to influence the behavior of the sorting algorithm.
  */
-export const getSortedNodes: GetSortedNodes = (nodes, options) => {
-    const { importOrderSeparation, importOrderSideEffects } =
-        options;
+export const getSortedNodes: GetSortedNodes = (
+    nodes,
+    options,
+    maintainFirstNodeComments = true,
+) => {
+    const { importOrderSeparation, importOrderSideEffects } = options;
 
     // Split nodes at each boundary between a side-effect node and a
     // non-side-effect node, keeping both types of nodes together.
@@ -68,7 +71,7 @@ export const getSortedNodes: GetSortedNodes = (nodes, options) => {
     }
 
     // Adjust the comments on the sorted nodes to match the original comments
-    adjustCommentsOnSortedNodes(nodes, finalNodes);
+    adjustCommentsOnSortedNodes(nodes, finalNodes, maintainFirstNodeComments);
 
     return finalNodes;
 };

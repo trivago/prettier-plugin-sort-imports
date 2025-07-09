@@ -1,3 +1,4 @@
+import type { Options } from 'prettier';
 import { parsers as babelParsers } from 'prettier/plugins/babel';
 import { parsers as flowParsers } from 'prettier/plugins/flow';
 import { parsers as htmlParsers } from 'prettier/plugins/html';
@@ -6,7 +7,6 @@ import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 import { defaultPreprocessor } from './preprocessors/default-processor';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
-import type { Options } from 'prettier';
 import { createSvelteParsers } from './utils/create-svelte-parsers';
 
 const svelteParsers = createSvelteParsers();
@@ -64,6 +64,30 @@ const options: Options = {
         category: 'Global',
         default: 'with',
         description: 'Provide a keyword for import attributes',
+    },
+    importOrderIgnoreHeaderComments: {
+        type: 'int',
+        category: 'Global',
+        default: -1,
+        description: 'Number of header comments to ignore when sorting imports',
+    },
+    importOrderIgnoreHeaderCommentTypes: {
+        type: 'choice',
+        category: 'Global',
+        default: 'All',
+        choices: [
+            { value: 'All', description: 'Consider all comments' },
+            {
+                value: 'CommentBlock',
+                description: 'Only consider block comments',
+            },
+            {
+                value: 'CommentLine',
+                description: 'Only consider single line comments',
+            },
+        ],
+        description:
+            'Types of comments to consider when evaluating importOrderIgnoreHeaderComments',
     },
 };
 
