@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest'
+
 import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../../constants';
 import { ImportGroups } from '../../types';
 import { getImportNodes } from '../get-import-nodes';

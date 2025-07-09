@@ -1,6 +1,7 @@
 import { parse as babelParser } from '@babel/core';
 import { ParserOptions } from '@babel/parser';
 import { format } from 'prettier';
+import { expect, test } from 'vitest'
 
 import { extractASTNodes } from '../extract-ast-nodes';
 import { getCodeFromAst } from '../get-code-from-ast';
