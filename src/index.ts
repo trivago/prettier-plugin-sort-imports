@@ -67,7 +67,7 @@ const options: Options = {
     },
 };
 
-module.exports = {
+export default {
     parsers: {
         babel: {
             ...babelParsers.babel,

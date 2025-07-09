@@ -2,6 +2,12 @@
 
 
 ---
+### 5.2.2
+- Update packages and pin babel/types [#343](https://github.com/trivago/prettier-plugin-sort-imports/pull/343) by [@byara](https://github.com/byara)
+
+### 5.2.1
+- add svelte 5.x as peer dependency [#337](https://github.com/trivago/prettier-plugin-sort-imports/pull/337) by [@werner-drklein](https://github.com/werner-drklein)
+
 ### 5.2.0
 - fix type import ordering [#331](https://github.com/trivago/prettier-plugin-sort-imports/pull/331) by [@rsslldnphy](https://github.com/rsslldnphy) 
 - Fix conditional import of prettier-plugin-svelte [#332](https://github.com/trivago/prettier-plugin-sort-imports/pull/332) by [@rsslldnphy](https://github.com/rsslldnphy)

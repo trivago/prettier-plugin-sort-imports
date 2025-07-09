@@ -3,11 +3,12 @@
 const fs = require('fs');
 const extname = require('path').extname;
 const prettier = require('prettier');
+const plugin = require('../src');
 
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
         {
-            plugins: ['./src'],
+            plugins: [plugin.default],
             tabWidth: 4,
         },
         options,
@@ -24,7 +25,7 @@ function run_spec(dirname, parsers, options) {
             extname(filename) !== '.snap' &&
             fs.lstatSync(path).isFile() &&
             filename[0] !== '.' &&
-            filename !== 'ppsi.spec.js'
+            filename !== 'ppsi.spec.cjs'
         ) {
             const source = read(path).replace(/\r\n/g, '\n');
 
