@@ -19,6 +19,7 @@ export type GetSortedNodes = (
         | 'importOrderSeparation'
         | 'importOrderGroupNamespaceSpecifiers'
         | 'importOrderSortSpecifiers'
+        | 'importOrderSortByLength'
         | 'importOrderSideEffects'
     >,
 ) => ImportOrLine[];

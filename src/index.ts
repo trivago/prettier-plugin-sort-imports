@@ -53,6 +53,17 @@ const options: Options = {
         default: false,
         description: 'Should specifiers be sorted?',
     },
+    importOrderSortByLength: {
+        type: 'choice',
+        category: 'Global',
+        default: null,
+        choices: [
+            {value: 'asc', description: 'will sort from shortest to longest'},
+            {value: 'desc', description: 'will sort from longest to shortest'},
+            {value: null, description: 'will disable sorting based on length'}
+        ],
+        description: 'Should imports be sorted by their string length'
+    },
     importOrderSideEffects: {
         type: 'boolean',
         category: 'Global',
@@ -64,7 +75,7 @@ const options: Options = {
         category: 'Global',
         default: 'with',
         description: 'Provide a keyword for import attributes',
-    },
+    }
 };
 
 module.exports = {

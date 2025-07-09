@@ -198,6 +198,13 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### `importOrderSortByLength`
+**type**: `'asc' | 'desc' | null`
+**default value**: `null`
+
+A choice value to enable sorting imports within their groups based on their string lengths, the two options being ascending and descending.
+Leaving the value blank or setting it to null will result in length being ignored
+
 ### `importOrderSideEffects`
 **type**: `boolean`
 **default value**: `true`
