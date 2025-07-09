@@ -87,7 +87,7 @@ Due to the package handling of the pnpm, sometimes, the plugin is not automatica
 via prettier config.
 ```js
   module.exports = {
-    plugins: [require('@trivago/prettier-plugin-sort-imports')],
+    plugins: ['@trivago/prettier-plugin-sort-imports'],
   }
 ```
 

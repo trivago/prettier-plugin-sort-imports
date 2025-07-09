@@ -1,14 +1,14 @@
 'use strict';
 
-const fs = require('fs');
-const extname = require('path').extname;
-const prettier = require('prettier');
-const plugin = require('../src');
+import fs from 'fs';
+import { extname } from 'path';
+import prettier from 'prettier';
+import plugin from '../src/';
 
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
         {
-            plugins: [plugin.default],
+            plugins: [plugin],
             tabWidth: 4,
         },
         options,
@@ -59,6 +59,12 @@ function run_spec(dirname, parsers, options) {
         }
     });
 }
+import { expect } from 'vitest';
+import rawSerializer from './raw-serializer.mjs';
+
+// Add custom snapshot serializer for Vitest
+expect.addSnapshotSerializer(rawSerializer);
+
 global.run_spec = run_spec;
 
 function stripLocation(ast) {
