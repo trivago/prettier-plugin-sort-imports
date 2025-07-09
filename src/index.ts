@@ -4,11 +4,14 @@ import { parsers as htmlParsers } from 'prettier/plugins/html';
 import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 
 import { defaultPreprocessor } from './preprocessors/default-processor';
+import { emberPreprocessor } from './preprocessors/ember-preprocessor';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor';
 import type { Options } from 'prettier';
+import { createEmberParsers } from './utils/create-ember-parsers';
 import { createSvelteParsers } from './utils/create-svelte-parsers';
 
+const emberParsers = createEmberParsers();
 const svelteParsers = createSvelteParsers();
 
 const options: Options = {
@@ -90,6 +93,14 @@ export default {
                   svelte: {
                       ...svelteParsers.parsers.svelte,
                       preprocess: sveltePreprocessor,
+                  },
+              }
+            : {}),
+        ...(emberParsers.parsers
+            ? {
+                  'ember-template-tag': {
+                      ...emberParsers.parsers['ember-template-tag'],
+                      preprocess: emberPreprocessor,
                   },
               }
             : {}),
