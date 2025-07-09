@@ -49,14 +49,11 @@ import type { ExternalType } from 'external-type-module';
 import type { InternalType } from './internal-type-module';
 import { externalFn } from 'external-fn-module';
 import { internalFn } from './internal-fn-module';
-    `
-    const importNodes = getImportNodes(code,{
+    `;
+    const importNodes = getImportNodes(code, {
         plugins: ['typescript'],
     });
-    const importOrder = [
-        '^[^.].*',
-        '^[.].*',
-    ];
+    const importOrder = ['^[^.].*', '^[.].*'];
 
     let matchedGroups: string[] = [];
     for (const importNode of importNodes) {
@@ -66,12 +63,7 @@ import { internalFn } from './internal-fn-module';
         );
         matchedGroups.push(matchedGroup);
     }
-    expect(matchedGroups).toEqual([
-        '^[^.].*',
-        '^[.].*',
-        '^[^.].*',
-        '^[.].*',
-    ]);
+    expect(matchedGroups).toEqual(['^[^.].*', '^[.].*', '^[^.].*', '^[.].*']);
 });
 
 test('should return type imports as part of a type-specific group even if a matching non-type specific group precedes it', () => {
@@ -80,15 +72,11 @@ import type { ExternalType } from 'external-type-module';
 import type { InternalType } from './internal-type-module';
 import { externalFn } from 'external-fn-module';
 import { internalFn } from './internal-fn-module';
-    `
+    `;
     const importNodes = getImportNodes(code, {
         plugins: ['typescript'],
     });
-    const importOrder = [
-        '^[^.].*',
-        '^[.].*',
-        '<TS_TYPES>^[.].*',
-    ];
+    const importOrder = ['^[^.].*', '^[.].*', '<TS_TYPES>^[.].*'];
 
     let matchedGroups: string[] = [];
     for (const importNode of importNodes) {
