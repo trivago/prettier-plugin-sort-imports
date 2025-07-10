@@ -418,27 +418,6 @@ import "./commands";
 
 `;
 
-exports[`ppsi.spec.js - typescript-verify > ppsi.spec.js 1`] = `
-run_spec(__dirname, ["typescript"], {
-    importOrder: ['^@core/(.*)$', '^@server/(.*)', '<SEPARATOR>', '^@ui/(.*)$', '^[./]'],
-    importOrderSeparation: true,
-    importOrderParserPlugins: ['typescript']
-});
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-run_spec(__dirname, ["typescript"], {
-    importOrder: [
-        "^@core/(.*)$",
-        "^@server/(.*)",
-        "<SEPARATOR>",
-        "^@ui/(.*)$",
-        "^[./]",
-    ],
-    importOrderSeparation: true,
-    importOrderParserPlugins: ["typescript"],
-});
-
-`;
-
 exports[`sort-imports-ignored.ts - typescript-verify > sort-imports-ignored.ts 1`] = `
 // sort-imports-ignore
 
