@@ -1,5 +1,5 @@
 import { PrettierOptions } from '../types';
-import { preprocessor } from './preprocessor';
+import { preprocessor } from './preprocessor.js';
 
 const booleanGuard = <T>(value: T | undefined): value is T => Boolean(value);
 

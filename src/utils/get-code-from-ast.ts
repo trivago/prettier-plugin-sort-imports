@@ -1,9 +1,9 @@
 import generate from '@babel/generator';
 import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 
-import { newLineCharacters } from '../constants';
-import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
-import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
+import { newLineCharacters } from '../constants.js';
+import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
+import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code.js';
 import { PrettierOptions } from '../types';
 
 /**

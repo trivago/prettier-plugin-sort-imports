@@ -1,5 +1,5 @@
 import { PrettierOptions } from '../types';
-import { preprocessor } from './preprocessor';
+import { preprocessor } from './preprocessor.js';
 
 export function vuePreprocessor(code: string, options: PrettierOptions) {
     const { parse } = require('@vue/compiler-sfc');
