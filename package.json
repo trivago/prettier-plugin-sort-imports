@@ -74,9 +74,5 @@
     "svelte": {
       "optional": true
     }
-  },
-  "resolutions": {
-    "@types/babel__generator": "7.6.8",
-    "@babel/types": "7.26.7"
   }
 }
