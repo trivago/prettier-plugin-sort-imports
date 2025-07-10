@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`imports-with-decorators.js - typescript-verify: imports-with-decorators.js 1`] = `
+exports[`imports-with-decorators.js - typescript-verify > imports-with-decorators.js 1`] = `
 import { Body, Controller, HttpService, Logger, Post } from "@core/common";
 import { retry } from "@server/operators";
 

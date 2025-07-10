@@ -15,7 +15,7 @@ import React, {
     KeyboardEvent,
 } from 'react';
 import { logger } from '@core/logger';
-import { reduce, debounce } from 'lodash';
+import { reduce, debounce } from 'lodash-es';
 import { Message } from '../Message';
 import { createServer } from '@server/node';
 import { Alert } from '@ui/Alert';
@@ -29,7 +29,7 @@ import { createConnection } from '@server/database';
 ### Output
 
 ```javascript
-import { debounce, reduce } from 'lodash';
+import { debounce, reduce } from 'lodash-es';
 import React, {
     ChangeEvent,
     FC,

@@ -1,4 +1,4 @@
-import { clone } from 'lodash';
+import { clone } from 'lodash-es';
 
 import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode, SEPARATOR_SPECIAL_WORD } from '../constants';
 import { naturalSort } from '../natural-sort';

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`imports-with-comments.js - babel-verify: imports-with-comments.js 1`] = `
+exports[`imports-with-comments.js - babel-verify > imports-with-comments.js 1`] = `
 // I am top level comment in this file.
 import z from 'z';
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
