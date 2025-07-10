@@ -14,7 +14,7 @@
     "prepare": "yarn run compile",
     "compile": "tsc",
     "preexample": "yarn run compile",
-    "example": "prettier --config ./examples/.prettierrc --plugin lib/src/index.js",
+    "example": "prettier --config ./examples/.prettierrc --plugin ./lib/src/index.js",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "prepublishOnly": "npm run compile && npm run test"
@@ -34,10 +34,10 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/generator": "^7.26.5",
-    "@babel/parser": "^7.26.7",
-    "@babel/traverse": "^7.26.7",
-    "@babel/types": "^7.26.7",
+    "@babel/generator": "^7.28.0",
+    "@babel/parser": "^7.28.0",
+    "@babel/traverse": "^7.28.0",
+    "@babel/types": "^7.28.0",
     "javascript-natural-sort": "^0.7.1",
     "lodash-es": "^4.17.21"
   },
@@ -74,9 +74,5 @@
     "svelte": {
       "optional": true
     }
-  },
-  "resolutions": {
-    "@types/babel__generator": "7.6.8",
-    "@babel/types": "7.26.7"
   }
 }

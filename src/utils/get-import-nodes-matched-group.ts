@@ -4,7 +4,7 @@ import {
     THIRD_PARTY_MODULES_SPECIAL_WORD,
     THIRD_PARTY_TYPES_SPECIAL_WORD,
     TYPES_SPECIAL_WORD,
-} from '../constants';
+} from '../constants.js';
 
 /**
  * Get the regexp group to keep the import nodes.

@@ -1,8 +1,22 @@
+let vueCompilerSfc: typeof import('@vue/compiler-sfc') | undefined;
+
+try {
+    vueCompilerSfc = await import('@vue/compiler-sfc');
+} catch {
+    // Do not error because the dependency is optional.
+}
+
 import { PrettierOptions } from '../types';
-import { preprocessor } from './preprocessor';
+import { preprocessor } from './preprocessor.js';
 
 export function vuePreprocessor(code: string, options: PrettierOptions) {
-    const { parse } = require('@vue/compiler-sfc');
+    if (!vueCompilerSfc) {
+        throw new Error(
+        "Missing peer dependency '@vue/compiler-sfc'. Please install it to use the vue parser.",
+        );
+    }
+
+    const { parse } = vueCompilerSfc;
     const { descriptor } = parse(code);
 
     const scriptContent = descriptor.script?.content;

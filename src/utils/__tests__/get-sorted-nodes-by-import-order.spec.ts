@@ -1,11 +1,11 @@
 import { ImportDeclaration } from '@babel/types';
 import { expect, test } from 'vitest'
 
-import { getImportNodes } from '../get-import-nodes';
-import { getSortedNodes } from '../get-sorted-nodes';
-import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names';
-import { getSortedNodesNames } from '../get-sorted-nodes-names';
-import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from "../../constants"
+import { getImportNodes } from '../get-import-nodes.js';
+import { getSortedNodes } from '../get-sorted-nodes.js';
+import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names.js';
+import { getSortedNodesNames } from '../get-sorted-nodes-names.js';
+import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from "../../constants.js"
 import { ImportOrLine } from "../../types"
 
 const code = `// first comment

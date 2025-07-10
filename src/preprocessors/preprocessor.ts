@@ -2,11 +2,11 @@ import { ParserOptions, parse as babelParser } from '@babel/parser';
 import { Directive, ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
-import { extractASTNodes } from '../utils/extract-ast-nodes';
-import { getCodeFromAst } from '../utils/get-code-from-ast';
-import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins';
-import { getSortedNodes } from '../utils/get-sorted-nodes';
-import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored';
+import { extractASTNodes } from '../utils/extract-ast-nodes.js';
+import { getCodeFromAst } from '../utils/get-code-from-ast.js';
+import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins.js';
+import { getSortedNodes } from '../utils/get-sorted-nodes.js';
+import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored.js';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {

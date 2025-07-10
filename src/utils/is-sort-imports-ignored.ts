@@ -1,7 +1,7 @@
 import { Statement } from '@babel/types';
 
-import { sortImportsIgnoredComment } from '../constants';
-import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
+import { sortImportsIgnoredComment } from '../constants.js';
+import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
 
 export const isSortImportsIgnored = (nodes: Statement[]) =>
     getAllCommentsFromNodes(nodes).some(

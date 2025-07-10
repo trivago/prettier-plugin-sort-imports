@@ -5,6 +5,6 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     setupFiles: ['./test-setup/run_spec.mjs'],
-    include: ['src/**/*.{test,spec}.{js,ts}', 'tests/**/*.{test,spec}.{js,ts,cjs}'],
+    include: ['src/**/*.{test,spec}.{js,mjs,ts}', 'tests/**/*.{test,spec}.{js,mjs,ts}'],
   },
 });
