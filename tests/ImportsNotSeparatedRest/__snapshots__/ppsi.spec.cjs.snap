@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`import-export-in-between.ts - typescript-verify: import-export-in-between.ts 1`] = `
+exports[`import-export-in-between.ts - typescript-verify > import-export-in-between.ts 1`] = `
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";
 import thirdParty from "third-party";
@@ -22,13 +22,13 @@ function add(a:number,b:number) {
   return a + b;
 }
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import otherthing from "@core/otherthing";
+import something from "@server/something";
+import component from "@ui/hello";
 import a from "a";
 import c from "c";
 import thirdParty from "third-party";
 import x from "x";
-import otherthing from "@core/otherthing";
-import something from "@server/something";
-import component from "@ui/hello";
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -47,7 +47,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`import-export-only.ts - typescript-verify: import-export-only.ts 1`] = `
+exports[`import-export-only.ts - typescript-verify > import-export-only.ts 1`] = `
 import React from 'react';
 export const a = 1;
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -57,7 +57,7 @@ export const a = 1;
 
 `;
 
-exports[`imports-with-comments.ts - typescript-verify: imports-with-comments.ts 1`] = `
+exports[`imports-with-comments.ts - typescript-verify > imports-with-comments.ts 1`] = `
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
 import './commands';
@@ -82,7 +82,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-with-comments-and-third-party.ts - typescript-verify: imports-with-comments-and-third-party.ts 1`] = `
+exports[`imports-with-comments-and-third-party.ts - typescript-verify > imports-with-comments-and-third-party.ts 1`] = `
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
 import './commands';
@@ -108,7 +108,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-with-comments-on-top.ts - typescript-verify: imports-with-comments-on-top.ts 1`] = `
+exports[`imports-with-comments-on-top.ts - typescript-verify > imports-with-comments-on-top.ts 1`] = `
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
 import z from 'z';
@@ -131,14 +131,14 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // I am top level comment in this file.
 // I am second line of top level comment in this file.
-import thirdParty from "third-party";
-import z from "z";
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
 import qwerty from "@server/qwerty";
 import something from "@server/something";
 import component from "@ui/hello";
 import xyz from "@ui/xyz";
+import thirdParty from "third-party";
+import z from "z";
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -151,64 +151,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-with-directives.ts - typescript-verify: imports-with-directives.ts 1`] = `
-'use strict';
-'use client';
-import otherthing from "@core/otherthing";
-import abc from "@core/abc";
-// Comment
-function add(a:number,b:number) {
-    return a + b;
-}
-function addStrict(a:number,b:number) {
-    'use strict';
-    return a + b;
-}
-
-'preserve me';
-
-const workletAdd = (a:number,b:number) => {
-    'worklet';
-    return a + b;
-}
-
-(function() {
-    'use strict';
-    // some iffe example
-    return true;
-})();
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"use strict";
-"use client";
-
-import abc from "@core/abc";
-import otherthing from "@core/otherthing";
-
-// Comment
-function add(a: number, b: number) {
-    return a + b;
-}
-function addStrict(a: number, b: number) {
-    "use strict";
-    return a + b;
-}
-
-("preserve me");
-
-const workletAdd = (a: number, b: number) => {
-    "worklet";
-    return a + b;
-};
-
-(function () {
-    "use strict";
-    // some iffe example
-    return true;
-})();
-
-`;
-
-exports[`imports-with-file-level-comments.ts - typescript-verify: imports-with-file-level-comments.ts 1`] = `
+exports[`imports-with-file-level-comments.ts - typescript-verify > imports-with-file-level-comments.ts 1`] = `
 //@ts-ignore
 // I am file top level comments
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
@@ -245,14 +188,14 @@ function add(a:number,b:number) {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //@ts-ignore
 // I am file top level comments
+import otherthing from "@core/otherthing";
+import something from "@server/something";
+import component from "@ui/hello";
 import a from "a";
 import c from "c";
 // I am stick to third party comment
 import thirdParty from "third-party";
 import x from "x";
-import otherthing from "@core/otherthing";
-import something from "@server/something";
-import component from "@ui/hello";
 import fourLevelRelativePath from "../../../../fourLevelRelativePath";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
 import twoLevelRelativePath from "../../twoLevelRelativePath";
@@ -281,7 +224,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-with-interpreter-directive.ts - typescript-verify: imports-with-interpreter-directive.ts 1`] = `
+exports[`imports-with-interpreter-directive.ts - typescript-verify > imports-with-interpreter-directive.ts 1`] = `
 #!/usr/bin/env node
 import otherthing from "@core/otherthing";
 import abc from "@core/abc";
@@ -312,7 +255,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`imports-without-third-party.ts - typescript-verify: imports-without-third-party.ts 1`] = `
+exports[`imports-without-third-party.ts - typescript-verify > imports-without-third-party.ts 1`] = `
 // I am top level comment
 import otherthing from "@core/otherthing";
 import abc from "@core/abc";
@@ -333,7 +276,7 @@ import twoLevelRelativePath from "../../twoLevelRelativePath";
 
 `;
 
-exports[`no-import-export.ts - typescript-verify: no-import-export.ts 1`] = `
+exports[`no-import-export.ts - typescript-verify > no-import-export.ts 1`] = `
 function add(a:number,b:number) {
     return a + b;
 }
@@ -344,7 +287,7 @@ function add(a: number, b: number) {
 
 `;
 
-exports[`one-import.ts - typescript-verify: one-import.ts 1`] = `
+exports[`one-import.ts - typescript-verify > one-import.ts 1`] = `
 // This example support/index.js is processed and
 // loaded automatically before your test files.
 //
@@ -386,7 +329,7 @@ import "./commands";
 
 `;
 
-exports[`sort-imports-ignored.ts - typescript-verify: sort-imports-ignored.ts 1`] = `
+exports[`sort-imports-ignored.ts - typescript-verify > sort-imports-ignored.ts 1`] = `
 // sort-imports-ignore
 
 import './commands';

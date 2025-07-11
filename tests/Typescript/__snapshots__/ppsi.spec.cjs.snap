@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`imports-with-comments.ts - typescript-verify: imports-with-comments.ts 1`] = `
+exports[`imports-with-comments.ts - typescript-verify > imports-with-comments.ts 1`] = `
 import z from 'z';
 import { isEmpty } from "lodash-es";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
@@ -64,7 +64,7 @@ export class AppComponent extends BaseComponent {
 
 `;
 
-exports[`imports-with-satisfies.ts - typescript-verify: imports-with-satisfies.ts 1`] = `
+exports[`imports-with-satisfies.ts - typescript-verify > imports-with-satisfies.ts 1`] = `
 import z from 'z';
 import { isEmpty } from "lodash-es";
 import threeLevelRelativePath from "../../../threeLevelRelativePath";
@@ -112,7 +112,7 @@ const someobj = { hello: "world", world: "hello" } satisfies Record<
 
 `;
 
-exports[`imports-with-unsorted-modules.ts - typescript-verify: imports-with-unsorted-modules.ts 1`] = `
+exports[`imports-with-unsorted-modules.ts - typescript-verify > imports-with-unsorted-modules.ts 1`] = `
 import z from 'z';
 import { isEmpty, concat, flatten } from "lodash-es";
 import threeLevelRelativePathA, { nonDefaultModuleC, nonDefaultModuleA, nonDefaultModuleB } from "../../../threeLevelRelativePathA";

@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest'
+
 import { getExperimentalParserPlugins } from '../get-experimental-parser-plugins';
 
 test('it should return empty list', () => {

@@ -2,7 +2,7 @@
 
 const RAW = Symbol.for('raw');
 
-module.exports = {
+export default {
     print(val) {
         return val[RAW];
     },

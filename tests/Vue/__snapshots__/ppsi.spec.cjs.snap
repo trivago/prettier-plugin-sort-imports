@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`setup.vue - vue-verify: setup.vue 1`] = `
+exports[`setup.vue - vue-verify > setup.vue 1`] = `
 <script setup>
 // I am top level comment in this file.
 import z from 'z';
@@ -57,7 +57,7 @@ function add(a, b) {
 
 `;
 
-exports[`setupAndScript.vue - vue-verify: setupAndScript.vue 1`] = `
+exports[`setupAndScript.vue - vue-verify > setupAndScript.vue 1`] = `
 <script>
 // I am top level comment in this file.
 import z from 'z';
@@ -160,7 +160,7 @@ function add(a, b) {
 
 `;
 
-exports[`sfc.vue - vue-verify: sfc.vue 1`] = `
+exports[`sfc.vue - vue-verify > sfc.vue 1`] = `
 <script>
 // I am top level comment in this file.
 import z from 'z';
@@ -215,7 +215,7 @@ export default defineComponent({});
 
 `;
 
-exports[`sfcNoScript.vue - vue-verify: sfcNoScript.vue 1`] = `
+exports[`sfcNoScript.vue - vue-verify > sfcNoScript.vue 1`] = `
 <template>
 	<div>
 		<span>hello world
@@ -240,7 +240,7 @@ div {
 
 `;
 
-exports[`sfcWithSpecialReplacerGroups.vue - vue-verify: sfcWithSpecialReplacerGroups.vue 1`] = `
+exports[`sfcWithSpecialReplacerGroups.vue - vue-verify > sfcWithSpecialReplacerGroups.vue 1`] = `
 <script setup>
 let a = '$';
 let b = '$';
@@ -259,7 +259,7 @@ let c = "$$";
 
 `;
 
-exports[`ts.vue - vue-verify: ts.vue 1`] = `
+exports[`ts.vue - vue-verify > ts.vue 1`] = `
 <script lang="ts">
 // I am top level comment in this file.
 import z from 'z';
@@ -314,7 +314,7 @@ export default defineComponent({});
 
 `;
 
-exports[`tsx.vue - vue-verify: tsx.vue 1`] = `
+exports[`tsx.vue - vue-verify > tsx.vue 1`] = `
 <script lang="tsx">
 // I am top level comment in this file.
 import z from 'z';

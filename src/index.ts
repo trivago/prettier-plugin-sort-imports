@@ -9,7 +9,7 @@ import { vuePreprocessor } from './preprocessors/vue-preprocessor';
 import type { Options } from 'prettier';
 import { createSvelteParsers } from './utils/create-svelte-parsers';
 
-const svelteParsers = createSvelteParsers();
+const svelteParsers = await createSvelteParsers();
 
 const options: Options = {
     importOrderExclude: {
@@ -74,7 +74,7 @@ const options: Options = {
     },
 };
 
-module.exports = {
+export default {
     parsers: {
         babel: {
             ...babelParsers.babel,
