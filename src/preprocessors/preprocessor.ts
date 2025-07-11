@@ -19,12 +19,12 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
-        importOrderSkipFiles,
+        importOrderExclude,
         filepath,
     } = options;
 
     // Check if the file should be skipped
-    if (filepath && shouldSkipFile(filepath, (importOrderSkipFiles || []) as string[])) {
+    if (filepath && shouldSkipFile(filepath, (importOrderExclude || []) as string[])) {
         return code;
     }
 

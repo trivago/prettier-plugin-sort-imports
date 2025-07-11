@@ -2,7 +2,7 @@ import { minimatch } from 'minimatch';
 import path from 'path';
 
 /**
- * Checks if the current file path matches any of the patterns in importOrderSkipFiles
+ * Checks if the current file path matches any of the patterns in importOrderExclude
  * @param filePath The path of the current file being processed
  * @param skipPatterns Array of patterns for files to skip
  * @returns boolean indicating whether the file should be skipped

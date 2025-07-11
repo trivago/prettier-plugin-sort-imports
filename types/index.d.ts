@@ -111,12 +111,12 @@ used to order imports within each match group.
      * Files matching these patterns will not have their imports sorted.
      * 
      * ```
-     * "importOrderSkipFiles": ["*.test.ts", "src/generated/**"]
+     * "importOrderExclude": ["*.test.ts", "src/generated/**"]
      * ```
      * 
      * @default []
      */
-    importOrderSkipFiles?: string[];
+    importOrderExclude?: string[];
 }
 
 export type PrettierConfig = PluginConfig & Config;

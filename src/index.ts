@@ -12,12 +12,12 @@ import { createSvelteParsers } from './utils/create-svelte-parsers';
 const svelteParsers = createSvelteParsers();
 
 const options: Options = {
-    importOrderSkipFiles: {
+    importOrderExclude: {
         type: 'path',
         category: 'Global',
         array: true,
         default: [{ value: [] }],
-        description: 'Provide a list of files to skip sorting imports.',
+        description: 'Provide a list of glob patterns to exclude from import sorting.',
     },
     importOrder: {
         type: 'path',
