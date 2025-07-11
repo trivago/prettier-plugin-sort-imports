@@ -267,6 +267,12 @@ In the end, the plugin returns final imports with _third party imports_ on top a
 
 The _third party imports_ position (it's top by default) can be overridden using the `<THIRD_PARTY_MODULES>` special word in the `importOrder`.
 
+### Pattern Matching Implementation
+
+This plugin uses [minimatch](https://github.com/isaacs/minimatch) for pattern matching of import paths. The matching is performed using the exact version specified in the plugin's dependencies to ensure consistent behavior. This is important to note because different versions of minimatch or other glob matching libraries might have subtle differences in their pattern matching behavior.
+
+If you're experiencing unexpected matching behavior, please ensure you're using patterns compatible with minimatch's syntax, which might differ slightly from other glob implementations.
+
 ### FAQ / Troubleshooting
 
 Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](./docs/TROUBLESHOOTING.md).
@@ -299,10 +305,10 @@ debug some code in the plugin, check [Debugging Guidelines](./docs/DEBUG.md)
 
 ### Maintainers
 
-| [Ayush Sharma](https://github.com/ayusharma)                             | [Behrang Yarahmadi](https://github.com/byara)                         | [Vladislav Arsenev](https://github.com/vladislavarsenev)                 |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------- |--------------------------------------------------------------------------|
-| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4) |![@vladislavarsenev](https://avatars.githubusercontent.com/u/51095682?s=120&v=4)|
-| [@ayusharma](https://twitter.com/ayusharma_)                             | [@behrang_y](https://twitter.com/behrang_y)                           |                                                                          |
+| [Ayush Sharma](https://github.com/ayusharma)                             | [Behrang Yarahmadi](https://github.com/byara)                         |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
+| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4) |
+| [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@behrang_y](https://twitter.com/behrang_y)                           |
 
 ### Disclaimer
 
