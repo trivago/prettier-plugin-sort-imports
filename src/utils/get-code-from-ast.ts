@@ -2,9 +2,9 @@ import generate from '@babel/generator';
 import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 
 import { newLineCharacters } from '../constants';
+import { PrettierOptions } from '../types';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
 import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
-import { PrettierOptions } from '../types';
 
 /**
  * This function generate a code string from the passed nodes.
@@ -16,7 +16,7 @@ export const getCodeFromAst = (
     directives: Directive[],
     originalCode: string,
     interpreter?: InterpreterDirective | null,
-    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>
+    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
@@ -51,7 +51,9 @@ export const getCodeFromAst = (
         },
     });
 
-    const { code } = generate(newAST, { importAttributesKeyword: options?.importOrderImportAttributesKeyword });
+    const { code } = generate(newAST, {
+        importAttributesKeyword: options?.importOrderImportAttributesKeyword,
+    });
 
     return (
         code.replace(
