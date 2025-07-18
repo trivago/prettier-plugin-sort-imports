@@ -1,5 +1,5 @@
 import { ParserOptions, parse as babelParser } from '@babel/parser';
-import { Directive, ImportDeclaration } from '@babel/types';
+import { ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
 import { extractASTNodes } from '../utils/extract-ast-nodes.js';
@@ -27,12 +27,11 @@ export function preprocessor(code: string, options: PrettierOptions) {
     };
 
     const ast = babelParser(code, parserOptions);
-    const interpreter = ast.program.interpreter;
 
     const {
         importNodes,
-        directives,
-    }: { importNodes: ImportDeclaration[]; directives: Directive[] } =
+        injectIdx,
+    }: { importNodes: ImportDeclaration[]; injectIdx: number } =
         extractASTNodes(ast);
 
     // short-circuit if there are no import declaration
@@ -49,7 +48,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSideEffects,
     });
 
-    return getCodeFromAst(allImports, directives, code, interpreter, {
+    return getCodeFromAst(allImports, code, injectIdx, {
         importOrderImportAttributesKeyword,
     });
 }
