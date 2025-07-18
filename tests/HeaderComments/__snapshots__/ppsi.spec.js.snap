@@ -1,0 +1,116 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`block-header.ts - typescript-verify > block-header.ts 1`] = `
+/* Copyright header comment */
+
+import thirdParty0 from "third-party0";
+import something3 from "@core/something3";
+import thirdDisco0 from "third-disco0";
+import otherthing3 from "@core/otherthing3";
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+import something0 from "@core/something0";
+
+import { b } from "r" with { type: "json" };
+
+
+function add(a,b) {
+  return a + b;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Copyright header comment */
+
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+import { b } from "r" with { type: "json" };
+import thirdDisco0 from "third-disco0";
+import thirdParty0 from "third-party0";
+import otherthing3 from "@core/otherthing3";
+import something0 from "@core/something0";
+import something3 from "@core/something3";
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+
+function add(a, b) {
+    return a + b;
+}
+
+`;
+
+exports[`interleaved-blocks.ts - typescript-verify > interleaved-blocks.ts 1`] = `
+/* Copyright header comment */
+
+// CommentLine that will be considered a header
+
+import thirdParty0 from "third-party0";
+import something3 from "@core/something3";
+import thirdDisco0 from "third-disco0";
+import otherthing3 from "@core/otherthing3";
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+import something0 from "@core/something0";
+
+import { b } from "r" with { type: "json" };
+
+
+function add(a,b) {
+  return a + b;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/* Copyright header comment */
+
+// CommentLine that will be considered a header
+
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+import { b } from "r" with { type: "json" };
+import thirdDisco0 from "third-disco0";
+import thirdParty0 from "third-party0";
+import otherthing3 from "@core/otherthing3";
+import something0 from "@core/something0";
+import something3 from "@core/something3";
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+
+function add(a, b) {
+    return a + b;
+}
+
+`;
+
+exports[`line-header.ts - typescript-verify > line-header.ts 1`] = `
+// Copyright header comment
+
+import thirdParty0 from "third-party0";
+import something3 from "@core/something3";
+import thirdDisco0 from "third-disco0";
+import otherthing3 from "@core/otherthing3";
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+import something0 from "@core/something0";
+
+import { b } from "r" with { type: "json" };
+
+
+function add(a,b) {
+  return a + b;
+}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// Copyright header comment
+
+// CommentLine attached to import
+import { a } from "b" with { type: "json" };
+import { b } from "r" with { type: "json" };
+import thirdDisco0 from "third-disco0";
+import thirdParty0 from "third-party0";
+import otherthing3 from "@core/otherthing3";
+import something0 from "@core/something0";
+import something3 from "@core/something3";
+import anotherSameLevelRelativePath3 from "./anotherSameLevelRelativePath3";
+
+function add(a, b) {
+    return a + b;
+}
+
+`;

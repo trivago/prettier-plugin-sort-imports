@@ -1,10 +1,48 @@
 import { ParseResult } from '@babel/parser';
-import traverseModule, { NodePath } from '@babel/traverse';
-import { File, ImportDeclaration, Program } from '@babel/types';
+import traverse, { NodePath } from '@babel/traverse';
+import { File, ImportDeclaration, Node, Program } from '@babel/types';
 
-const traverse = (traverseModule as any).default || traverseModule;
+import { PrettierOptions } from '../types';
 
-export function extractASTNodes(ast: ParseResult<File>) {
+const adjustCommentsOnFirstNode = (node: Node, options: Options) => {
+    const {
+        importOrderIgnoreHeaderComments,
+        importOrderIgnoreHeaderCommentTypes,
+    } = options;
+
+    if (importOrderIgnoreHeaderComments <= 0) {
+        return;
+    }
+
+    const comments = node.leadingComments ?? [];
+    if (comments.length <= 0) {
+        return;
+    }
+
+    let remaining = importOrderIgnoreHeaderComments;
+    node.leadingComments = comments.filter((comment) => {
+        if (remaining <= 0) {
+            return true;
+        }
+        if (importOrderIgnoreHeaderCommentTypes === 'All') {
+            remaining--;
+            return false;
+        }
+        if (comment.type !== importOrderIgnoreHeaderCommentTypes) {
+            remaining = 0;
+            return true;
+        }
+        remaining--;
+        return false;
+    });
+};
+
+type Options = Pick<
+    PrettierOptions,
+    'importOrderIgnoreHeaderComments' | 'importOrderIgnoreHeaderCommentTypes'
+>;
+
+export function extractASTNodes(ast: ParseResult<File>, options: Options) {
     const importNodes: ImportDeclaration[] = [];
     let injectIdx = 0;
     traverse(ast, {
@@ -16,7 +54,11 @@ export function extractASTNodes(ast: ParseResult<File>) {
              * inject anyway.
              */
             for (const node of path.node.body) {
+                if (node.type === 'ImportDeclaration') {
+                    adjustCommentsOnFirstNode(node, options);
+                }
                 injectIdx = node.leadingComments?.[0]?.start ?? node.start ?? 0;
+                // for loop only runs if there is a node, and only a single iteration
                 break;
             }
         },
@@ -25,9 +67,11 @@ export function extractASTNodes(ast: ParseResult<File>) {
             const tsModuleParent = path.findParent((p) =>
                 p.isTSModuleDeclaration(),
             );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
+            if (tsModuleParent) {
+                return;
             }
+
+            importNodes.push(path.node);
         },
     });
     return { importNodes, injectIdx };

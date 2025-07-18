@@ -85,6 +85,30 @@ const options: Options = {
         default: 'with',
         description: 'Provide a keyword for import attributes',
     },
+    importOrderIgnoreHeaderComments: {
+        type: 'int',
+        category: 'Global',
+        default: -1,
+        description: 'Number of header comments to ignore when sorting imports',
+    },
+    importOrderIgnoreHeaderCommentTypes: {
+        type: 'choice',
+        category: 'Global',
+        default: 'All',
+        choices: [
+            { value: 'All', description: 'Consider all comments' },
+            {
+                value: 'CommentBlock',
+                description: 'Only consider block comments',
+            },
+            {
+                value: 'CommentLine',
+                description: 'Only consider single line comments',
+            },
+        ],
+        description:
+            'Types of comments to consider when evaluating importOrderIgnoreHeaderComments',
+    },
 };
 
 export default {
