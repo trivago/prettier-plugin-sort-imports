@@ -38,7 +38,7 @@ function run_spec(dirname, parsers, options) {
                         raw(source + '~'.repeat(80) + '\n' + (await output)),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
-                    console.error(e, path);
+                    throw new Error(`Problem occurred in ${path} file: ${error.name}`);
                 }
             });
 
