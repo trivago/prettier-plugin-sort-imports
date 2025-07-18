@@ -21,6 +21,7 @@ export type GetSortedNodes = (
         | 'importOrderSortSpecifiers'
         | 'importOrderSideEffects'
     >,
+    maintainFirstNodeComments?: boolean,
 ) => ImportOrLine[];
 
 export interface ImportChunk {

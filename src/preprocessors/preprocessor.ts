@@ -1,8 +1,9 @@
 import { ParserOptions, parse as babelParser } from '@babel/parser';
-import { Directive, ImportDeclaration } from '@babel/types';
+import { ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
 import { extractASTNodes } from '../utils/extract-ast-nodes';
+import { getAllCommentsFromNodes } from '../utils/get-all-comments-from-nodes';
 import { getCodeFromAst } from '../utils/get-code-from-ast';
 import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins';
 import { getSortedNodes } from '../utils/get-sorted-nodes';
@@ -18,6 +19,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
+        importOrderIgnoreHeaderComments,
     } = options;
 
     const parserOptions: ParserOptions = {
@@ -26,28 +28,36 @@ export function preprocessor(code: string, options: PrettierOptions) {
     };
 
     const ast = babelParser(code, parserOptions);
-    const interpreter = ast.program.interpreter;
+
+    if (isSortImportsIgnored(ast.program.body[0]?.leadingComments ?? []))
+        return code;
 
     const {
         importNodes,
-        directives,
-    }: { importNodes: ImportDeclaration[]; directives: Directive[] } =
-        extractASTNodes(ast);
+        injectIdx,
+    }: { importNodes: ImportDeclaration[]; injectIdx: number } =
+        extractASTNodes(ast, options);
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
-    if (isSortImportsIgnored(importNodes)) return code;
+    if (isSortImportsIgnored(getAllCommentsFromNodes(importNodes))) return code;
 
-    const allImports = getSortedNodes(importNodes, {
-        importOrder,
-        importOrderCaseInsensitive,
-        importOrderSeparation,
-        importOrderGroupNamespaceSpecifiers,
-        importOrderSortSpecifiers,
-        importOrderSideEffects,
-    });
+    const maintainFirstNodeComments = importOrderIgnoreHeaderComments < 0;
 
-    return getCodeFromAst(allImports, directives, code, interpreter, {
+    const allImports = getSortedNodes(
+        importNodes,
+        {
+            importOrder,
+            importOrderCaseInsensitive,
+            importOrderSeparation,
+            importOrderGroupNamespaceSpecifiers,
+            importOrderSortSpecifiers,
+            importOrderSideEffects,
+        },
+        maintainFirstNodeComments,
+    );
+
+    return getCodeFromAst(allImports, code, injectIdx, {
         importOrderImportAttributesKeyword,
     });
 }

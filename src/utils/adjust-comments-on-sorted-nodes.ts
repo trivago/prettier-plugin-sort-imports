@@ -13,6 +13,7 @@ import { ImportOrLine } from '../types';
 export const adjustCommentsOnSortedNodes = (
     nodes: ImportDeclaration[],
     finalNodes: ImportOrLine[],
+    maintainFirstNodeComments: boolean = true,
 ) => {
     // maintain a copy of the nodes to extract comments from
     const finalNodesClone = finalNodes.map(clone);
@@ -24,11 +25,15 @@ export const adjustCommentsOnSortedNodes = (
 
     // insert comments other than the first comments
     finalNodes.forEach((node, index) => {
-        if (isEqual(nodes[0].loc, node.loc)) return;
-        // remove comments location to not confuse print AST
-        firstNodesComments?.forEach((comment) => {
-            delete comment.loc;
-        });
+        if (maintainFirstNodeComments) {
+            if (isEqual(nodes[0].loc, node.loc)) return;
+
+            // remove comments location to not confuse print AST
+            firstNodesComments?.forEach((comment) => {
+                delete comment.loc;
+            });
+        }
+
         addComments(
             node,
             'leading',
@@ -36,7 +41,7 @@ export const adjustCommentsOnSortedNodes = (
         );
     });
 
-    if (firstNodesComments) {
+    if (maintainFirstNodeComments && firstNodesComments) {
         addComments(finalNodes[0], 'leading', firstNodesComments);
     }
 };

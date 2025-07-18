@@ -1,28 +1,65 @@
 import { ParseResult } from '@babel/parser';
 import traverse, { NodePath } from '@babel/traverse';
-import {
-    Directive,
-    File,
-    ImportDeclaration,
-} from '@babel/types';
+import { File, ImportDeclaration, Node, Program } from '@babel/types';
 
-export function extractASTNodes(ast: ParseResult<File>) {
+import { PrettierOptions } from '../types';
+
+const adjustCommentsOnFirstNode = (node: Node, options: Options) => {
+    const {
+        importOrderIgnoreHeaderComments,
+        importOrderIgnoreHeaderCommentTypes,
+    } = options;
+
+    if (importOrderIgnoreHeaderComments <= 0) {
+        return;
+    }
+
+    const comments = node.leadingComments ?? [];
+    if (comments.length <= 0) {
+        return;
+    }
+
+    let remaining = importOrderIgnoreHeaderComments;
+    node.leadingComments = comments.filter((comment) => {
+        if (remaining <= 0) {
+            return true;
+        }
+        if (importOrderIgnoreHeaderCommentTypes === 'All') {
+            remaining--;
+            return false;
+        }
+        if (comment.type !== importOrderIgnoreHeaderCommentTypes) {
+            remaining = 0;
+            return true;
+        }
+        remaining--;
+        return false;
+    });
+};
+
+type Options = Pick<
+    PrettierOptions,
+    'importOrderIgnoreHeaderComments' | 'importOrderIgnoreHeaderCommentTypes'
+>;
+
+export function extractASTNodes(ast: ParseResult<File>, options: Options) {
     const importNodes: ImportDeclaration[] = [];
-    const directives: Directive[] = [];
+    let injectIdx = 0;
     traverse(ast, {
-        Directive(path: NodePath<Directive>) {
-            // Only capture directives if they are at the top scope of the source
-            // and their previous siblings are all directives
-            if (
-                path.parent.type === 'Program' &&
-                path.getAllPrevSiblings().every((s) => {
-                    return s.type === 'Directive';
-                })
-            ) {
-                directives.push(path.node);
-
-                // Trailing comments probably shouldn't be attached to the directive
-                path.node.trailingComments = null;
+        Program(path: NodePath<Program>) {
+            /**
+             * Imports will be injected before the first node of the body and
+             * its comments, skipping InterpreterDirective and Directive nodes.
+             * If the body is empty, default to 0, there will be no imports to
+             * inject anyway.
+             */
+            for (const node of path.node.body) {
+                if (node.type === 'ImportDeclaration') {
+                    adjustCommentsOnFirstNode(node, options);
+                }
+                injectIdx = node.leadingComments?.[0]?.start ?? node.start ?? 0;
+                // for loop only runs if there is a node, and only a single iteration
+                break;
             }
         },
 
@@ -30,10 +67,12 @@ export function extractASTNodes(ast: ParseResult<File>) {
             const tsModuleParent = path.findParent((p) =>
                 p.isTSModuleDeclaration(),
             );
-            if (!tsModuleParent) {
-                importNodes.push(path.node);
+            if (tsModuleParent) {
+                return;
             }
+
+            importNodes.push(path.node);
         },
     });
-    return { importNodes, directives };
+    return { importNodes, injectIdx };
 }
