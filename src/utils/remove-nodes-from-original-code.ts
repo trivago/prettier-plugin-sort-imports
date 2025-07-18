@@ -1,16 +1,7 @@
-import {
-    CommentBlock,
-    CommentLine,
-    Directive,
-    ImportDeclaration,
-    InterpreterDirective,
-    Statement,
-} from '@babel/types';
+import { Comment, Node } from '@babel/types';
 
-/** Escapes a string literal to be passed to new RegExp. See: https://stackoverflow.com/a/6969486/480608.
- * @param s the string to escape
- */
-const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+type NodeOrComment = Node | Comment;
+type BoundedNodeOrComment = NodeOrComment & { start: number; end: number };
 
 /**
  * Removes imports from original file
@@ -19,30 +10,33 @@ const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
  */
 export const removeNodesFromOriginalCode = (
     code: string,
-    nodes: (
-        | Statement
-        | CommentBlock
-        | Directive
-        | CommentLine
-        | ImportDeclaration
-        | InterpreterDirective
-    )[],
+    nodes: (Node | Comment)[],
 ) => {
-    let text = code;
-    for (const node of nodes) {
-        const start = Number(node.start);
-        const end = Number(node.end);
-        if (Number.isSafeInteger(start) && Number.isSafeInteger(end)) {
-            text = text.replace(
-                // only replace imports at the beginning of the line (ignoring whitespace)
-                // otherwise matching commented imports will be replaced
-                new RegExp(
-                    '^\\s*' + escapeRegExp(code.substring(start, end)),
-                    'm',
-                ),
-                '',
-            );
+    const ranges: { start: number; end: number }[] = nodes.filter(
+        (node): node is BoundedNodeOrComment => {
+            const start = Number(node.start);
+            const end = Number(node.end);
+            return Number.isSafeInteger(start) && Number.isSafeInteger(end);
+        },
+    );
+    ranges.sort((a, b) => a.start - b.start);
+
+    let result: string = '';
+    let idx = 0;
+
+    for (const { start, end } of ranges) {
+        if (start > idx) {
+            result += code.slice(idx, start);
+            idx = start;
+        }
+        if (end > idx) {
+            idx = end;
         }
     }
-    return text;
+
+    if (idx < code.length) {
+        result += code.slice(idx);
+    }
+
+    return result;
 };
