@@ -3,6 +3,7 @@ import { ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
 import { extractASTNodes } from '../utils/extract-ast-nodes.js';
+import { getAllCommentsFromNodes } from '../utils/get-all-comments-from-nodes.js';
 import { getCodeFromAst } from '../utils/get-code-from-ast.js';
 import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins.js';
 import { getSortedNodes } from '../utils/get-sorted-nodes.js';
@@ -28,6 +29,9 @@ export function preprocessor(code: string, options: PrettierOptions) {
 
     const ast = babelParser(code, parserOptions);
 
+    if (isSortImportsIgnored(ast.program.body[0]?.leadingComments ?? []))
+        return code;
+
     const {
         importNodes,
         injectIdx,
@@ -36,7 +40,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
-    if (isSortImportsIgnored(importNodes)) return code;
+    if (isSortImportsIgnored(getAllCommentsFromNodes(importNodes))) return code;
 
     const allImports = getSortedNodes(importNodes, {
         importOrder,
