@@ -1,6 +1,6 @@
 import { Import, ImportDeclaration } from '@babel/types';
 
-import { naturalSort } from '../natural-sort';
+import { naturalSort } from '../natural-sort/index.js';
 import { PrettierOptions } from '../types';
 
 export const getSortedNodesGroup = (

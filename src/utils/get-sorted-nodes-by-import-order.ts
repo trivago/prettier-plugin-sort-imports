@@ -1,11 +1,11 @@
 import { clone } from 'lodash-es';
 
-import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode, SEPARATOR_SPECIAL_WORD } from '../constants';
-import { naturalSort } from '../natural-sort';
+import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode, SEPARATOR_SPECIAL_WORD } from '../constants.js';
+import { naturalSort } from '../natural-sort/index.js';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
-import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group';
-import { getSortedImportSpecifiers } from './get-sorted-import-specifiers';
-import { getSortedNodesGroup } from './get-sorted-nodes-group';
+import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group.js';
+import { getSortedImportSpecifiers } from './get-sorted-import-specifiers.js';
+import { getSortedNodesGroup } from './get-sorted-nodes-group.js';
 
 /**
  * This function returns the given nodes, sorted in the order as indicated by
