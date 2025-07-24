@@ -7,8 +7,10 @@ import { defaultPreprocessor } from './preprocessors/default-processor.js';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor.js';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor.js';
 import type { Options } from 'prettier';
+import { createEmberParsers } from './utils/create-ember-parsers.js';
 import { createSvelteParsers } from './utils/create-svelte-parsers.js';
 
+const emberParsers = await createEmberParsers();
 const svelteParsers = await createSvelteParsers();
 
 const options: Options = {
@@ -90,6 +92,14 @@ export default {
                   svelte: {
                       ...svelteParsers.parsers.svelte,
                       preprocess: sveltePreprocessor,
+                  },
+              }
+            : {}),
+        ...(emberParsers.parsers
+            ? {
+                  'ember-template-tag': {
+                      ...emberParsers.parsers['ember-template-tag'],
+                      preprocess: defaultPreprocessor,
                   },
               }
             : {}),
