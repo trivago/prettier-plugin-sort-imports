@@ -12,5 +12,17 @@ import fourLevelRelativePath from '../../../../fourLevelRelativePath';
 import something from '@server/something';
 import xyz from '@ui/xyz';
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default class Foo extends Component {}
+const what = <template>Used as an expression</template>;
+
+export const who = <template>Used as an expression</template>;
+
+export default class Foo extends Component {
+  @action
+  myCoolFunction(){}
+
+  <template>
+    Top-level class template
+  </template>
+}

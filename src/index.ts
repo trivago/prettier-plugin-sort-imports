@@ -4,6 +4,7 @@ import { parsers as htmlParsers } from 'prettier/plugins/html';
 import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 
 import { defaultPreprocessor } from './preprocessors/default-processor.js';
+import { emberPreprocessor } from './preprocessors/ember-preprocessor.js';
 import { sveltePreprocessor } from './preprocessors/svelte-preprocessor.js';
 import { vuePreprocessor } from './preprocessors/vue-preprocessor.js';
 import type { Options } from 'prettier';
@@ -99,7 +100,7 @@ export default {
             ? {
                   'ember-template-tag': {
                       ...emberParsers.parsers['ember-template-tag'],
-                      preprocess: defaultPreprocessor,
+                      preprocess: emberPreprocessor,
                   },
               }
             : {}),
