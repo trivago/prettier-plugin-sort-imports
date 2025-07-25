@@ -14,7 +14,7 @@
     "prepare": "yarn run compile",
     "compile": "tsc",
     "preexample": "yarn run compile",
-    "example": "prettier --config ./examples/.prettierrc --plugin ./lib/src/index.js",
+    "example": "prettier --config ./examples/.prettierrc",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "prepublishOnly": "npm run compile && npm run test"
@@ -50,6 +50,7 @@
     "@types/node": "^22.10.10",
     "@vue/compiler-sfc": "^3.5.13",
     "prettier": "^3.4.2",
+    "prettier-plugin-ember-template-tag": "^2.0.6",
     "prettier-plugin-svelte": "^3.3.3",
     "svelte": "^4.2.19",
     "typescript": "^5.7.3",
@@ -58,6 +59,7 @@
   "peerDependencies": {
     "@vue/compiler-sfc": "3.x",
     "prettier": "2.x - 3.x",
+    "prettier-plugin-ember-template-tag": ">= 2.0.0",
     "prettier-plugin-svelte": "3.x",
     "svelte": "4.x || 5.x"
   },
@@ -66,6 +68,9 @@
   },
   "peerDependenciesMeta": {
     "@vue/compiler-sfc": {
+      "optional": true
+    },
+    "prettier-plugin-ember-template-tag": {
       "optional": true
     },
     "prettier-plugin-svelte": {
