@@ -4,29 +4,45 @@ import { PrettierOptions } from '../types';
 import { preprocessor } from './preprocessor.js';
 
 const sortImports = (code: string, options: PrettierOptions) => {
-  const importsExports = parseImportsExports(code, { ignoreDynamicImports: true, ignoreRegexpLiterals: true, ignoreRequires: true, ignoreCommonJsExports: true });
+    const importsExports = parseImportsExports(code, {
+        ignoreDynamicImports: true,
+        ignoreRegexpLiterals: true,
+        ignoreRequires: true,
+        ignoreCommonJsExports: true,
+    });
 
-  // console.log(importsExports);
+    let justImports = '';
 
-  let justImports = '';
+    for (let [, info] of Object.entries({
+        ...importsExports.namedImports,
+    })) {
+        let pos = info[0];
+        justImports += code.slice(pos.start, pos.end + 1);
 
-  for (let [path, info] of Object.entries({...importsExports.namedImports})) {
-    console.log(path, info);
-  }
+        let spaces = '';
+        for (let i = 0; i < pos.end - pos.start; i++) {
+            spaces += ' ';
+        }
 
-  if (importsExports.defaultExport) {
-    let  pos = importsExports.defaultExport;
-    let text = code.slice(pos.start, pos.end);
-    justImports += text;
-  }
+        code = replaceAt(code, pos.start, spaces);
+    }
 
-  for (let [path, info] of Object.entries(importsExports.namedImports)) {
-    console.log(path, info);
-  }
+    let output = preprocessor(justImports, options);
+    let result = output + code;
 
-  return preprocessor(justImports, options);
+    console.log('---------------');
+    console.log(result);
+    console.log('---------------');
+    return result;
 };
 
 export function emberPreprocessor(code: string, options: PrettierOptions) {
     return sortImports(code, options);
+}
+function replaceAt(str: string, index: number, replacement: string) {
+    return (
+        str.substring(0, index) +
+        replacement +
+        str.substring(index + replacement.length)
+    );
 }
