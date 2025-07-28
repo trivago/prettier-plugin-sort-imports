@@ -5,15 +5,13 @@ import { preprocessor } from './preprocessor.js';
 let prettierPluginEmberTemplateTag;
 
 try {
-    emberPreprocessor = await import(
+    prettierPluginEmberTemplateTag = await import(
         // @ts-expect-error
-        'prettier-plugin-ember-template-tag/dist/'
+        'prettier-plugin-ember-template-tag'
     );
 } catch {
     // Do not error because the dependency is optional.
 }
-
-const booleanGuard = <T>(value: T | undefined): value is T => Boolean(value);
 
 const sortImports = (code: string, options: PrettierOptions) => {
     // @ts-expect-error
@@ -27,9 +25,13 @@ const sortImports = (code: string, options: PrettierOptions) => {
         prettierPluginEmberTemplateTag) as {
         parsers: { 'ember-template-tag': any };
     };
-    const ast = parsers['ember-template-tag'].parse(code, options);
-    
-    
+
+    const emberPreprocessedCode = parsers['ember-template-tag'].preprocess(
+        code,
+        options,
+    );
+
+    return preprocessor(emberPreprocessedCode, options);
 };
 
 export function emberPreprocessor(code: string, options: PrettierOptions) {
