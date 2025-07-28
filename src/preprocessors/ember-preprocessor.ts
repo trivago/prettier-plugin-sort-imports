@@ -30,9 +30,6 @@ const sortImports = (code: string, options: PrettierOptions) => {
     let output = preprocessor(justImports, options);
     let result = output + code;
 
-    console.log('---------------');
-    console.log(result);
-    console.log('---------------');
     return result;
 };
 
