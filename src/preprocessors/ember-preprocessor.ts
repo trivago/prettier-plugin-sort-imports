@@ -36,6 +36,7 @@ const sortImports = (code: string, options: PrettierOptions) => {
 
     injest(importsExports.namedImports);
     injest(importsExports.namespaceImports);
+    injest(importsExports.typeNamedImports);
 
     // console.log(importsExports);
 
