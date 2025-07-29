@@ -9,6 +9,7 @@ import abc from '@core/abc';
 import twoLevelRelativePath from '../../twoLevelRelativePath';
 import component from '@ui/hello';
 import fourLevelRelativePath from '../../../../fourLevelRelativePath';
+import * as a from 'a';
 import something from '@server/something';
 import xyz from '@ui/xyz';
 import Component from '@glimmer/component';
