@@ -15,6 +15,11 @@ import something from '@server/something';
 import xyz from '@ui/xyz';
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { getOwner } from '@ember/owner';
+import { setOwner } from '@ember/owner';
+import type Owner from '@ember/owner';
+import type DefaultOwner from '@ember/owner';
+import type * as AllOwner from '@ember/owner';
 
 interface FooSignature {
   Args: {

@@ -22,23 +22,23 @@ const sortImports = (code: string, options: PrettierOptions) => {
         if (!collection) return;
 
         for (let [, info] of Object.entries({ ...collection })) {
-            let pos = info[0];
-            justImports += code.slice(pos.start, pos.end + 1);
+            for (let pos of info) {
+                justImports += code.slice(pos.start, pos.end + 1);
 
-            let spaces = '';
-            for (let i = 0; i < pos.end - pos.start; i++) {
-                spaces += ' ';
+                let spaces = '';
+                for (let i = 0; i < pos.end - pos.start; i++) {
+                    spaces += ' ';
+                }
+
+                code = replaceAt(code, pos.start, spaces);
             }
-
-            code = replaceAt(code, pos.start, spaces);
         }
     }
 
     injest(importsExports.namedImports);
     injest(importsExports.namespaceImports);
     injest(importsExports.typeNamedImports);
-
-    // console.log(importsExports);
+    injest(importsExports.typeNamespaceImports);
 
     let output = preprocessor(justImports, options);
     let result = output + code;
