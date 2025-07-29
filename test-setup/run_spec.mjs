@@ -37,8 +37,9 @@ function run_spec(dirname, parsers, options) {
             const output = prettyprint(source, path, mergedOptions);
             test(`${filename} - ${mergedOptions.parser}-verify`, async () => {
                 try {
+                    let result = await output;
                     expect(
-                        raw(source + '~'.repeat(80) + '\n' + (await output)),
+                        raw(source + '~'.repeat(80) + '\n' +result),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
                     console.error(e, path);
