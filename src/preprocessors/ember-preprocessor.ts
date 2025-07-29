@@ -13,19 +13,31 @@ const sortImports = (code: string, options: PrettierOptions) => {
 
     let justImports = '';
 
-    for (let [, info] of Object.entries({
-        ...importsExports.namedImports,
-    })) {
-        let pos = info[0];
-        justImports += code.slice(pos.start, pos.end + 1);
+    function injest(collection?: {
+        [key: string]: readonly {
+            readonly start: number;
+            readonly end: number;
+        }[];
+    }) {
+        if (!collection) return;
 
-        let spaces = '';
-        for (let i = 0; i < pos.end - pos.start; i++) {
-            spaces += ' ';
+        for (let [, info] of Object.entries({ ...collection })) {
+            let pos = info[0];
+            justImports += code.slice(pos.start, pos.end + 1);
+
+            let spaces = '';
+            for (let i = 0; i < pos.end - pos.start; i++) {
+                spaces += ' ';
+            }
+
+            code = replaceAt(code, pos.start, spaces);
         }
-
-        code = replaceAt(code, pos.start, spaces);
     }
+
+    injest(importsExports.namedImports);
+    injest(importsExports.namespaceImports);
+
+    // console.log(importsExports);
 
     let output = preprocessor(justImports, options);
     let result = output + code;
