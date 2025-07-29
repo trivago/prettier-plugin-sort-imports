@@ -39,7 +39,7 @@ function run_spec(dirname, parsers, options) {
                 try {
                     let result = await output;
                     expect(
-                        raw(source + '~'.repeat(80) + '\n' +result),
+                        raw(source + '~'.repeat(80) + '\n' + result),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
                     console.error(e, path);

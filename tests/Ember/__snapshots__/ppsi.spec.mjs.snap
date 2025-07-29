@@ -101,7 +101,9 @@ export default class Foo extends Component<FooSignature> {
   </template>
 }~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 import { action } from "@ember/object";
+import type RouterService from "@ember/routing/router-service";
 import Component from "@glimmer/component";
+import * as a from "a";
 import thirdParty from "third-party";
 import z from "z";
 
@@ -120,9 +122,6 @@ import oneLevelRelativePath from "../oneLevelRelativePath";
 import sameLevelRelativePath from "./sameLevelRelativePath";
 
 // I am top level comment in this file.
-
-import * as a from "a";
-import type RouterService from "@ember/routing/router-service";
 
 interface FooSignature {
     Args: {
