@@ -1,6 +1,7 @@
 import { parseImportsExports } from 'parse-imports-exports';
 
 import { PrettierOptions } from '../types';
+import { replaceAt } from '../utils/replace-at.js';
 import { preprocessor } from './preprocessor.js';
 
 const sortImports = (code: string, options: PrettierOptions) => {
@@ -48,11 +49,4 @@ const sortImports = (code: string, options: PrettierOptions) => {
 
 export function emberPreprocessor(code: string, options: PrettierOptions) {
     return sortImports(code, options);
-}
-function replaceAt(str: string, index: number, replacement: string) {
-    return (
-        str.substring(0, index) +
-        replacement +
-        str.substring(index + replacement.length)
-    );
 }
