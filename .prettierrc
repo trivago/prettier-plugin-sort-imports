@@ -5,12 +5,12 @@
     "singleQuote": true,
     "bracketSameLine": true,
     "semi": true,
-    "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
+    "importOrder": ["^[./]"],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
     "plugins": [
         "prettier-plugin-ember-template-tag",
         "prettier-plugin-svelte",
-        "../lib/src/index.js"
+        "./lib/src/index.js"
     ]
 }
