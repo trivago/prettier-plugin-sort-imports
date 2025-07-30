@@ -14,7 +14,7 @@ const sortImports = (code: string, options: PrettierOptions) => {
 
     let justImports = '';
 
-    function injest(collection?: {
+    function ingest(collection?: {
         [key: string]: readonly {
             readonly start: number;
             readonly end: number;
@@ -36,10 +36,10 @@ const sortImports = (code: string, options: PrettierOptions) => {
         }
     }
 
-    injest(importsExports.namedImports);
-    injest(importsExports.namespaceImports);
-    injest(importsExports.typeNamedImports);
-    injest(importsExports.typeNamespaceImports);
+    ingest(importsExports.namedImports);
+    ingest(importsExports.namespaceImports);
+    ingest(importsExports.typeNamedImports);
+    ingest(importsExports.typeNamespaceImports);
 
     let output = preprocessor(justImports, options);
     let result = output + code;
