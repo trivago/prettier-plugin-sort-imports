@@ -1,6 +1,6 @@
 {
   "name": "@trivago/prettier-plugin-sort-imports",
-  "version": "5.2.2",
+  "version": "6.0.0-0",
   "description": "A prettier plugins to sort imports in provided RegEx order",
   "main": "lib/src/index.js",
   "type": "module",
