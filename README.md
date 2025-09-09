@@ -306,10 +306,10 @@ debug some code in the plugin, check [Debugging Guidelines](./docs/DEBUG.md)
 
 ### Maintainers
 
-| [Ayush Sharma](https://github.com/ayusharma)                             | [Behrang Yarahmadi](https://github.com/byara)                         |
-| ------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4) |
-| [@ayusharma\_](https://twitter.com/ayusharma_)                           | [@behrang_y](https://twitter.com/behrang_y)                           |
+| [Ayush Sharma](https://github.com/ayusharma)                             | [Behrang Yarahmadi](https://github.com/byara)                         | [Vladislav Arsenev](https://github.com/vladislavarsenev)                 |
+| ------------------------------------------------------------------------ | --------------------------------------------------------------------- |--------------------------------------------------------------------------|
+| ![ayusharma](https://avatars2.githubusercontent.com/u/6918450?s=120&v=4) | ![@byara](https://avatars2.githubusercontent.com/u/6979966?s=120&v=4) |![@vladislavarsenev](https://avatars.githubusercontent.com/u/51095682?s=120&v=4)|
+| [@ayusharma](https://twitter.com/ayusharma_)                             | [@behrang_y](https://twitter.com/behrang_y)                           |                                                                          |
 
 ### Disclaimer
 
