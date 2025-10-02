@@ -2,6 +2,10 @@
 
 
 ---
+### 5.3.0
+#### New features
+- Add `importOrderBuiltinModulesToTop` option to move Node.js builtin modules to the top [#71](https://github.com/trivago/prettier-plugin-sort-imports/issues/71) - Support for both traditional (`fs`, `path`) and `node:` prefixed (`node:fs`, `node:path`) builtin modules
+
 ### 5.2.2
 - Update packages and pin babel/types [#343](https://github.com/trivago/prettier-plugin-sort-imports/pull/343) by [@byara](https://github.com/byara)
 

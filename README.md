@@ -245,6 +245,49 @@ import b from 'b'
 import c from 'c'
 ```
 
+### `importOrderBuiltinModulesToTop`
+**type**: `boolean`
+**default value**: `false`
+
+When enabled, Node.js builtin modules are moved to the top of the import list. This affects both traditional module names (`fs`, `path`, `http`) and the new `node:` prefixed imports (`node:fs`, `node:path`, `node:http`).
+
+Example:
+
+Initial file:
+
+```js
+import express from 'express';
+import lodash from 'lodash';
+import fs from 'fs';
+import { readFile } from 'node:fs';
+import path from 'path';
+import { join } from 'node:path';
+import util from 'util';
+
+import { myFunction } from './my-module';
+```
+
+When `importOrderBuiltinModulesToTop` is enabled:
+
+```js
+import fs from "fs";
+import { readFile } from "node:fs";
+import { join } from "node:path";
+import path from "path";
+import util from "util";
+import express from "express";
+import lodash from "lodash";
+import { myFunction } from "./my-module";
+```
+
+You can also use the `<BUILTIN_MODULES>` special word in your `importOrder` to have explicit control over where builtin modules appear:
+
+```json
+{
+  "importOrder": ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "^[./]"]
+}
+```
+
 ### Ignoring import ordering
 
 In some cases it's desired to ignore import ordering, specifically if you require to instantiate a common service or polyfill in your application logic before all the other imports. The plugin supports the `// sort-imports-ignore` comment, which will exclude the file from ordering the imports.

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`builtin-modules.ts - typescript-verify: builtin-modules.ts 1`] = `
+import express from 'express';
+import lodash from 'lodash';
+import fs from 'fs';
+import path from 'path';
+import http from 'http';
+import { readFile } from 'node:fs';
+import { join } from 'node:path';
+import crypto from 'node:crypto';
+import util from 'util';
+
+import { myFunction } from './my-module';
+import { anotherFunction } from '../other-module';~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import fs from "fs";
+import http from "http";
+import crypto from "node:crypto";
+import { readFile } from "node:fs";
+import { join } from "node:path";
+import path from "path";
+import util from "util";
+import express from "express";
+import lodash from "lodash";
+import { anotherFunction } from "../other-module";
+import { myFunction } from "./my-module";
+
+`;

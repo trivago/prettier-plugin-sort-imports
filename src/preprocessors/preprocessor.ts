@@ -19,6 +19,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
+        importOrderBuiltinModulesToTop = false,
         importOrderImportAttributesKeyword,
     } = options;
 
@@ -50,6 +51,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
+        importOrderBuiltinModulesToTop,
     });
 
     return getCodeFromAst(allImports, code, injectIdx, {

@@ -1,6 +1,7 @@
 import { clone } from 'lodash-es';
 
 import {
+    BUILTIN_MODULES_SPECIAL_WORD,
     SEPARATOR_SPECIAL_WORD,
     THIRD_PARTY_MODULES_SPECIAL_WORD,
     newLineNode,
@@ -26,6 +27,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         importOrderSeparation,
         importOrderSortSpecifiers,
         importOrderGroupNamespaceSpecifiers,
+        importOrderBuiltinModulesToTop = false,
     } = options;
 
     const originalNodes = nodes.map(clone);
@@ -33,6 +35,19 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
 
     if (!importOrder.includes(THIRD_PARTY_MODULES_SPECIAL_WORD)) {
         importOrder = [THIRD_PARTY_MODULES_SPECIAL_WORD, ...importOrder];
+    }
+
+    // If builtin modules should be at top and not explicitly defined in importOrder,
+    // add them at the beginning
+    if (importOrderBuiltinModulesToTop && !importOrder.includes(BUILTIN_MODULES_SPECIAL_WORD)) {
+        const thirdPartyIndex = importOrder.indexOf(THIRD_PARTY_MODULES_SPECIAL_WORD);
+        if (thirdPartyIndex === 0) {
+            // If third party is first, put builtin modules before it
+            importOrder = [BUILTIN_MODULES_SPECIAL_WORD, ...importOrder];
+        } else {
+            // Otherwise insert builtin modules at the beginning
+            importOrder = [BUILTIN_MODULES_SPECIAL_WORD, ...importOrder];
+        }
     }
 
     const importOrderGroups = importOrder.reduce<ImportGroups>(
@@ -43,14 +58,17 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         {},
     );
 
-    const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
-        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+    const importOrderWithOutSpecialWords = importOrder.filter(
+        (group) =>
+            group !== THIRD_PARTY_MODULES_SPECIAL_WORD &&
+            group !== BUILTIN_MODULES_SPECIAL_WORD,
     );
 
     for (const node of originalNodes) {
         const matchedGroup = getImportNodesMatchedGroup(
             node,
-            importOrderWithOutThirdPartyPlaceholder,
+            importOrderWithOutSpecialWords,
+            importOrderBuiltinModulesToTop,
         );
         importOrderGroups[matchedGroup].push(node);
     }
