@@ -21,7 +21,7 @@ export type GetSortedNodes = (
         | 'importOrderSortSpecifiers'
         | 'importOrderSortByLength'
         | 'importOrderSideEffects'
-    > & Partial<Pick<PrettierOptions, 'importOrderBuiltinModulesToTop'>>,
+    >,
 ) => ImportOrLine[];
 
 export interface ImportChunk {

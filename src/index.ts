@@ -79,12 +79,6 @@ const options: Options = {
         default: true,
         description: 'Should side effects be sorted?',
     },
-    importOrderBuiltinModulesToTop: {
-        type: 'boolean',
-        category: 'Global',
-        default: false,
-        description: 'Should Node.js builtin modules be moved to the top?',
-    },
     importOrderImportAttributesKeyword: {
         type: 'string',
         category: 'Global',

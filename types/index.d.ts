@@ -106,10 +106,6 @@ used to order imports within each match group.
      * If you need to keep side effect imports in the same place but sort all other imports around them,
      * set this option to false.
      *
-     * ```
-     * "importOrderImportAttributesKeyword": 'with',
-     * ```
-     *
      * @default true
      */
     importOrderSideEffects?: boolean;
@@ -125,20 +121,6 @@ used to order imports within each match group.
      * _Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
      */
     importOrderImportAttributesKeyword?: 'assert' | 'with' | 'with-legacy';
-
-    /**
-     * A boolean value to enable or disable moving Node.js builtin modules to the top of the import list.
-     * 
-     * Node.js builtin modules are modules like `fs`, `path`, `http`, etc., that are built into Node.js.
-     * This also includes modules with the `node:` prefix like `node:fs`, `node:path`, etc.
-     *
-     * ```
-     * "importOrderBuiltinModulesToTop": true
-     * ```
-     *
-     * @default false
-     */
-    importOrderBuiltinModulesToTop?: boolean;
 }
 
 export type PrettierConfig = PluginConfig & Config;

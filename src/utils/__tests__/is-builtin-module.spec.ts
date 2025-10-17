@@ -1,4 +1,6 @@
-import { isBuiltinModule } from '../is-builtin-module';
+import { describe, expect, it } from 'vitest';
+
+import { isBuiltinModule } from '../is-builtin-module.js';
 
 describe('isBuiltinModule', () => {
     it('should correctly identify traditional builtin modules', () => {

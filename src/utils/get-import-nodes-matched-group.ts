@@ -12,17 +12,18 @@ import { isBuiltinModule } from './is-builtin-module.js';
  * Get the regexp group to keep the import nodes.
  * @param node
  * @param importOrder
- * @param importOrderBuiltinModulesToTop
  */
 export const getImportNodesMatchedGroup = (
     node: ImportDeclaration,
     importOrder: string[],
-    importOrderBuiltinModulesToTop?: boolean,
 ) => {
     const moduleName = node.source.value;
 
-    // Check if this is a builtin module and the option is enabled
-    if (importOrderBuiltinModulesToTop && isBuiltinModule(moduleName)) {
+    // Check if this is a builtin module and <BUILTIN_MODULES> is in the importOrder
+    if (
+        importOrder.includes(BUILTIN_MODULES_SPECIAL_WORD) &&
+        isBuiltinModule(moduleName)
+    ) {
         return BUILTIN_MODULES_SPECIAL_WORD;
     }
 

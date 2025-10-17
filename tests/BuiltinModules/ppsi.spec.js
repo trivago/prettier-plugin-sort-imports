@@ -1,5 +1,4 @@
 run_spec(__dirname, ['typescript'], {
-    importOrder: ['^[./]'],
-    importOrderParserPlugins: ['typescript'],
-    importOrderBuiltinModulesToTop: true
+    importOrder: ['<BUILTIN_MODULES>', '<THIRD_PARTY_MODULES>', '^[./]'],
+    importOrderParserPlugins: ['typescript']
 });
