@@ -1,26 +1,23 @@
 import { ParseResult } from '@babel/parser';
 import traverseModule, { NodePath } from '@babel/traverse';
-import { Directive, File, ImportDeclaration } from '@babel/types';
+import { Directive, File, ImportDeclaration, Program } from '@babel/types';
 
 const traverse = (traverseModule as any).default || traverseModule;
 
 export function extractASTNodes(ast: ParseResult<File>) {
     const importNodes: ImportDeclaration[] = [];
-    const directives: Directive[] = [];
+    let injectIdx = 0;
     traverse(ast, {
-        Directive(path: NodePath<Directive>) {
-            // Only capture directives if they are at the top scope of the source
-            // and their previous siblings are all directives
-            if (
-                path.parent.type === 'Program' &&
-                path.getAllPrevSiblings().every((s) => {
-                    return s.type === 'Directive';
-                })
-            ) {
-                directives.push(path.node);
-
-                // Trailing comments probably shouldn't be attached to the directive
-                path.node.trailingComments = null;
+        Program(path: NodePath<Program>) {
+            /**
+             * Imports will be injected before the first node of the body and
+             * its comments, skipping InterpreterDirective and Directive nodes.
+             * If the body is empty, default to 0, there will be no imports to
+             * inject anyway.
+             */
+            for (const node of path.node.body) {
+                injectIdx = node.leadingComments?.[0]?.start ?? node.start ?? 0;
+                break;
             }
         },
 
@@ -33,5 +30,5 @@ export function extractASTNodes(ast: ParseResult<File>) {
             }
         },
     });
-    return { importNodes, directives };
+    return { importNodes, injectIdx };
 }

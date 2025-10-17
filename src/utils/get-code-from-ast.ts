@@ -1,10 +1,10 @@
 import generateModule from '@babel/generator';
-import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
+import { Statement, file } from '@babel/types';
 
 import { newLineCharacters } from '../constants.js';
 import { PrettierOptions } from '../types';
+import { assembleUpdatedCode } from './assemble-updated-code.js';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
-import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code.js';
 
 const generate = (generateModule as any).default || generateModule;
 
@@ -15,31 +15,19 @@ const generate = (generateModule as any).default || generateModule;
  */
 export const getCodeFromAst = (
     nodes: Statement[],
-    directives: Directive[],
     originalCode: string,
-    interpreter?: InterpreterDirective | null,
+    injectIdx: number = 0,
     options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
-    const nodesToRemoveFromCode = [
-        ...directives,
-        ...nodes,
-        ...allCommentsFromImports,
-        ...(interpreter ? [interpreter] : []),
-    ];
-
-    const codeWithoutImportsAndInterpreter = removeNodesFromOriginalCode(
-        originalCode,
-        nodesToRemoveFromCode,
-    );
+    const nodesToRemoveFromCode = [...nodes, ...allCommentsFromImports];
 
     const newAST = file({
         type: 'Program',
         body: nodes,
-        directives,
+        directives: [],
         sourceType: 'module',
-        interpreter: interpreter,
         leadingComments: [],
         innerComments: [],
         trailingComments: [],
@@ -57,10 +45,13 @@ export const getCodeFromAst = (
         importAttributesKeyword: options?.importOrderImportAttributesKeyword,
     });
 
-    return (
+    return assembleUpdatedCode(
+        originalCode,
+        nodesToRemoveFromCode,
         code.replace(
             /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
             newLineCharacters,
-        ) + codeWithoutImportsAndInterpreter.trim()
+        ),
+        injectIdx,
     );
 };
