@@ -2,9 +2,9 @@ import generateModule from '@babel/generator';
 import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 
 import { newLineCharacters } from '../constants.js';
+import { PrettierOptions } from '../types';
 import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
 import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code.js';
-import { PrettierOptions } from '../types';
 
 const generate = (generateModule as any).default || generateModule;
 
@@ -18,7 +18,7 @@ export const getCodeFromAst = (
     directives: Directive[],
     originalCode: string,
     interpreter?: InterpreterDirective | null,
-    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>
+    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
@@ -53,7 +53,9 @@ export const getCodeFromAst = (
         },
     });
 
-    const { code } = generate(newAST, { importAttributesKeyword: options?.importOrderImportAttributesKeyword });
+    const { code } = generate(newAST, {
+        importAttributesKeyword: options?.importOrderImportAttributesKeyword,
+    });
 
     return (
         code.replace(

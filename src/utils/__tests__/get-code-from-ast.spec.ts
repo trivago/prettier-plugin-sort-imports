@@ -1,6 +1,6 @@
-import { parse as babelParser, ParserOptions } from '@babel/parser';
+import { ParserOptions, parse as babelParser } from '@babel/parser';
 import { format } from 'prettier';
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { extractASTNodes } from '../extract-ast-nodes';
 import { getCodeFromAst } from '../get-code-from-ast';
@@ -26,7 +26,7 @@ import a from 'a';
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSortByLength: null,
-        importOrderSideEffects: true
+        importOrderSideEffects: true,
     });
     const formatted = getCodeFromAst(sortedNodes, [], code, null);
     expect(await format(formatted, { parser: 'babel' })).toEqual(

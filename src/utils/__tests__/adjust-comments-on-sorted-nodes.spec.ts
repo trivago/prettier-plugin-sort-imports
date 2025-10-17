@@ -1,5 +1,5 @@
 import { ImportDeclaration } from '@babel/types';
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { adjustCommentsOnSortedNodes } from '../adjust-comments-on-sorted-nodes';
 import { getImportNodes } from '../get-import-nodes';

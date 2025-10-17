@@ -1,5 +1,5 @@
 import { format } from 'prettier';
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { getAllCommentsFromNodes } from '../get-all-comments-from-nodes';
 import { getImportNodes } from '../get-import-nodes';
@@ -27,7 +27,7 @@ test('it should remove nodes from the original code', async () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSortByLength: null,
-        importOrderSideEffects: true
+        importOrderSideEffects: true,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
 

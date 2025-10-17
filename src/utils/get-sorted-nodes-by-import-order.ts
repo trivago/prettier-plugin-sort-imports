@@ -1,6 +1,10 @@
 import { clone } from 'lodash-es';
 
-import { THIRD_PARTY_MODULES_SPECIAL_WORD, newLineNode, SEPARATOR_SPECIAL_WORD } from '../constants.js';
+import {
+    SEPARATOR_SPECIAL_WORD,
+    THIRD_PARTY_MODULES_SPECIAL_WORD,
+    newLineNode,
+} from '../constants.js';
 import { naturalSort } from '../natural-sort/index.js';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group.js';
@@ -17,7 +21,7 @@ import { getSortedNodesGroup } from './get-sorted-nodes-group.js';
 export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     naturalSort.insensitive = options.importOrderCaseInsensitive;
 
-    let { importOrder,importOrderSortByLength } = options;
+    let { importOrder, importOrderSortByLength } = options;
     const {
         importOrderSeparation,
         importOrderSortSpecifiers,
@@ -51,19 +55,25 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         importOrderGroups[matchedGroup].push(node);
     }
 
-    const hasUserProvidedSeparators = options.importOrder.includes(SEPARATOR_SPECIAL_WORD);
+    const hasUserProvidedSeparators = options.importOrder.includes(
+        SEPARATOR_SPECIAL_WORD,
+    );
     let safeToAddNewLine = false;
     for (const group of importOrder) {
         const groupNodes = importOrderGroups[group];
 
-        if (importOrderSeparation && group === SEPARATOR_SPECIAL_WORD && safeToAddNewLine) {
+        if (
+            importOrderSeparation &&
+            group === SEPARATOR_SPECIAL_WORD &&
+            safeToAddNewLine
+        ) {
             finalNodes.push(newLineNode);
         }
         if (groupNodes.length === 0) continue;
 
         const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
             importOrderGroupNamespaceSpecifiers,
-            importOrderSortByLength
+            importOrderSortByLength,
         });
 
         // Sort the import specifiers

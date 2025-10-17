@@ -1,10 +1,6 @@
 import { ParseResult } from '@babel/parser';
 import traverseModule, { NodePath } from '@babel/traverse';
-import {
-    Directive,
-    File,
-    ImportDeclaration,
-} from '@babel/types';
+import { Directive, File, ImportDeclaration } from '@babel/types';
 
 const traverse = (traverseModule as any).default || traverseModule;
 
