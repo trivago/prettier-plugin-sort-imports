@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`builtin-modules.ts - typescript-verify: builtin-modules.ts 1`] = `
+exports[`builtin-modules.ts - typescript-verify > builtin-modules.ts 1`] = `
 import express from 'express';
 import lodash from 'lodash';
 import fs from 'fs';
