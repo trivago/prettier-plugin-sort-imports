@@ -1,5 +1,5 @@
 import { ImportDeclaration, addComments, removeComments } from '@babel/types';
-import { clone, isEqual } from 'lodash';
+import { clone, isEqual } from 'lodash-es';
 
 import { ImportOrLine } from '../types';
 

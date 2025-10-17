@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest'
+
 import { getImportNodes } from '../get-import-nodes';
 import { getImportNodesMatchedGroup } from '../get-import-nodes-matched-group';
 

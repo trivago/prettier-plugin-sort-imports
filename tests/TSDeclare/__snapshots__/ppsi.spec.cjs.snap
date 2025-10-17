@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`import-inside-ts-declare.ts - typescript-verify: import-inside-ts-declare.ts 1`] = `
+exports[`import-inside-ts-declare.ts - typescript-verify > import-inside-ts-declare.ts 1`] = `
 declare module '*.scss' {
     const content: { [className: string]: string };
     export = content;
