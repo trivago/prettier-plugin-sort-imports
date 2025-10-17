@@ -124,9 +124,7 @@ import sameLevelRelativePath from "./sameLevelRelativePath";
 // I am top level comment in this file.
 
 interface FooSignature {
-    Args: {
-        bar: string;
-    };
+    Args: { bar: string };
 }
 
 const what = <template>Used as an expression</template>;
