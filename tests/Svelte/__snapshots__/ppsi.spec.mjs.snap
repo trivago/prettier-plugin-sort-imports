@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`module.svelte - svelte-verify: module.svelte 1`] = `
+exports[`module.svelte - svelte-verify > module.svelte 1`] = `
 <script context="module">
     // I am top level comment in this file.
     import z from 'z';
@@ -136,7 +136,7 @@ exports[`module.svelte - svelte-verify: module.svelte 1`] = `
 
 `;
 
-exports[`questionale.svelte - svelte-verify: questionale.svelte 1`] = `
+exports[`questionale.svelte - svelte-verify > questionale.svelte 1`] = `
 <script>
     // Who?
     const once = 'twice';
@@ -291,7 +291,7 @@ exports[`questionale.svelte - svelte-verify: questionale.svelte 1`] = `
 
 `;
 
-exports[`simple.svelte - svelte-verify: simple.svelte 1`] = `
+exports[`simple.svelte - svelte-verify > simple.svelte 1`] = `
 <script>
     // I am top level comment in this file.
     import z from 'z';
@@ -427,7 +427,7 @@ exports[`simple.svelte - svelte-verify: simple.svelte 1`] = `
 
 `;
 
-exports[`ts.svelte - svelte-verify: ts.svelte 1`] = `
+exports[`ts.svelte - svelte-verify > ts.svelte 1`] = `
 <script lang="ts">
     // I am top level comment in this file.
     import z from 'z';

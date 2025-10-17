@@ -1,10 +1,12 @@
-import generate from '@babel/generator';
+import generateModule from '@babel/generator';
 import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
 
-import { newLineCharacters } from '../constants';
+import { newLineCharacters } from '../constants.js';
 import { PrettierOptions } from '../types';
-import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
-import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
+import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
+import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code.js';
+
+const generate = (generateModule as any).default || generateModule;
 
 /**
  * This function generate a code string from the passed nodes.

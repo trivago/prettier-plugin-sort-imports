@@ -1,3 +1,5 @@
+import { expect, test } from 'vitest';
+
 import { getImportNodes } from '../get-import-nodes';
 import { isSortImportsIgnored } from '../is-sort-imports-ignored';
 

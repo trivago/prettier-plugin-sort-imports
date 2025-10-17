@@ -1,6 +1,6 @@
-import { parse as babelParser } from '@babel/core';
-import { ParserOptions } from '@babel/parser';
+import { ParserOptions, parse as babelParser } from '@babel/parser';
 import { format } from 'prettier';
+import { expect, test } from 'vitest';
 
 import { extractASTNodes } from '../extract-ast-nodes';
 import { getCodeFromAst } from '../get-code-from-ast';
@@ -54,7 +54,7 @@ import a from 'a';`;
     };
     const ast = babelParser(code, parserOptions);
     if (!ast) throw new Error('ast is null');
-    const { directives, importNodes } = extractASTNodes(ast);
+    const { directives, importNodes } = extractASTNodes(ast as any);
 
     const formatted = getCodeFromAst(importNodes, directives, code, null);
     expect(await format(formatted, { parser: 'babel' })).toEqual(

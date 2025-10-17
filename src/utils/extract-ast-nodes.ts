@@ -1,6 +1,8 @@
 import { ParseResult } from '@babel/parser';
-import traverse, { NodePath } from '@babel/traverse';
+import traverseModule, { NodePath } from '@babel/traverse';
 import { Directive, File, ImportDeclaration } from '@babel/types';
+
+const traverse = (traverseModule as any).default || traverseModule;
 
 export function extractASTNodes(ast: ParseResult<File>) {
     const importNodes: ImportDeclaration[] = [];

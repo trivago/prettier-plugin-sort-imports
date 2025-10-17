@@ -15,7 +15,7 @@ import React, {
     KeyboardEvent,
 } from 'react';
 import { logger } from '@core/logger';
-import { reduce, debounce } from 'lodash';
+import { reduce, debounce } from 'lodash-es';
 import { Message } from '../Message';
 import { createServer } from '@server/node';
 import { Alert } from '@ui/Alert';
@@ -28,7 +28,7 @@ import { createConnection } from '@server/database';
 ### Output
 
 ```javascript
-import { debounce, reduce } from 'lodash';
+import { debounce, reduce } from 'lodash-es';
 import React, {
     ChangeEvent,
     FC,
@@ -52,16 +52,22 @@ import { add, filter, repeat } from '../utils';
 
 ### Install
 
-npm
+using npm
 
 ```shell script
 npm install --save-dev @trivago/prettier-plugin-sort-imports
 ```
 
-or, using yarn
+using yarn
 
 ```shell script
 yarn add --dev @trivago/prettier-plugin-sort-imports
+```
+
+using pnpm
+
+```shell script
+pnpm add -D @trivago/prettier-plugin-sort-imports
 ```
 
 **Note: If you are migrating from v2.x.x to v3.x.x, [Please Read Migration Guidelines](./docs/MIGRATION.md)**
@@ -125,6 +131,9 @@ between sorted import declarations group. The separation takes place according t
 ```
 "importOrderSeparation": true,
 ```
+
+If this option is enabled and `<SEPARATOR>` is used in the `importOrder` array, the plugin 
+will ONLY add newlines at those locations and at the end of the imports.
 
 #### `importOrderSortSpecifiers`
 
@@ -270,11 +279,13 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | ---------------------- | ------------------------ | ------------------------------------------------ |
 | JS with ES Modules     | ✅ Everything            | -                                                |
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
+| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
+| Ember                  | ✅ Everything            | `prettier-plugin-ember-template-tag` is required |
 | React                  | ✅ Everything            | -                                                |
 | Solid                  | ✅ Everything            | -                                                |
-| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
 | Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
+| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
+
 
 ### Used by
 
