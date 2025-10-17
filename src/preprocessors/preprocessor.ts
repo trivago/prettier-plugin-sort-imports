@@ -16,8 +16,9 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
+        importOrderSortByLength,
         importOrderSideEffects,
-        importOrderImportAttributesKeyword,
+        importOrderImportAttributesKeyword
     } = options;
 
     const parserOptions: ParserOptions = {
@@ -44,7 +45,8 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
-        importOrderSideEffects,
+        importOrderSortByLength,
+        importOrderSideEffects
     });
 
     return getCodeFromAst(allImports, directives, code, interpreter, {

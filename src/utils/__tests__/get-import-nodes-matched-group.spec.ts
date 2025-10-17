@@ -1,7 +1,5 @@
 import { expect, test } from 'vitest'
 
-import { THIRD_PARTY_MODULES_SPECIAL_WORD } from '../../constants.js';
-import { ImportGroups } from '../../types';
 import { getImportNodes } from '../get-import-nodes.js';
 import { getImportNodesMatchedGroup } from '../get-import-nodes-matched-group.js';
 

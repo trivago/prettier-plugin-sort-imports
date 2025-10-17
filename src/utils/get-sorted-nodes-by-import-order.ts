@@ -17,7 +17,7 @@ import { getSortedNodesGroup } from './get-sorted-nodes-group.js';
 export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     naturalSort.insensitive = options.importOrderCaseInsensitive;
 
-    let { importOrder } = options;
+    let { importOrder,importOrderSortByLength } = options;
     const {
         importOrderSeparation,
         importOrderSortSpecifiers,
@@ -63,6 +63,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
 
         const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
             importOrderGroupNamespaceSpecifiers,
+            importOrderSortByLength
         });
 
         // Sort the import specifiers
