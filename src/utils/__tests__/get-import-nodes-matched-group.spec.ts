@@ -1,7 +1,7 @@
 import { expect, test } from 'vitest'
 
-import { getImportNodes } from '../get-import-nodes';
-import { getImportNodesMatchedGroup } from '../get-import-nodes-matched-group';
+import { getImportNodes } from '../get-import-nodes.js';
+import { getImportNodesMatchedGroup } from '../get-import-nodes-matched-group.js';
 
 const code = `// first comment
 // second comment

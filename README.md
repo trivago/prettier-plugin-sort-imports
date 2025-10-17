@@ -293,11 +293,13 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | ---------------------- | ------------------------ | ------------------------------------------------ |
 | JS with ES Modules     | ✅ Everything            | -                                                |
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
+| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
+| Ember                  | ✅ Everything            | `prettier-plugin-ember-template-tag` is required |
 | React                  | ✅ Everything            | -                                                |
 | Solid                  | ✅ Everything            | -                                                |
-| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
 | Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
+| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
+
 
 ### Used by
 

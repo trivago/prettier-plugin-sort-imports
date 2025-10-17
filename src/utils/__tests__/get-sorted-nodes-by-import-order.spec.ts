@@ -1,11 +1,11 @@
 import { ImportDeclaration } from '@babel/types';
 import { expect, test } from 'vitest'
 
-import { getImportNodes } from '../get-import-nodes';
-import { getSortedNodes } from '../get-sorted-nodes';
-import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names';
-import { getSortedNodesNames } from '../get-sorted-nodes-names';
-import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from "../../constants"
+import { getImportNodes } from '../get-import-nodes.js';
+import { getSortedNodes } from '../get-sorted-nodes.js';
+import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names.js';
+import { getSortedNodesNames } from '../get-sorted-nodes-names.js';
+import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from "../../constants.js"
 import { ImportOrLine } from "../../types"
 
 const code = `// first comment
@@ -358,6 +358,7 @@ test('it returns the default separations if `importOrderSeparation` is false', (
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
         { type: "ImportDeclaration", value: 'XY' },
@@ -384,6 +385,7 @@ test('it returns default import module separations', () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
         { type: "ImportDeclaration", value: 'XY' },
@@ -415,6 +417,7 @@ test('it returns targeted import module separations', () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
         { type: "ImportDeclaration", value: 'XY' },
@@ -445,6 +448,7 @@ test('it never returns a separation at the top of the list (leading separator)',
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
         { type: "ImportDeclaration", value: './test' },
@@ -463,6 +467,7 @@ test('it never returns a separation at the top of the list (zero preceding impor
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
         { type: "ImportDeclaration", value: './test' },

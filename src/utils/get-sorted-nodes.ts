@@ -2,10 +2,10 @@ import {
     chunkSideEffectNode,
     chunkSideOtherNode,
     newLineNode,
-} from '../constants';
+} from '../constants.js';
 import { GetSortedNodes, ImportChunk, ImportOrLine } from '../types';
-import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes';
-import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order';
+import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes.js';
+import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order.js';
 
 /**
  * This function returns the given nodes, sorted in the order as indicated by

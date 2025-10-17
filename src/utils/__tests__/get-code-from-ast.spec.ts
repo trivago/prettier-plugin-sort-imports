@@ -1,5 +1,4 @@
-import { parse as babelParser } from '@babel/core';
-import { ParserOptions } from '@babel/parser';
+import { parse as babelParser, ParserOptions } from '@babel/parser';
 import { format } from 'prettier';
 import { expect, test } from 'vitest'
 
