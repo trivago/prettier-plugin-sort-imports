@@ -25,6 +25,7 @@ import a from 'a';
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     });
     const formatted = getCodeFromAst(sortedNodes, [], code, null);

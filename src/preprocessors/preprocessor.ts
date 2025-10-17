@@ -16,6 +16,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
+        importOrderSortByLength,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
     } = options;
@@ -44,6 +45,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
+        importOrderSortByLength,
         importOrderSideEffects,
     });
 

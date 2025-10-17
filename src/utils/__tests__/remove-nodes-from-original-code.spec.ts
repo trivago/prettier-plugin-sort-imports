@@ -26,6 +26,7 @@ test('it should remove nodes from the original code', async () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
