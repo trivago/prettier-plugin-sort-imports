@@ -51,10 +51,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
     );
 
     for (const node of originalNodes) {
-        const matchedGroup = getImportNodesMatchedGroup(
-            node,
-            importOrder,
-        );
+        const matchedGroup = getImportNodesMatchedGroup(node, importOrder);
         importOrderGroups[matchedGroup].push(node);
     }
 
