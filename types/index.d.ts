@@ -106,10 +106,6 @@ used to order imports within each match group.
      * If you need to keep side effect imports in the same place but sort all other imports around them,
      * set this option to false.
      *
-     * ```
-     * "importOrderImportAttributesKeyword": 'with',
-     * ```
-     *
      * @default true
      */
     importOrderSideEffects?: boolean;

@@ -120,6 +120,14 @@ To move the third party imports at desired place, you can use `<THIRD_PARTY_MODU
 "importOrder": ["^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
 ```
 
+You can also use `<BUILTIN_MODULES>` to control the position of Node.js builtin modules (like `fs`, `path`, `http`, and their `node:` prefixed variants):
+
+```
+"importOrder": ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+```
+
+When `<BUILTIN_MODULES>` is included in your `importOrder`, Node.js builtin modules will be sorted to that position. If not included, builtin modules are treated as regular third-party imports.
+
 #### `importOrderSeparation`
 
 **type**: `boolean`
@@ -244,6 +252,7 @@ import 'side-effect-lib'
 import b from 'b'
 import c from 'c'
 ```
+
 
 ### Ignoring import ordering
 

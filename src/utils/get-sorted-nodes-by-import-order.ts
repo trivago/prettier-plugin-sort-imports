@@ -1,6 +1,7 @@
 import { clone } from 'lodash-es';
 
 import {
+    BUILTIN_MODULES_SPECIAL_WORD,
     SEPARATOR_SPECIAL_WORD,
     THIRD_PARTY_MODULES_SPECIAL_WORD,
     newLineNode,
@@ -43,15 +44,14 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         {},
     );
 
-    const importOrderWithOutThirdPartyPlaceholder = importOrder.filter(
-        (group) => group !== THIRD_PARTY_MODULES_SPECIAL_WORD,
+    const importOrderWithOutSpecialWords = importOrder.filter(
+        (group) =>
+            group !== THIRD_PARTY_MODULES_SPECIAL_WORD &&
+            group !== BUILTIN_MODULES_SPECIAL_WORD,
     );
 
     for (const node of originalNodes) {
-        const matchedGroup = getImportNodesMatchedGroup(
-            node,
-            importOrderWithOutThirdPartyPlaceholder,
-        );
+        const matchedGroup = getImportNodesMatchedGroup(node, importOrder);
         importOrderGroups[matchedGroup].push(node);
     }
 
