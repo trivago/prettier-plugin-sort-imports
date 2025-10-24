@@ -125,11 +125,11 @@ used to order imports within each match group.
     /**
      * An array of glob patterns for files that should be skipped by the import sorting.
      * Files matching these patterns will not have their imports sorted.
-     * 
+     *
      * ```
      * "importOrderExclude": ["*.test.ts", "src/generated/**"]
      * ```
-     * 
+     *
      * @default []
      */
     importOrderExclude?: string[];

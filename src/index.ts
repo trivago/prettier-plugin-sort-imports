@@ -20,7 +20,8 @@ const options: Options = {
         category: 'Global',
         array: true,
         default: [{ value: [] }],
-        description: 'Provide a list of glob patterns to exclude from import sorting.',
+        description:
+            'Provide a list of glob patterns to exclude from import sorting.',
     },
     importOrder: {
         type: 'path',
