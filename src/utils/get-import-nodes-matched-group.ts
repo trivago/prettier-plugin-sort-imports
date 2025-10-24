@@ -1,10 +1,12 @@
 import { ImportDeclaration } from '@babel/types';
 
 import {
+    BUILTIN_MODULES_SPECIAL_WORD,
     THIRD_PARTY_MODULES_SPECIAL_WORD,
     THIRD_PARTY_TYPES_SPECIAL_WORD,
     TYPES_SPECIAL_WORD,
-} from '../constants';
+} from '../constants.js';
+import { isBuiltinModule } from './is-builtin-module.js';
 
 /**
  * Get the regexp group to keep the import nodes.
@@ -15,6 +17,16 @@ export const getImportNodesMatchedGroup = (
     node: ImportDeclaration,
     importOrder: string[],
 ) => {
+    const moduleName = node.source.value;
+
+    // Check if this is a builtin module and <BUILTIN_MODULES> is in the importOrder
+    if (
+        importOrder.includes(BUILTIN_MODULES_SPECIAL_WORD) &&
+        isBuiltinModule(moduleName)
+    ) {
+        return BUILTIN_MODULES_SPECIAL_WORD;
+    }
+
     const groupWithRegExp = importOrder.map((group) => ({
         group,
         regExp: group.startsWith(TYPES_SPECIAL_WORD)

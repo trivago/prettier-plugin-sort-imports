@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { getImportNodes } from '../get-import-nodes';
 import { getSortedImportSpecifiers } from '../get-sorted-import-specifiers';

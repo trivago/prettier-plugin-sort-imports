@@ -120,6 +120,14 @@ To move the third party imports at desired place, you can use `<THIRD_PARTY_MODU
 "importOrder": ["^@core/(.*)$", "<THIRD_PARTY_MODULES>", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
 ```
 
+You can also use `<BUILTIN_MODULES>` to control the position of Node.js builtin modules (like `fs`, `path`, `http`, and their `node:` prefixed variants):
+
+```
+"importOrder": ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+```
+
+When `<BUILTIN_MODULES>` is included in your `importOrder`, Node.js builtin modules will be sorted to that position. If not included, builtin modules are treated as regular third-party imports.
+
 #### `importOrderSeparation`
 
 **type**: `boolean`
@@ -207,6 +215,13 @@ with options as a JSON string of the plugin array:
 importOrderParserPlugins: []
 ```
 
+### `importOrderSortByLength`
+**type**: `'asc' | 'desc' | null`
+**default value**: `null`
+
+A choice value to enable sorting imports within their groups based on their string lengths, the two options being ascending and descending.
+Leaving the value blank or setting it to null will result in length being ignored
+
 ### `importOrderSideEffects`
 **type**: `boolean`
 **default value**: `true`
@@ -237,6 +252,7 @@ import 'side-effect-lib'
 import b from 'b'
 import c from 'c'
 ```
+
 
 ### Ignoring import ordering
 
@@ -292,11 +308,13 @@ Having some trouble or an issue ? You can check [FAQ / Troubleshooting section](
 | ---------------------- | ------------------------ | ------------------------------------------------ |
 | JS with ES Modules     | ✅ Everything            | -                                                |
 | NodeJS with ES Modules | ✅ Everything            | -                                                |
+| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
+| Ember                  | ✅ Everything            | `prettier-plugin-ember-template-tag` is required |
 | React                  | ✅ Everything            | -                                                |
 | Solid                  | ✅ Everything            | -                                                |
-| Angular                | ✅ Everything            | Supported through `importOrderParserPlugins` API |
-| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
 | Svelte                 | ✅ Everything            | `prettier-plugin-svelte` is required             |
+| Vue                    | ✅ Everything            | `@vue/compiler-sfc` is required                  |
+
 
 ### Used by
 

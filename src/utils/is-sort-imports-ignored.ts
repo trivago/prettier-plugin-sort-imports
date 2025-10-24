@@ -1,12 +1,9 @@
-import { Statement } from '@babel/types';
+import { Comment } from '@babel/types';
 
-import { sortImportsIgnoredComment } from '../constants';
-import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
+import { sortImportsIgnoredComment } from '../constants.js';
 
-export const isSortImportsIgnored = (nodes: Statement[]) =>
-    getAllCommentsFromNodes(nodes).some(
-        (comment) =>
-            comment.loc &&
-            comment.loc.start.line === 1 &&
-            comment.value.includes(sortImportsIgnoredComment),
+export const isSortImportsIgnored = (comments: Comment[]) => {
+    return comments.some((comment) =>
+        comment.value.trimStart().startsWith(sortImportsIgnoredComment),
     );
+};

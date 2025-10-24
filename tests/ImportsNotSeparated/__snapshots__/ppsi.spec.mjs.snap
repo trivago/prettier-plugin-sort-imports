@@ -180,7 +180,6 @@ const workletAdd = (a:number,b:number) => {
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "use strict";
 "use client";
-
 import abc from "@core/abc";
 import otherthing from "@core/otherthing";
 

@@ -3,7 +3,10 @@
 import fs from 'fs';
 import { extname } from 'path';
 import prettier from 'prettier';
+import { expect } from 'vitest';
+
 import plugin from '../src/';
+import rawSerializer from './raw-serializer.mjs';
 
 function run_spec(dirname, parsers, options) {
     options = Object.assign(
@@ -37,11 +40,14 @@ function run_spec(dirname, parsers, options) {
             const output = prettyprint(source, path, mergedOptions);
             test(`${filename} - ${mergedOptions.parser}-verify`, async () => {
                 try {
+                    let result = await output;
                     expect(
-                        raw(source + '~'.repeat(80) + '\n' + (await output)),
+                        raw(source + '~'.repeat(80) + '\n' + result),
                     ).toMatchSnapshot(filename);
                 } catch (e) {
-                    console.error(e, path);
+                    throw new Error(
+                        `Problem occurred in ${path} file: ${e.name}`,
+                    );
                 }
             });
 
@@ -61,8 +67,6 @@ function run_spec(dirname, parsers, options) {
         }
     });
 }
-import { expect } from 'vitest';
-import rawSerializer from './raw-serializer.mjs';
 
 // Add custom snapshot serializer for Vitest
 expect.addSnapshotSerializer(rawSerializer);

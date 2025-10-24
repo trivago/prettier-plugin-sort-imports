@@ -1,12 +1,12 @@
 import { ImportDeclaration } from '@babel/types';
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
-import { getImportNodes } from '../get-import-nodes';
-import { getSortedNodes } from '../get-sorted-nodes';
-import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names';
-import { getSortedNodesNames } from '../get-sorted-nodes-names';
-import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from "../../constants"
-import { ImportOrLine } from "../../types"
+import { PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE } from '../../constants.js';
+import { ImportOrLine } from '../../types';
+import { getImportNodes } from '../get-import-nodes.js';
+import { getSortedNodesModulesNames } from '../get-sorted-nodes-modules-names.js';
+import { getSortedNodesNames } from '../get-sorted-nodes-names.js';
+import { getSortedNodes } from '../get-sorted-nodes.js';
 
 const code = `// first comment
 // second comment
@@ -31,6 +31,7 @@ test('it returns all sorted nodes', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
 
@@ -76,6 +77,7 @@ test('it returns all sorted nodes case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
 
@@ -121,6 +123,7 @@ test('it returns all sorted nodes with sort order', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
 
@@ -166,6 +169,7 @@ test('it returns all sorted nodes with sort order case-insensitive', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -210,6 +214,7 @@ test('it returns all sorted import nodes with sorted import specifiers', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -254,6 +259,7 @@ test('it returns all sorted import nodes with sorted import specifiers with case
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: true,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -298,6 +304,7 @@ test('it returns all sorted nodes with custom third party modules', () => {
         importOrderCaseInsensitive: true,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
     expect(getSortedNodesNames(sorted)).toEqual([
@@ -323,6 +330,7 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: true,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     }) as ImportDeclaration[];
 
@@ -344,26 +352,35 @@ test('it returns all sorted nodes with namespace specifiers at the top', () => {
 test('it returns the default separations if `importOrderSeparation` is false', () => {
     const result = getImportNodes(code);
     const sorted = getSortedNodes(result, {
-        importOrder: ['<SEPARATOR>', '^a$', '^t$', '<SEPARATOR>', '^k$', '^B', '<SEPARATOR>'],
+        importOrder: [
+            '<SEPARATOR>',
+            '^a$',
+            '^t$',
+            '<SEPARATOR>',
+            '^k$',
+            '^B',
+            '<SEPARATOR>',
+        ],
         importOrderCaseInsensitive: false,
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
-        { type: "ImportDeclaration", value: 'XY' },
-        { type: "ImportDeclaration", value: 'Xa' },
-        { type: "ImportDeclaration", value: 'c' },
-        { type: "ImportDeclaration", value: 'g' },
-        { type: "ImportDeclaration", value: 'x' },
-        { type: "ImportDeclaration", value: 'z' },
-        { type: "ImportDeclaration", value: 'a' },
-        { type: "ImportDeclaration", value: 't' },
-        { type: "ImportDeclaration", value: 'k' },
-        { type: "ImportDeclaration", value: 'BY' },
-        { type: "ImportDeclaration", value: 'Ba' },
-        { type: "ExpressionStatement", value: undefined },
+        { type: 'ImportDeclaration', value: 'XY' },
+        { type: 'ImportDeclaration', value: 'Xa' },
+        { type: 'ImportDeclaration', value: 'c' },
+        { type: 'ImportDeclaration', value: 'g' },
+        { type: 'ImportDeclaration', value: 'x' },
+        { type: 'ImportDeclaration', value: 'z' },
+        { type: 'ImportDeclaration', value: 'a' },
+        { type: 'ImportDeclaration', value: 't' },
+        { type: 'ImportDeclaration', value: 'k' },
+        { type: 'ImportDeclaration', value: 'BY' },
+        { type: 'ImportDeclaration', value: 'Ba' },
+        { type: 'ExpressionStatement', value: undefined },
     ]);
 });
 
@@ -376,25 +393,26 @@ test('it returns default import module separations', () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
-        { type: "ImportDeclaration", value: 'XY' },
-        { type: "ImportDeclaration", value: 'Xa' },
-        { type: "ImportDeclaration", value: 'c' },
-        { type: "ImportDeclaration", value: 'g' },
-        { type: "ImportDeclaration", value: 'x' },
-        { type: "ImportDeclaration", value: 'z' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 'a' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 't' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 'k' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 'BY' },
-        { type: "ImportDeclaration", value: 'Ba' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ExpressionStatement", value: undefined },
+        { type: 'ImportDeclaration', value: 'XY' },
+        { type: 'ImportDeclaration', value: 'Xa' },
+        { type: 'ImportDeclaration', value: 'c' },
+        { type: 'ImportDeclaration', value: 'g' },
+        { type: 'ImportDeclaration', value: 'x' },
+        { type: 'ImportDeclaration', value: 'z' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 'a' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 't' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 'k' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 'BY' },
+        { type: 'ImportDeclaration', value: 'Ba' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ExpressionStatement', value: undefined },
     ]);
 });
 
@@ -407,29 +425,32 @@ test('it returns targeted import module separations', () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
-        { type: "ImportDeclaration", value: 'XY' },
-        { type: "ImportDeclaration", value: 'Xa' },
-        { type: "ImportDeclaration", value: 'c' },
-        { type: "ImportDeclaration", value: 'g' },
-        { type: "ImportDeclaration", value: 'x' },
-        { type: "ImportDeclaration", value: 'z' },
-        { type: "ImportDeclaration", value: 'a' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 't' },
-        { type: "ExpressionStatement", value: undefined },
-        { type: "ImportDeclaration", value: 'k' },
-        { type: "ImportDeclaration", value: 'BY' },
-        { type: "ImportDeclaration", value: 'Ba' },
-        { type: "ExpressionStatement", value: undefined },
+        { type: 'ImportDeclaration', value: 'XY' },
+        { type: 'ImportDeclaration', value: 'Xa' },
+        { type: 'ImportDeclaration', value: 'c' },
+        { type: 'ImportDeclaration', value: 'g' },
+        { type: 'ImportDeclaration', value: 'x' },
+        { type: 'ImportDeclaration', value: 'z' },
+        { type: 'ImportDeclaration', value: 'a' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 't' },
+        { type: 'ExpressionStatement', value: undefined },
+        { type: 'ImportDeclaration', value: 'k' },
+        { type: 'ImportDeclaration', value: 'BY' },
+        { type: 'ImportDeclaration', value: 'Ba' },
+        { type: 'ExpressionStatement', value: undefined },
     ]);
 });
 
 test('it never returns a separation at the top of the list (leading separator)', () => {
-    const result = getImportNodes(`
+    const result = getImportNodes(
+        `
         import './test'; 
-    `.trim());
+    `.trim(),
+    );
     const sorted = getSortedNodes(result, {
         importOrder: ['<SEPARATOR>', '^[./]'],
         importOrderCaseInsensitive: false,
@@ -437,17 +458,20 @@ test('it never returns a separation at the top of the list (leading separator)',
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
-        { type: "ImportDeclaration", value: './test' },
-        { type: "ExpressionStatement", value: undefined },
+        { type: 'ImportDeclaration', value: './test' },
+        { type: 'ExpressionStatement', value: undefined },
     ]);
 });
 
 test('it never returns a separation at the top of the list (zero preceding imports)', () => {
-    const result = getImportNodes(`
+    const result = getImportNodes(
+        `
         import './test'; 
-    `.trim());
+    `.trim(),
+    );
     const sorted = getSortedNodes(result, {
         importOrder: ['^a.*$', '<SEPARATOR>', '^[./]'],
         importOrderCaseInsensitive: false,
@@ -455,24 +479,29 @@ test('it never returns a separation at the top of the list (zero preceding impor
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderSortByLength: null,
     });
     expect(getSeparationData(sorted)).toEqual([
-        { type: "ImportDeclaration", value: './test' },
-        { type: "ExpressionStatement", value: undefined },
+        { type: 'ImportDeclaration', value: './test' },
+        { type: 'ExpressionStatement', value: undefined },
     ]);
 });
 
 // Focuses the nodes solely to the import declarations and the new lines
-function getSeparationData(nodes: ImportOrLine[]): { type: "ImportDeclaration" | "ExpressionStatement", value?: string }[] {
+function getSeparationData(
+    nodes: ImportOrLine[],
+): { type: 'ImportDeclaration' | 'ExpressionStatement'; value?: string }[] {
     return nodes
-      .filter(node => node.type === "ImportDeclaration"
-        || (
-          node.type === "ExpressionStatement"
-          && node.expression.type === "StringLiteral"
-          && node.expression.value === PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE
-        ))
-      .map(x => ({
-          type: x.type,
-          value: x.type === "ImportDeclaration" ? x.source.value : undefined
-      }));
+        .filter(
+            (node) =>
+                node.type === 'ImportDeclaration' ||
+                (node.type === 'ExpressionStatement' &&
+                    node.expression.type === 'StringLiteral' &&
+                    node.expression.value ===
+                        PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE),
+        )
+        .map((x) => ({
+            type: x.type,
+            value: x.type === 'ImportDeclaration' ? x.source.value : undefined,
+        }));
 }

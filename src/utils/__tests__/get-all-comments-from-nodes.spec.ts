@@ -1,6 +1,6 @@
 import { ParserOptions } from '@babel/parser';
 import { CommentBlock, CommentLine, ImportDeclaration } from '@babel/types';
-import { expect, test } from 'vitest'
+import { expect, test } from 'vitest';
 
 import { getAllCommentsFromNodes } from '../get-all-comments-from-nodes';
 import { getImportNodes } from '../get-import-nodes';
@@ -15,6 +15,7 @@ const getSortedImportNodes = (code: string, options?: ParserOptions) => {
         importOrderSeparation: false,
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
+        importOrderSortByLength: null,
         importOrderSideEffects: true,
     });
 };

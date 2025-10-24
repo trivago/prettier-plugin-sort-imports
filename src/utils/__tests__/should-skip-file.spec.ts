@@ -1,3 +1,5 @@
+import { describe, expect, it } from 'vitest';
+
 import { shouldSkipFile } from '../should-skip-file';
 
 describe('shouldSkipFile', () => {
@@ -25,7 +27,9 @@ describe('shouldSkipFile', () => {
     it('should match filename-only patterns against basename', () => {
         const patterns = ['*.js', 'example.ts'];
         expect(shouldSkipFile('/long/path/to/file.js', patterns)).toBe(true);
-        expect(shouldSkipFile('/different/path/example.ts', patterns)).toBe(true);
+        expect(shouldSkipFile('/different/path/example.ts', patterns)).toBe(
+            true,
+        );
         expect(shouldSkipFile('/path/to/file.ts', patterns)).toBe(false);
     });
 
@@ -48,7 +52,9 @@ describe('shouldSkipFile', () => {
         const patterns = ['example.js', 'tsconfig.json'];
         expect(shouldSkipFile('/any/path/example.js', patterns)).toBe(true);
         expect(shouldSkipFile('/root/tsconfig.json', patterns)).toBe(true);
-        expect(shouldSkipFile('/path/to/example.test.js', patterns)).toBe(false);
+        expect(shouldSkipFile('/path/to/example.test.js', patterns)).toBe(
+            false,
+        );
     });
 
     it('should handle directory patterns', () => {
@@ -56,6 +62,8 @@ describe('shouldSkipFile', () => {
         expect(shouldSkipFile('test/file.ts', patterns)).toBe(true);
         expect(shouldSkipFile('test/unit/component.js', patterns)).toBe(true);
         expect(shouldSkipFile('generated/types.ts', patterns)).toBe(true);
-        expect(shouldSkipFile('src/components/button.ts', patterns)).toBe(false);
+        expect(shouldSkipFile('src/components/button.ts', patterns)).toBe(
+            false,
+        );
     });
-}); 
+});

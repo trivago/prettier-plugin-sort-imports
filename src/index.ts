@@ -1,14 +1,17 @@
+import type { Options } from 'prettier';
 import { parsers as babelParsers } from 'prettier/plugins/babel';
 import { parsers as flowParsers } from 'prettier/plugins/flow';
 import { parsers as htmlParsers } from 'prettier/plugins/html';
 import { parsers as typescriptParsers } from 'prettier/plugins/typescript';
 
-import { defaultPreprocessor } from './preprocessors/default-processor';
-import { sveltePreprocessor } from './preprocessors/svelte-preprocessor';
-import { vuePreprocessor } from './preprocessors/vue-preprocessor';
-import type { Options } from 'prettier';
-import { createSvelteParsers } from './utils/create-svelte-parsers';
+import { defaultPreprocessor } from './preprocessors/default-processor.js';
+import { emberPreprocessor } from './preprocessors/ember-preprocessor.js';
+import { sveltePreprocessor } from './preprocessors/svelte-preprocessor.js';
+import { vuePreprocessor } from './preprocessors/vue-preprocessor.js';
+import { createEmberParsers } from './utils/create-ember-parsers.js';
+import { createSvelteParsers } from './utils/create-svelte-parsers.js';
 
+const emberParsers = await createEmberParsers();
 const svelteParsers = await createSvelteParsers();
 
 const options: Options = {
@@ -60,6 +63,23 @@ const options: Options = {
         default: false,
         description: 'Should specifiers be sorted?',
     },
+    importOrderSortByLength: {
+        type: 'choice',
+        category: 'Global',
+        default: null,
+        choices: [
+            { value: 'asc', description: 'will sort from shortest to longest' },
+            {
+                value: 'desc',
+                description: 'will sort from longest to shortest',
+            },
+            {
+                value: null,
+                description: 'will disable sorting based on length',
+            },
+        ],
+        description: 'Should imports be sorted by their string length',
+    },
     importOrderSideEffects: {
         type: 'boolean',
         category: 'Global',
@@ -97,6 +117,14 @@ export default {
                   svelte: {
                       ...svelteParsers.parsers.svelte,
                       preprocess: sveltePreprocessor,
+                  },
+              }
+            : {}),
+        ...(emberParsers.parsers
+            ? {
+                  'ember-template-tag': {
+                      ...emberParsers.parsers['ember-template-tag'],
+                      preprocess: emberPreprocessor,
                   },
               }
             : {}),

@@ -1,13 +1,14 @@
 import { ParserOptions, parse as babelParser } from '@babel/parser';
-import { Directive, ImportDeclaration } from '@babel/types';
+import { ImportDeclaration } from '@babel/types';
 
 import { PrettierOptions } from '../types';
-import { extractASTNodes } from '../utils/extract-ast-nodes';
-import { getCodeFromAst } from '../utils/get-code-from-ast';
-import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins';
-import { getSortedNodes } from '../utils/get-sorted-nodes';
-import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored';
-import { shouldSkipFile } from '../utils/should-skip-file';
+import { extractASTNodes } from '../utils/extract-ast-nodes.js';
+import { getAllCommentsFromNodes } from '../utils/get-all-comments-from-nodes.js';
+import { getCodeFromAst } from '../utils/get-code-from-ast.js';
+import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins.js';
+import { getSortedNodes } from '../utils/get-sorted-nodes.js';
+import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored.js';
+import { shouldSkipFile } from '../utils/should-skip-file.js';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
@@ -17,6 +18,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
+        importOrderSortByLength,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
         importOrderExclude,
@@ -24,7 +26,10 @@ export function preprocessor(code: string, options: PrettierOptions) {
     } = options;
 
     // Check if the file should be skipped
-    if (filepath && shouldSkipFile(filepath, (importOrderExclude || []) as string[])) {
+    if (
+        filepath &&
+        shouldSkipFile(filepath, (importOrderExclude || []) as string[])
+    ) {
         return code;
     }
 
@@ -34,17 +39,19 @@ export function preprocessor(code: string, options: PrettierOptions) {
     };
 
     const ast = babelParser(code, parserOptions);
-    const interpreter = ast.program.interpreter;
+
+    if (isSortImportsIgnored(ast.program.body[0]?.leadingComments ?? []))
+        return code;
 
     const {
         importNodes,
-        directives,
-    }: { importNodes: ImportDeclaration[]; directives: Directive[] } =
+        injectIdx,
+    }: { importNodes: ImportDeclaration[]; injectIdx: number } =
         extractASTNodes(ast);
 
     // short-circuit if there are no import declaration
     if (importNodes.length === 0) return code;
-    if (isSortImportsIgnored(importNodes)) return code;
+    if (isSortImportsIgnored(getAllCommentsFromNodes(importNodes))) return code;
 
     const allImports = getSortedNodes(importNodes, {
         importOrder,
@@ -52,10 +59,11 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSeparation,
         importOrderGroupNamespaceSpecifiers,
         importOrderSortSpecifiers,
+        importOrderSortByLength,
         importOrderSideEffects,
     });
 
-    return getCodeFromAst(allImports, directives, code, interpreter, {
+    return getCodeFromAst(allImports, code, injectIdx, {
         importOrderImportAttributesKeyword,
     });
 }
