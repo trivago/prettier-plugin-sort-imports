@@ -2,16 +2,6 @@
 
 
 ---
-### 5.3.0
-#### Breaking Changes
-- **BREAKING:** Removed `importOrderBuiltinModulesToTop` option in favor of using `<BUILTIN_MODULES>` placeholder in `importOrder` array [#381](https://github.com/trivago/prettier-plugin-sort-imports/pull/381). This provides more flexibility to control where builtin modules are positioned.
-  - **Migration:** Replace `importOrderBuiltinModulesToTop: true` with adding `<BUILTIN_MODULES>` to your `importOrder` array.
-  - Before: `{ importOrderBuiltinModulesToTop: true, importOrder: ['^[./]'] }`
-  - After: `{ importOrder: ['<BUILTIN_MODULES>', '<THIRD_PARTY_MODULES>', '^[./]'] }`
-
-#### New features
-- Add `<BUILTIN_MODULES>` special word to control Node.js builtin module positioning [#71](https://github.com/trivago/prettier-plugin-sort-imports/issues/71) - Support for both traditional (`fs`, `path`) and `node:` prefixed (`node:fs`, `node:path`) builtin modules
-
 ### 5.2.2
 - Update packages and pin babel/types [#343](https://github.com/trivago/prettier-plugin-sort-imports/pull/343) by [@byara](https://github.com/byara)
 
