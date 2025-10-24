@@ -2,6 +2,31 @@
 
 
 ---
+### 6.0.0
+
+#### Breaking Changes
+- **Switch to ESM** [#366](https://github.com/trivago/prettier-plugin-sort-imports/pull/366) by [@RobbieTheWagner](https://github.com/RobbieTheWagner) - The plugin now uses ES modules instead of CommonJS
+- **Require Node >= 20.x** [#367](https://github.com/trivago/prettier-plugin-sort-imports/pull/367) by [@RobbieTheWagner](https://github.com/RobbieTheWagner) - Drop support for Node.js versions below 20
+- **Switch to vitest** [#370](https://github.com/trivago/prettier-plugin-sort-imports/pull/370) by [@RobbieTheWagner](https://github.com/RobbieTheWagner) - Replaced Jest with Vitest for better ESM support
+
+#### New features
+- **Ember.js gjs/gts support** [#377](https://github.com/trivago/prettier-plugin-sort-imports/pull/377) by [@NullVoxPopuli](https://github.com/NullVoxPopuli) and [@RobbieTheWagner](https://github.com/RobbieTheWagner) - Add support for Ember.js gjs/gts file formats with namespace and named type imports
+- **`<BUILTIN_MODULES>` placeholder** [#381](https://github.com/trivago/prettier-plugin-sort-imports/pull/381) by [@sdotson](https://github.com/sdotson) - Add support for sorting Node.js builtin modules to a specific position using `<BUILTIN_MODULES>` placeholder in `importOrder`
+- **`<SEPARATOR>` placeholder** [#339](https://github.com/trivago/prettier-plugin-sort-imports/pull/339) - Add `<SEPARATOR>` keyword for fine-grained control over import group separation when `importOrderSeparation` is enabled
+- **Sort by length option** [#224](https://github.com/trivago/prettier-plugin-sort-imports/pull/224) by [@KLewin23](https://github.com/KLewin23) - Add option to sort imports by import statement length
+- **`importOrderExclude` option** [#384](https://github.com/trivago/prettier-plugin-sort-imports/pull/384) by [@RyderKishan](https://github.com/RyderKishan) - Add support for excluding specific files from import sorting using glob patterns
+- **Expand `sort-imports-ignore` detection** [#358](https://github.com/trivago/prettier-plugin-sort-imports/pull/358) by [@ckwalsh](https://github.com/ckwalsh) - Improved detection of `sort-imports-ignore` comments throughout the file, not just at line 1
+
+#### Performance improvements
+- **Improve `removeNodesFromOriginalCode()` performance** [#356](https://github.com/trivago/prettier-plugin-sort-imports/pull/356) by [@ckwalsh](https://github.com/ckwalsh) - Replace RegExp logic with string slices for better performance
+
+#### Refactoring
+- **Stop rerendering directives** [#357](https://github.com/trivago/prettier-plugin-sort-imports/pull/357) by [@ckwalsh](https://github.com/ckwalsh) - Inject imports instead of re-rendering directives to better preserve whitespace and reduce formatting conflicts
+- **Stop ignoring exceptions in snapshot tests** [#355](https://github.com/trivago/prettier-plugin-sort-imports/pull/355) by [@ckwalsh](https://github.com/ckwalsh) - Improve test reliability by properly handling exceptions
+
+#### Chores
+- Add pnpm install command to README [#361](https://github.com/trivago/prettier-plugin-sort-imports/pull/361) - Document pnpm installation option
+
 ### 5.2.2
 - Update packages and pin babel/types [#343](https://github.com/trivago/prettier-plugin-sort-imports/pull/343) by [@byara](https://github.com/byara)
 
