@@ -8,6 +8,7 @@ import { getCodeFromAst } from '../utils/get-code-from-ast.js';
 import { getExperimentalParserPlugins } from '../utils/get-experimental-parser-plugins.js';
 import { getSortedNodes } from '../utils/get-sorted-nodes.js';
 import { isSortImportsIgnored } from '../utils/is-sort-imports-ignored.js';
+import { shouldSkipFile } from '../utils/should-skip-file.js';
 
 export function preprocessor(code: string, options: PrettierOptions) {
     const {
@@ -20,7 +21,17 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortByLength,
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
+        importOrderExclude,
+        filepath,
     } = options;
+
+    // Check if the file should be skipped
+    if (
+        filepath &&
+        shouldSkipFile(filepath, (importOrderExclude || []) as string[])
+    ) {
+        return code;
+    }
 
     const parserOptions: ParserOptions = {
         sourceType: 'module',

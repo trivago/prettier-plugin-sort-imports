@@ -15,6 +15,14 @@ const emberParsers = await createEmberParsers();
 const svelteParsers = await createSvelteParsers();
 
 const options: Options = {
+    importOrderExclude: {
+        type: 'path',
+        category: 'Global',
+        array: true,
+        default: [{ value: [] }],
+        description:
+            'Provide a list of glob patterns to exclude from import sorting.',
+    },
     importOrder: {
         type: 'path',
         category: 'Global',
