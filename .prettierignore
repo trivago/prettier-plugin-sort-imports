@@ -1,2 +1,6 @@
 tests/
 lib/
+examples/
+.github/
+docs/
+*.md

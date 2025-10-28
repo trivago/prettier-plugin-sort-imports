@@ -8,5 +8,9 @@
     "importOrder": ["^@server/(.*)$", "^@core/(.*)$", "^@ui/(.*)$", "^[./]"],
     "importOrderSeparation": true,
     "importOrderSortSpecifiers": true,
-    "plugins": ["../lib/src/index.js"]
+    "plugins": [
+        "prettier-plugin-ember-template-tag",
+        "prettier-plugin-svelte",
+        "../lib/src/index.js"
+    ]
 }

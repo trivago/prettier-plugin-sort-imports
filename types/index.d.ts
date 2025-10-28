@@ -47,21 +47,21 @@ export interface PluginConfig {
     /**
      * A boolean value to enable case-insensitivity in the sorting algorithm
 used to order imports within each match group.
-     * 
+     *
      * For example, when false (or not specified):
-     * 
+     *
      * ```js
      * import ExampleView from './ExampleView';
      * import ExamplesList from './ExamplesList';
      * ```
-     * 
+     *
      * compared with `"importOrderCaseInsensitive": true`:
-     * 
+     *
      * ```js
      * import ExamplesList from './ExamplesList';
      * import ExampleView from './ExampleView';
      * ```
-     * 
+     *
      * @default false
      */
     importOrderCaseInsensitive?: boolean;
@@ -93,9 +93,25 @@ used to order imports within each match group.
      */
     importOrderParserPlugins?: ImportOrderParserPlugin[];
 
+    /**
+     * A choice value to enable sorting imports within their groups based on their string lengths, the two options being ascending and descending.
+     * Leaving the value blank or setting it to null will result in length being ignored
+     *
+     * @default null
+     */
+    importOrderSortByLength?: 'asc' | 'desc' | null;
 
     /**
-     * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" }, 
+     * By default, the plugin sorts side effect imports like any other imports in the file.
+     * If you need to keep side effect imports in the same place but sort all other imports around them,
+     * set this option to false.
+     *
+     * @default true
+     */
+    importOrderSideEffects?: boolean;
+
+    /**
+     * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" },
      * "assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
      *
      * ```
@@ -105,6 +121,18 @@ used to order imports within each match group.
      * _Default behavior:_ When not specified, @babel/generator will try to match the style in the input code based on the AST shape.
      */
     importOrderImportAttributesKeyword?: 'assert' | 'with' | 'with-legacy';
+
+    /**
+     * An array of glob patterns for files that should be skipped by the import sorting.
+     * Files matching these patterns will not have their imports sorted.
+     *
+     * ```
+     * "importOrderExclude": ["*.test.ts", "src/generated/**"]
+     * ```
+     *
+     * @default []
+     */
+    importOrderExclude?: string[];
 }
 
 export type PrettierConfig = PluginConfig & Config;

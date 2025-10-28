@@ -2,10 +2,10 @@ import {
     chunkSideEffectNode,
     chunkSideOtherNode,
     newLineNode,
-} from '../constants';
+} from '../constants.js';
 import { GetSortedNodes, ImportChunk, ImportOrLine } from '../types';
-import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes';
-import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order';
+import { adjustCommentsOnSortedNodes } from './adjust-comments-on-sorted-nodes.js';
+import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order.js';
 
 /**
  * This function returns the given nodes, sorted in the order as indicated by
@@ -21,8 +21,7 @@ import { getSortedNodesByImportOrder } from './get-sorted-nodes-by-import-order'
  * @param options Options to influence the behavior of the sorting algorithm.
  */
 export const getSortedNodes: GetSortedNodes = (nodes, options) => {
-    const { importOrderSeparation, importOrderSideEffects } =
-        options;
+    const { importOrderSeparation, importOrderSideEffects } = options;
 
     // Split nodes at each boundary between a side-effect node and a
     // non-side-effect node, keeping both types of nodes together.

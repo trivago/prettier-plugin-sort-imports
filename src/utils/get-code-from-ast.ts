@@ -1,10 +1,12 @@
-import generate from '@babel/generator';
-import { Directive, InterpreterDirective, Statement, file } from '@babel/types';
+import generateModule from '@babel/generator';
+import { Statement, file } from '@babel/types';
 
-import { newLineCharacters } from '../constants';
-import { getAllCommentsFromNodes } from './get-all-comments-from-nodes';
-import { removeNodesFromOriginalCode } from './remove-nodes-from-original-code';
+import { newLineCharacters } from '../constants.js';
 import { PrettierOptions } from '../types';
+import { assembleUpdatedCode } from './assemble-updated-code.js';
+import { getAllCommentsFromNodes } from './get-all-comments-from-nodes.js';
+
+const generate = (generateModule as any).default || generateModule;
 
 /**
  * This function generate a code string from the passed nodes.
@@ -13,31 +15,19 @@ import { PrettierOptions } from '../types';
  */
 export const getCodeFromAst = (
     nodes: Statement[],
-    directives: Directive[],
     originalCode: string,
-    interpreter?: InterpreterDirective | null,
-    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>
+    injectIdx: number = 0,
+    options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>,
 ) => {
     const allCommentsFromImports = getAllCommentsFromNodes(nodes);
 
-    const nodesToRemoveFromCode = [
-        ...directives,
-        ...nodes,
-        ...allCommentsFromImports,
-        ...(interpreter ? [interpreter] : []),
-    ];
-
-    const codeWithoutImportsAndInterpreter = removeNodesFromOriginalCode(
-        originalCode,
-        nodesToRemoveFromCode,
-    );
+    const nodesToRemoveFromCode = [...nodes, ...allCommentsFromImports];
 
     const newAST = file({
         type: 'Program',
         body: nodes,
-        directives,
+        directives: [],
         sourceType: 'module',
-        interpreter: interpreter,
         leadingComments: [],
         innerComments: [],
         trailingComments: [],
@@ -51,12 +41,17 @@ export const getCodeFromAst = (
         },
     });
 
-    const { code } = generate(newAST, { importAttributesKeyword: options?.importOrderImportAttributesKeyword });
+    const { code } = generate(newAST, {
+        importAttributesKeyword: options?.importOrderImportAttributesKeyword,
+    });
 
-    return (
+    return assembleUpdatedCode(
+        originalCode,
+        nodesToRemoveFromCode,
         code.replace(
             /"PRETTIER_PLUGIN_SORT_IMPORTS_NEW_LINE";/gi,
             newLineCharacters,
-        ) + codeWithoutImportsAndInterpreter.trim()
+        ),
+        injectIdx,
     );
 };

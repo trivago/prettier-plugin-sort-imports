@@ -1,0 +1,16 @@
+{
+    "printWidth": 80,
+    "tabWidth": 4,
+    "trailingComma": "all",
+    "singleQuote": true,
+    "bracketSameLine": true,
+    "semi": true,
+    "importOrder": ["^[./]"],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "plugins": [
+        "prettier-plugin-ember-template-tag",
+        "prettier-plugin-svelte",
+        "./lib/src/index.js"
+    ]
+}

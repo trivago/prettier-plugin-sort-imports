@@ -1,0 +1,67 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`imports-with-comments.js - flow-verify > imports-with-comments.js 1`] = `
+/**
+ * @flow
+ */
+
+// I am top level comment in this file.
+import { type Something } from './__generated__/';
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+import thirdParty from "third-party";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import otherthing from "@core/otherthing";
+import abc from "@core/abc";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import component from "@ui/hello";
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import something from "@server/something";
+import xyz from "@ui/xyz";
+
+const handleChange = (value: ?string) => {}
+
+export type AliasFoo3  = {
+  givesANum(): number
+};
+export function givesAFoo3Obj(): AliasFoo3 {
+  return {
+    givesANum(): number { return 42; }
+  };
+};
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+ * @flow
+ */
+// I am top level comment in this file.
+import thirdParty from "third-party";
+
+import abc from "@core/abc";
+import otherthing from "@core/otherthing";
+
+import something from "@server/something";
+
+import component from "@ui/hello";
+import xyz from "@ui/xyz";
+
+import fourLevelRelativePath from "../../../../fourLevelRelativePath";
+import threeLevelRelativePath from "../../../threeLevelRelativePath";
+import twoLevelRelativePath from "../../twoLevelRelativePath";
+import oneLevelRelativePath from "../oneLevelRelativePath";
+import { type Something } from "./__generated__/";
+import sameLevelRelativePath from "./sameLevelRelativePath";
+
+const handleChange = (value: ?string) => {};
+
+export type AliasFoo3 = {
+    givesANum(): number,
+};
+export function givesAFoo3Obj(): AliasFoo3 {
+    return {
+        givesANum(): number {
+            return 42;
+        },
+    };
+}
+
+`;

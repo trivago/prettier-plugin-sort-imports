@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`import-inside-ts-declare.ts - typescript-verify > import-inside-ts-declare.ts 1`] = `
+declare module '*.scss' {
+    const content: { [className: string]: string };
+    export = content;
+}
+
+declare const env: {
+    [key: string]: string;
+};
+
+declare module 'path-browserify' {
+    import * as path from 'path';
+    export = path;
+}
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+declare module "*.scss" {
+    const content: { [className: string]: string };
+    export = content;
+}
+
+declare const env: {
+    [key: string]: string;
+};
+
+declare module "path-browserify" {
+    import * as path from "path";
+    export = path;
+}
+
+`;
