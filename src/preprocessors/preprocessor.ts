@@ -36,6 +36,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
     const parserOptions: ParserOptions = {
         sourceType: 'module',
         plugins: getExperimentalParserPlugins(importOrderParserPlugins),
+        errorRecovery: true,
     };
 
     const ast = babelParser(code, parserOptions);

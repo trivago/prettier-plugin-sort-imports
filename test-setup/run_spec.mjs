@@ -46,7 +46,7 @@ function run_spec(dirname, parsers, options) {
                     ).toMatchSnapshot(filename);
                 } catch (e) {
                     throw new Error(
-                        `Problem occurred in ${path} file: ${e.name}`,
+                        `Problem occurred in ${path} file: ${e.message}`,
                     );
                 }
             });
