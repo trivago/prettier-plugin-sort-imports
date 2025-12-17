@@ -427,6 +427,30 @@ exports[`simple.svelte - svelte-verify > simple.svelte 1`] = `
 
 `;
 
+exports[`snippet.svelte - svelte-verify > snippet.svelte 1`] = `
+<script module>
+    import { a } from 'z'
+    import { c } from 'y'
+    
+	export { add };
+</script>
+
+{#snippet add(a, b)}
+	{a} + {b} = {a + b}
+{/snippet}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script module>
+    import { c } from "y";
+    import { a } from "z";
+
+    export { add };
+</script>
+
+{#snippet add(a, b)}
+    {a} + {b} = {a + b}
+{/snippet}
+
+`;
+
 exports[`ts.svelte - svelte-verify > ts.svelte 1`] = `
 <script lang="ts">
     // I am top level comment in this file.

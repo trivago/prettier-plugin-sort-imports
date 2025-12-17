@@ -24,8 +24,8 @@ const sortImports = (code: string, options: PrettierOptions) => {
     const { instance, module } = parse(code);
     const sources = [instance, module].filter(booleanGuard);
     if (!sources.length) return code;
+
     return sources.reduce((code, source) => {
-        // @ts-expect-error TODO: Fix this type error
         const snippet = code.slice(source.content.start, source.content.end);
         const preprocessed = preprocessor(snippet, options);
         const result = code.replace(snippet, `\n${preprocessed}\n`);
