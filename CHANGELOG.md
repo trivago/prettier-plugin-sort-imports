@@ -2,6 +2,11 @@
 
 
 ---
+### 6.0.1
+
+#### Bug fixes
+- **Fix Svelte export snippet parsing** [#390](https://github.com/trivago/prettier-plugin-sort-imports/issues/390) - Fixed by adding support for new Svelte snippet syntax
+
 ### 6.0.0
 
 #### Breaking Changes
