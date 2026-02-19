@@ -14,6 +14,11 @@ import { createSvelteParsers } from './utils/create-svelte-parsers.js';
 const emberParsers = await createEmberParsers();
 const svelteParsers = await createSvelteParsers();
 
+let oxcParsers: Record<string, any> = {};
+try {
+    oxcParsers = (await import('@prettier/plugin-oxc')).parsers;
+} catch {}
+
 const options: Options = {
     importOrderExclude: {
         type: 'path',
@@ -126,6 +131,18 @@ export default {
                   'ember-template-tag': {
                       ...emberParsers.parsers['ember-template-tag'],
                       preprocess: emberPreprocessor,
+                  },
+              }
+            : {}),
+        ...(oxcParsers.oxc
+            ? {
+                  oxc: {
+                      ...oxcParsers.oxc,
+                      preprocess: defaultPreprocessor,
+                  },
+                  'oxc-ts': {
+                      ...oxcParsers['oxc-ts'],
+                      preprocess: defaultPreprocessor,
                   },
               }
             : {}),
