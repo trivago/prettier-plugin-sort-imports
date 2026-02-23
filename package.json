@@ -41,7 +41,7 @@
         "@babel/types": "^7.28.0",
         "javascript-natural-sort": "^0.7.1",
         "lodash-es": "^4.17.21",
-        "minimatch": "^9.0.0",
+        "minimatch": "^10.0.0",
         "parse-imports-exports": "^0.2.4"
     },
     "devDependencies": {
