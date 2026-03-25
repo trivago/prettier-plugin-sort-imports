@@ -160,6 +160,30 @@ A boolean value to enable or disable sorting of the specifiers in an import decl
 
 A boolean value to enable or disable sorting the namespace specifiers to the top of the import group.
 
+#### `importOrderMergeImports`
+
+**type**: `boolean`
+
+**default value:** `false`
+
+Merges multiple import declarations into a single import declaration, combining all their specifiers.
+
+Initial file:
+```js
+import * as NamespacedImport from './example';
+import DefaultImport from './example';
+import { NamedImport1 } from './example';
+import { NamedImport2 } from './example';
+import { NamedImport3 } from './example';
+``` 
+
+When sorted
+```js
+// namespaced imports are ignored as they cannot contain other specifier types
+import * as NamespacedImport from './example'; 
+import DefaultImport, { NamedImport1, NamedImport2, NamedImport3 } from './example';
+```
+
 #### `importOrderCaseInsensitive`
 
 **type**: `boolean`
