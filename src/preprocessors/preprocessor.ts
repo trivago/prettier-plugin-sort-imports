@@ -22,7 +22,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
         importOrderExclude,
-        importOrderCombineImportSpecifiers,
+        importOrderMergeImports,
         filepath,
     } = options;
 
@@ -63,7 +63,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
-        importOrderCombineImportSpecifiers,
+        importOrderMergeImports,
     });
 
     return getCodeFromAst(importNodes, code, sortedImports, injectIdx, {

@@ -135,7 +135,7 @@ used to order imports within each match group.
     importOrderExclude?: string[];
 
     /**
-     * Combines multiple import declarations into a single import declaration, combining all their specifiers.
+     * Merges multiple import declarations into a single import declaration, combining all their specifiers.
      *
      * For example, provided the following input:
      * ```js
@@ -155,7 +155,7 @@ used to order imports within each match group.
      *
      * @default false
      */
-    importOrderCombineImportSpecifiers?: boolean;
+    importOrderMergeImports?: boolean;
 }
 
 export type PrettierConfig = PluginConfig & Config;

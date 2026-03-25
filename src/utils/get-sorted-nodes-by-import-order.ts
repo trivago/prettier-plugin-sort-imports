@@ -28,7 +28,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         importOrderSeparation,
         importOrderSortSpecifiers,
         importOrderGroupNamespaceSpecifiers,
-        importOrderCombineImportSpecifiers,
+        importOrderMergeImports,
     } = options;
 
     const originalNodes = nodes.map(clone);
@@ -79,7 +79,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         });
 
         // Combine import declarations with the same source into a single import declaration
-        if (importOrderCombineImportSpecifiers) {
+        if (importOrderMergeImports) {
             sortedInsideGroup = getMergedSpecifiers(sortedInsideGroup);
         }
 

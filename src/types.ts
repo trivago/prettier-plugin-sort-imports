@@ -20,7 +20,7 @@ export type GetSortedNodes = (
         | 'importOrderSortSpecifiers'
         | 'importOrderSortByLength'
         | 'importOrderSideEffects'
-        | 'importOrderCombineImportSpecifiers'
+        | 'importOrderMergeImports'
     >,
 ) => ImportOrLine[];
 

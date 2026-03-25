@@ -24,7 +24,7 @@ import a from 'a';
         importOrderSortSpecifiers: false,
         importOrderSortByLength: null,
         importOrderSideEffects: true,
-        importOrderCombineImportSpecifiers: false,
+        importOrderMergeImports: false,
     });
     const formatted = getCodeFromAst(importNodes, code, sortedNodes);
     expect(await format(formatted, { parser: 'babel' })).toEqual(
