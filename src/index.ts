@@ -93,7 +93,7 @@ const options: Options = {
         default: 'with',
         description: 'Provide a keyword for import attributes',
     },
-    importOrderCombineImportSpecifiers: {
+    importOrderMergeImports: {
         type: 'boolean',
         category: 'Global',
         default: false,
