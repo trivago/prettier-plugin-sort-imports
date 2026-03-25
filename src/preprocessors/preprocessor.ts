@@ -22,6 +22,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSideEffects,
         importOrderImportAttributesKeyword,
         importOrderExclude,
+        importOrderCombineImportSpecifiers,
         filepath,
     } = options;
 
@@ -54,7 +55,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
     if (importNodes.length === 0) return code;
     if (isSortImportsIgnored(getAllCommentsFromNodes(importNodes))) return code;
 
-    const allImports = getSortedNodes(importNodes, {
+    const sortedImports = getSortedNodes(importNodes, {
         importOrder,
         importOrderCaseInsensitive,
         importOrderSeparation,
@@ -62,9 +63,10 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
+        importOrderCombineImportSpecifiers,
     });
 
-    return getCodeFromAst(allImports, code, injectIdx, {
+    return getCodeFromAst(importNodes, code, sortedImports, injectIdx, {
         importOrderImportAttributesKeyword,
     });
 }

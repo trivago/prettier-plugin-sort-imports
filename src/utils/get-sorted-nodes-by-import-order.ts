@@ -9,6 +9,7 @@ import {
 import { naturalSort } from '../natural-sort/index.js';
 import { GetSortedNodes, ImportGroups, ImportOrLine } from '../types';
 import { getImportNodesMatchedGroup } from './get-import-nodes-matched-group.js';
+import { getMergedSpecifiers } from './get-merged-specifiers.js';
 import { getSortedImportSpecifiers } from './get-sorted-import-specifiers.js';
 import { getSortedNodesGroup } from './get-sorted-nodes-group.js';
 
@@ -27,6 +28,7 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         importOrderSeparation,
         importOrderSortSpecifiers,
         importOrderGroupNamespaceSpecifiers,
+        importOrderCombineImportSpecifiers,
     } = options;
 
     const originalNodes = nodes.map(clone);
@@ -71,10 +73,15 @@ export const getSortedNodesByImportOrder: GetSortedNodes = (nodes, options) => {
         }
         if (groupNodes.length === 0) continue;
 
-        const sortedInsideGroup = getSortedNodesGroup(groupNodes, {
+        let sortedInsideGroup = getSortedNodesGroup(groupNodes, {
             importOrderGroupNamespaceSpecifiers,
             importOrderSortByLength,
         });
+
+        // Combine import declarations with the same source into a single import declaration
+        if (importOrderCombineImportSpecifiers) {
+            sortedInsideGroup = getMergedSpecifiers(sortedInsideGroup);
+        }
 
         // Sort the import specifiers
         if (importOrderSortSpecifiers) {
