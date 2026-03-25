@@ -10,22 +10,23 @@ const generate = (generateModule as any).default || generateModule;
 
 /**
  * This function generate a code string from the passed nodes.
- * @param nodes all imports
+ * @param originalNodes all imports
  * @param originalCode
  */
 export const getCodeFromAst = (
-    nodes: Statement[],
+    originalNodes: Statement[],
     originalCode: string,
+    nodesToInject: Statement[],
     injectIdx: number = 0,
     options?: Pick<PrettierOptions, 'importOrderImportAttributesKeyword'>,
 ) => {
-    const allCommentsFromImports = getAllCommentsFromNodes(nodes);
+    const allCommentsFromImports = getAllCommentsFromNodes(originalNodes);
 
-    const nodesToRemoveFromCode = [...nodes, ...allCommentsFromImports];
+    const nodesToRemoveFromCode = [...originalNodes, ...allCommentsFromImports];
 
     const newAST = file({
         type: 'Program',
-        body: nodes,
+        body: nodesToInject,
         directives: [],
         sourceType: 'module',
         leadingComments: [],
