@@ -93,6 +93,13 @@ const options: Options = {
         default: 'with',
         description: 'Provide a keyword for import attributes',
     },
+    importOrderMergeImports: {
+        type: 'boolean',
+        category: 'Global',
+        default: false,
+        description:
+            'Should duplicate import sources be combined into a single import declaration?',
+    },
 };
 
 export default {

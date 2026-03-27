@@ -133,6 +133,29 @@ used to order imports within each match group.
      * @default []
      */
     importOrderExclude?: string[];
+
+    /**
+     * Merges multiple import declarations into a single import declaration, combining all their specifiers.
+     *
+     * For example, provided the following input:
+     * ```js
+     * import * as NamespacedImport from './example';
+     * import DefaultImport from './example';
+     * import { NamedImport1 } from './example';
+     * import { NamedImport2 } from './example';
+     * import { NamedImport3 } from './example';
+     * ```
+     *
+     * will be transformed into:
+     *
+     * ```js
+     * import * as NamespacedImport from './example';
+     * import DefaultImport, { NamedImport1, NamedImport2, NamedImport3 } from './example';
+     * ```
+     *
+     * @default false
+     */
+    importOrderMergeImports?: boolean;
 }
 
 export type PrettierConfig = PluginConfig & Config;
