@@ -111,6 +111,33 @@ used to order imports within each match group.
     importOrderSideEffects?: boolean;
 
     /**
+     * A boolean value to enable merging of import declarations that share the
+     * same module source. When enabled, multiple imports from the same path
+     * are collapsed into a single declaration whenever doing so is
+     * syntactically valid.
+     *
+     * For example, with this option enabled:
+     *
+     * ```ts
+     * import { A } from 'path-to-A';
+     * import { type A } from 'path-to-A';
+     * ```
+     *
+     * becomes:
+     *
+     * ```ts
+     * import { A, type A } from 'path-to-A';
+     * ```
+     *
+     * Imports are left untouched when merging would produce invalid syntax
+     * (e.g. combining a namespace import with named imports) or when the
+     * declarations have differing import attributes/assertions.
+     *
+     * @default false
+     */
+    importOrderMergeDuplicateImports?: boolean;
+
+    /**
      * The import attributes/assertions syntax to use. "with" for import "..." with { type: "json" },
      * "assert" for import "..." assert { type: "json" }, and "with-legacy" for import "..." with type: "json".
      *
