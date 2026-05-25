@@ -87,6 +87,13 @@ const options: Options = {
         default: true,
         description: 'Should side effects be sorted?',
     },
+    importOrderMergeDuplicateImports: {
+        type: 'boolean',
+        category: 'Global',
+        default: false,
+        description:
+            'Should import declarations sharing the same module source be merged?',
+    },
     importOrderImportAttributesKeyword: {
         type: 'string',
         category: 'Global',

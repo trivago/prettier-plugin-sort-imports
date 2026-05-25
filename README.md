@@ -254,6 +254,41 @@ import c from 'c'
 ```
 
 
+### `importOrderMergeDuplicateImports`
+**type**: `boolean`
+**default value**: `false`
+
+When enabled, multiple import declarations that share the same module source are merged into a single declaration whenever doing so is syntactically valid. Useful for keeping the import block free of incidental duplication after refactors.
+
+Example:
+
+Initial file:
+
+```ts
+import { A } from 'path-to-A';
+import { type B } from 'path-to-A';
+
+import D from './m';
+import { named } from './m';
+```
+
+When sorted with this option enabled:
+
+```ts
+import { A, type B } from 'path-to-A';
+
+import D, { named } from './m';
+```
+
+Imports are deliberately left untouched whenever merging would not be safe — including:
+- A namespace import (`import * as N`) combined with named specifiers from the same path.
+- Two declarations that both define a default specifier with different local names.
+- Two namespace declarations with different local names.
+- Declarations that disagree on their import attributes/assertions (`with { type: "json" }` / `assert { ... }`).
+- A type-only declaration whose default or namespace specifier would need a specifier-level `type` modifier in the merged result (TypeScript does not allow `type` on default or namespace specifiers).
+
+Side-effect-only declarations (e.g. `import './m'`) are absorbed when another import for the same module already exists, since the resulting declaration still triggers the side effect.
+
 ### Ignoring import ordering
 
 In some cases it's desired to ignore import ordering, specifically if you require to instantiate a common service or polyfill in your application logic before all the other imports. The plugin supports the `// sort-imports-ignore` comment, which will exclude the file from ordering the imports.
