@@ -31,6 +31,7 @@ export const assembleUpdatedCode = (
             return Number.isSafeInteger(start) && Number.isSafeInteger(end);
         },
     );
+
     if (injectedCode !== undefined) {
         ranges.push({
             type: 'InjectedCode',
@@ -38,6 +39,7 @@ export const assembleUpdatedCode = (
             end: injectIdx,
         });
     }
+
     ranges.sort((a, b) => a.start - b.start);
 
     let result: string = '';
@@ -50,7 +52,13 @@ export const assembleUpdatedCode = (
         }
 
         if (injectedCode !== undefined && type === 'InjectedCode') {
-            result += injectedCode;
+            result += injectedCode.replace(/\n*$/, '\n\n');
+
+            // Skip blank lines immediately following the insertion point
+            const match = code.slice(idx).match(/^(?:[ \t]*\r?\n)+/);
+            if (match) {
+                idx += match[0].length;
+            }
         }
 
         if (end > idx) {
