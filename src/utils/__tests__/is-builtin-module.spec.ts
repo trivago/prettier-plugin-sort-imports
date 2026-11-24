@@ -23,6 +23,12 @@ describe('isBuiltinModule', () => {
         expect(isBuiltinModule('node:events')).toBe(true);
     });
 
+    it('should correctly identify prefix-only builtin modules', () => {
+        expect(isBuiltinModule('node:test')).toBe(true);
+        expect(isBuiltinModule('node:test/reporters')).toBe(true);
+        expect(isBuiltinModule('test')).toBe(false);
+    });
+
     it('should return false for non-builtin modules', () => {
         expect(isBuiltinModule('express')).toBe(false);
         expect(isBuiltinModule('lodash')).toBe(false);
