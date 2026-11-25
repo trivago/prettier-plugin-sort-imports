@@ -28,7 +28,9 @@ const sortImports = (code: string, options: PrettierOptions) => {
     return sources.reduce((code, source) => {
         const snippet = code.slice(source.content.start, source.content.end);
         const preprocessed = preprocessor(snippet, options);
-        const result = code.replace(snippet, `\n${preprocessed}\n`);
+        // we pass the second argument as a function to avoid issues with the replacement string
+        // if string contained special groups (like $&, $`, $', $n, $<n>, etc.) this would produce invalid results
+        const result = code.replace(snippet, () => `\n${preprocessed}\n`);
         return result;
     }, code);
 };

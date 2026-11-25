@@ -451,6 +451,32 @@ exports[`snippet.svelte - svelte-verify > snippet.svelte 1`] = `
 
 `;
 
+exports[`specialReplacerGroups.svelte - svelte-verify > specialReplacerGroups.svelte 1`] = `
+<script>
+import z from 'z';
+import a from 'a';
+
+let dollar = '$';
+let doubleDollar = '$$';
+let matchDollar = '$&';
+let prefixDollar = '$\`';
+</script>
+<div>{dollar}{doubleDollar}{matchDollar}{prefixDollar}</div>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<script>
+    import a from "a";
+    import z from "z";
+
+    let dollar = "$";
+    let doubleDollar = "$$";
+    let matchDollar = "$&";
+    let prefixDollar = "$\`";
+</script>
+
+<div>{dollar}{doubleDollar}{matchDollar}{prefixDollar}</div>
+
+`;
+
 exports[`ts.svelte - svelte-verify > ts.svelte 1`] = `
 <script lang="ts">
     // I am top level comment in this file.
