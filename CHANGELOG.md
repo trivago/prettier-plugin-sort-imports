@@ -2,6 +2,11 @@
 
 
 ---
+### 6.0.3
+
+#### Bug fixes
+- **Update dependencies to resolve npm audit findings** [#416](https://github.com/trivago/prettier-plugin-sort-imports/pull/416) by [@szanuje](https://github.com/szanuje)
+
 ### 6.0.2
 
 #### Bug fixes
