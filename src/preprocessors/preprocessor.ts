@@ -20,6 +20,7 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
+        importOrderMergeDuplicateImports,
         importOrderImportAttributesKeyword,
         importOrderExclude,
         filepath,
@@ -62,9 +63,14 @@ export function preprocessor(code: string, options: PrettierOptions) {
         importOrderSortSpecifiers,
         importOrderSortByLength,
         importOrderSideEffects,
+        importOrderMergeDuplicateImports,
     });
 
-    return getCodeFromAst(allImports, code, injectIdx, {
-        importOrderImportAttributesKeyword,
-    });
+    return getCodeFromAst(
+        allImports,
+        code,
+        injectIdx,
+        { importOrderImportAttributesKeyword },
+        importNodes,
+    );
 }

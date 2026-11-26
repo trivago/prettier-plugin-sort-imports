@@ -1,0 +1,81 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`merge-basic.ts - typescript-verify > merge-basic.ts 1`] = `
+import { A } from 'path-to-A';
+import { type B } from 'path-to-A';
+
+import { reduce } from 'lodash-es';
+import { debounce } from 'lodash-es';
+
+import D from './m';
+import { named } from './m';
+
+import './side-effect';
+import { sideEffectExport } from './side-effect';
+
+import { A as A1 } from '@core/m';
+import { B as B2, C } from '@core/m';
+
+const x = A;
+const y: B = {} as any;
+const z = sideEffectExport + A1 + B2 + C + D + named + reduce + debounce;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { debounce, reduce } from "lodash-es";
+import { A, type B } from "path-to-A";
+import { A as A1, B as B2, C } from "@core/m";
+import D, { named } from "./m";
+import { sideEffectExport } from "./side-effect";
+
+const x = A;
+const y: B = {} as any;
+const z = sideEffectExport + A1 + B2 + C + D + named + reduce + debounce;
+
+`;
+
+exports[`merge-not-mergeable.ts - typescript-verify > merge-not-mergeable.ts 1`] = `
+import * as N from './ns';
+import { something } from './ns';
+
+import D1 from './conflict';
+import D2 from './conflict';
+
+import { A } from './attrs' with { type: 'json' };
+import { B } from './attrs';
+
+import type Foo from './type-default';
+import { Bar } from './type-default';
+
+const x = N;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { A } from "./attrs" with { type: "json" };
+import { B } from "./attrs";
+import D1 from "./conflict";
+import D2 from "./conflict";
+import * as N from "./ns";
+import { something } from "./ns";
+import type Foo from "./type-default";
+import { Bar } from "./type-default";
+
+const x = N;
+
+`;
+
+exports[`merge-types.ts - typescript-verify > merge-types.ts 1`] = `
+import type { A } from './t';
+import type { B } from './t';
+
+import type { TFoo } from './mix';
+import { value } from './mix';
+
+import { existing, type alreadyType } from './ts-mixed';
+import type { newType } from './ts-mixed';
+
+const x: A = {} as any;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import { type TFoo, value } from "./mix";
+import type { A, B } from "./t";
+import { type alreadyType, existing, type newType } from "./ts-mixed";
+
+const x: A = {} as any;
+
+`;

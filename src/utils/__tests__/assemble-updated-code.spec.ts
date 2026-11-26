@@ -28,6 +28,7 @@ test('it should remove nodes from the original code', async () => {
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderMergeDuplicateImports: false,
         importOrderSortByLength: null,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
@@ -56,6 +57,7 @@ test('it should inject the generated code at the correct location', async () => 
         importOrderGroupNamespaceSpecifiers: false,
         importOrderSortSpecifiers: false,
         importOrderSideEffects: true,
+        importOrderMergeDuplicateImports: false,
         importOrderSortByLength: null,
     });
     const allCommentsFromImports = getAllCommentsFromNodes(sortedNodes);
